@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>document.documentElement.className += ' js';</script>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Projects &amp; Writings — Alexander B. Chen</title>
+<meta name="description" content="Projects and writings by Alexander B. Chen: Manim animations on orz67, The Political Faucet, roller coaster accelerometer data, an RC car, the Cursed series, card magic, and a Substack." />
+<meta name="theme-color" content="#f6f7f4" />
+<link rel="icon" href="favicon.ico" sizes="32x32" />
+<link rel="icon" href="favicon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="apple-touch-icon.png" />
+<link rel="manifest" href="manifest.webmanifest" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;1,400&family=STIX+Two+Text:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="style.css" />
+<style>
+  /* cross-link out to a sibling page */
+  .pubs-more{ margin:1.1rem 0 0; padding-top:.6rem; border-top:1px solid var(--rule);
+    font-family:var(--mono); font-size:.7rem; letter-spacing:.12em; text-transform:uppercase; }
+  .pubs-more a{ color:var(--accent); text-decoration:none; border-bottom:1px solid transparent; }
+  .pubs-more a:hover{ border-bottom-color:var(--accent); }
+</style>
+</head>
+<body>
+
+<nav class="nav" aria-label="Sections">
+  <div class="wrap">
+    <a class="nav-name" href="index.html">Alexander B. Chen<span class="sec-sign"> -- '27</span></a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="works.html">Research</a>
+      <a href="expository.html" class="active">Expositories</a>
+      <a href="olympiads.html">Olympiads</a>
+      <a href="interests.html">Interests</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ===================== HERO ===================== -->
+<header id="top" class="band hero hero--page">
+  <div class="wrap">
+    <div class="hero-inner">
+      <p class="eyebrow"><a href="expository.html#projects" style="color:var(--accent);text-decoration:none;">&larr; Expositories</a></p>
+      <h1 class="title">Projects &amp; Writings</h1>
+      <p class="standfirst">Details about the things I&rsquo;ve built and written outside the books</p>
+    </div>
+  </div>
+</header>
+
+<!-- ===================== ORZ67 ===================== -->
+<section id="orz67" class="band band--tint">
+  <div class="wrap"><div class="band-inner"><div class="sec-grid">
+    <div class="sec-aside">
+      <div class="sec-num">1.</div>
+      <h2 class="sec-h">orz67</h2>
+      <span class="sec-mark-rule" aria-hidden="true"></span>
+    </div>
+    <div class="sec-content">
+      <p class="subhead">YouTube channel &middot; animated proofs</p>
+      <p><em>orz67,</em> a channel where I animate proofs with Manim.</p>
+      <hr>
+      <p>Some arguments are much easier to watch than to read. The channel is my attempt at those: a proof gets built on screen, one object at a time, in the order you would actually discover it. Manim makes the animation cheap and the scripting expensive, which turns out to be the right trade, since deciding what to show and in what order is the entire problem.</p>
+      <p><a class="chip sm" href="https://www.youtube.com/@orz67" target="_blank" rel="noopener">@orz67</a> <span class="chip sm dim">ongoing</span></p>
+    </div>
+  </div></div></div>
+</section>
+
+<!-- ===================== POLITICAL FAUCET ===================== -->
+<section id="faucet" class="band">
+  <div class="wrap"><div class="band-inner"><div class="sec-grid">
+    <div class="sec-aside">
+      <div class="sec-num">2.</div>
+      <h2 class="sec-h">The Political Faucet</h2>
+      <span class="sec-mark-rule" aria-hidden="true"></span>
+    </div>
+    <div class="sec-content">
+      <p class="subhead">Research paper &middot; U.S. history</p>
+      <p><em>The Political Faucet.</em></p>
+      <hr>
+      <p>A paper arguing that the United States treats science funding as a faucet: opened wide in Cold-War panic, shut again in peacetime apathy. The interesting part is the lag. The volatility does not show up immediately; it resurfaces roughly a decade later, in domestic PhD production and in U.S. results at the IMO.</p>
+      <p><a class="chip sm" href="https://docs.google.com/document/d/1S-1x8QNlAWStZuDROdJ3orwXG1-GeBewab5HMKH21T4/edit?usp=sharing" target="_blank" rel="noopener">read it</a></p>
+    </div>
+  </div></div></div>
+</section>
+
+<!-- ===================== COASTERS ===================== -->
+<section id="coasters" class="band band--tint">
+  <div class="wrap"><div class="band-inner"><div class="sec-grid">
+    <div class="sec-aside">
+      <div class="sec-num">3.</div>
+      <h2 class="sec-h">Roller coaster data</h2>
+      <span class="sec-mark-rule" aria-hidden="true"></span>
+    </div>
+    <div class="sec-content">
+      <p class="subhead">Data project &middot; with Hunter Faderewski</p>
+      <p><em>Kennywood</em> and <em>Cedar Point</em> accelerometer studies. Both live.</p>
+      <hr>
+      <p>We rode with accelerometers and turned the raw logs into ride profiles: g-forces, airtime, and the shape of every drop. The fun of it is that a coaster is a physical system you are allowed to instrument by simply getting on it, and the data comes back messy enough to need real signal processing before it says anything.</p>
+      <p>Each site pairs the quantitative side against the experience of the ride itself, so the plots sit next to the part where we describe what that particular drop felt like.</p>
+      <p><a class="chip sm" href="https://a-b-chen.github.io/Kennywood-data/" target="_blank" rel="noopener">Kennywood site</a> <a class="chip sm" href="https://a-b-chen.github.io/Cedarpoint-data/" target="_blank" rel="noopener">Cedar Point site</a> <a class="chip sm" href="https://drive.google.com/file/d/1U7raRvoIoLE0fCqt6S4wRQz9z91k7FQc/view?usp=sharing" target="_blank" rel="noopener">Kennywood slides</a></p>
+    </div>
+  </div></div></div>
+</section>
+
+<!-- ===================== RC CAR ===================== -->
+<section id="rccar" class="band">
+  <div class="wrap"><div class="band-inner"><div class="sec-grid">
+    <div class="sec-aside">
+      <div class="sec-num">4.</div>
+      <h2 class="sec-h">RC car</h2>
+      <span class="sec-mark-rule" aria-hidden="true"></span>
+    </div>
+    <div class="sec-content">
+      <p class="subhead">Build &middot; with Tony Chen, 2025&ndash;26</p>
+      <p><em>Semi-Realistic RC Car.</em> Designed, printed, wired, and repeatedly rebuilt.</p>
+      <hr>
+      <p>The point was to build an RC car the way a real car gets designed rather than the way a kit goes together: choose the steering geometry deliberately, size the motors from a torque estimate, and let the chassis follow from both. That constraint is what made it hard, and it is also why almost nothing worked the first time.</p>
+      <figure class="fig">
+        <img src="img/rc1.png" width="1600" height="900" loading="lazy" alt="The RC car on a workbench: a white 3D-printed chassis with battery and wiring, transmitter beside it." />
+        <figcaption>The car, most of the way there.</figcaption>
+      </figure>
+      <p>Steering is a real Ackermann linkage. The inside and outside wheels turn through different angles so that all four wheel circles share a single turn center, which is what stops the tires from scrubbing sideways through a corner. Ours sits slightly under the ideal angle. We also set fifteen degrees of positive caster: the offset between the contact patch and the steering axis gives a moment arm, that moment arm produces self-aligning torque, and the wheels return to center on their own rather than needing to be steered back.</p>
+      <figure class="fig">
+        <img src="img/rc2.png" width="1600" height="899" loading="lazy" alt="CAD views of the Ackermann steering linkage and of the caster angle on the front upright." />
+        <figcaption>The linkage, and the fifteen degrees behind the self-centering.</figcaption>
+      </figure>
+      <p>Motors came out of a calculation rather than a catalog. With a wheel radius of 3.5 cm and \( F = ma = 1\,\mathrm{kg}\cdot 5\,\mathrm{m/s^2} \), the requirement is \( \tau = rF \approx 0.18\ \mathrm{N\,m} \), so we bought two 0.199 N&middot;m motors, which works out to roughly 11.4 m/s&sup2; on a one-kilogram car. Running one motor per driven wheel also let us delete the axle, the differential, and the prop shafts, which was the largest single weight saving in the design.</p>
+      <figure class="fig">
+        <img src="img/rc3.png" width="1600" height="898" loading="lazy" alt="Chassis renders next to a reference photo of a Formula SAE monocoque." />
+        <figcaption>Chassis, borrowed in spirit from Formula SAE and late-1990s F1.</figcaption>
+      </figure>
+      <p>The chassis is a monocoque modeled on Formula SAE cars and late-1990s F1, which is where the semi-realistic in the title comes from. We ran light static-stress studies in Fusion on each revision, mostly to find out which corners were carrying load and which were decoration. Peak von Mises stress landed in the single-digit megapascals, a long way from being the limiting factor on a printed one-kilogram car.</p>
+      <figure class="fig">
+        <img src="img/rc4.png" width="1600" height="902" loading="lazy" alt="Two Autodesk Fusion static stress studies of the monocoque, von Mises stress shown in blue with small hot spots." />
+        <figcaption>Static stress on the monocoque, one study per revision.</figcaption>
+      </figure>
+      <p>The electronics were the part that fought back. We started out trying to drive the ESCs from a Raspberry Pi and lost that argument to GPIO timing, the receiver connection, and the problem of two ESCs at once. What finally worked was much dumber: a Y cable from the single receiver into both ESCs, a second battery to feed them, and the servo on channel one for steering. After that it was wheels falling off, a servo horn that refused to seat, and enough full redesigns that I stopped counting.</p>
+      <p><a class="chip sm" href="https://docs.google.com/presentation/d/1MAEEe8kfd7dzwFSqsQDTlqcebLrmcQQQdQ4Im_FJXsI/edit?usp=sharing" target="_blank" rel="noopener">slides</a> <a class="chip sm" href="https://youtu.be/DLAN9uTsK14" target="_blank" rel="noopener">FEA video 1</a> <a class="chip sm" href="https://youtu.be/INI3lCIAvs0" target="_blank" rel="noopener">FEA video 2</a></p>
+    </div>
+  </div></div></div>
+</section>
+
+<!-- ===================== CURSED ===================== -->
+<section id="cursed" class="band band--tint">
+  <div class="wrap"><div class="band-inner"><div class="sec-grid">
+    <div class="sec-aside">
+      <div class="sec-num">5.</div>
+      <h2 class="sec-h">The Cursed series</h2>
+      <span class="sec-mark-rule" aria-hidden="true"></span>
+    </div>
+    <div class="sec-content">
+      <p class="subhead">Problem series &middot; ongoing</p>
+      <p><em>The Cursed Series,</em> an ongoing set of deliberately cursed problems and constructions.</p>
+      <hr>
+      <p>Problems and constructions that look wrong and turn out to be right. I started it to make a specific argument: that the reason mathematics keeps turning out beautiful is not that the objects are tidy, but that the ugly-looking ones are hiding a reason. A construction that offends your intuition and then works is the fastest way I know to show somebody that.</p>
+      <p><a class="chip sm" href="https://drive.google.com/drive/folders/1UIGuV9BywmbSYdc1-6k0EyxHEp2Ot_6O?usp=sharing" target="_blank" rel="noopener">series folder</a> <span class="chip sm dim">ongoing</span></p>
+    </div>
+  </div></div></div>
+</section>
+
+<!-- ===================== BIOMIMICRY ===================== -->
+<section id="biomimicry" class="band">
+  <div class="wrap"><div class="band-inner"><div class="sec-grid">
+    <div class="sec-aside">
+      <div class="sec-num">6.</div>
+      <h2 class="sec-h">Biomimicry challenge</h2>
+      <span class="sec-mark-rule" aria-hidden="true"></span>
+    </div>
+    <div class="sec-content">
+      <p class="subhead">Design entry &middot; Biomimicry Youth Design Challenge</p>
+      <p><em>A Biomimicry Youth Design Challenge entry.</em></p>
+      <hr>
+      <p>The challenge asks you to take a mechanism that already works in nature and translate it into an engineered solution. The translation is the hard part: a biological mechanism comes with constraints that do not survive being scaled up or built out of the wrong material, so most of the work is deciding which features are load-bearing.</p>
+      <p><a class="chip sm" href="https://drive.google.com/file/d/1KmJM8j99b70oHvgbCFQCNPyyR4YZTsI0/view?usp=sharing" target="_blank" rel="noopener">pdf</a></p>
+    </div>
+  </div></div></div>
+</section>
+
+<!-- ===================== CARD MAGIC ===================== -->
+<section id="cardmagic" class="band band--tint">
+  <div class="wrap"><div class="band-inner"><div class="sec-grid">
+    <div class="sec-aside">
+      <div class="sec-num">7.</div>
+      <h2 class="sec-h">Card magic</h2>
+      <span class="sec-mark-rule" aria-hidden="true"></span>
+    </div>
+    <div class="sec-content">
+      <p class="subhead">Teaching &middot; sleight of hand</p>
+      <p><em>Card magic,</em> taught for a few years at my local Chinese school.</p>
+      <hr>
+      <p>I taught sleights and self-working tricks to younger students for a few years, which is where I first learned that explaining something to an audience and performing it for them are different skills. A sleight fails the same way a proof does: the moment you rush the step you were least sure about.</p>
+      <p>The overlap with mathematics is not a stretch either. A lot of card magic is really a theorem you are allowed to perform, which is roughly how I ended up building a Gilbreath principle demo for the <a href="interests.html">interests</a> side of this site.</p>
+    </div>
+  </div></div></div>
+</section>
+
+<!-- ===================== BLOG ===================== -->
+<section id="blog" class="band">
+  <div class="wrap"><div class="band-inner"><div class="sec-grid">
+    <div class="sec-aside">
+      <div class="sec-num">8.</div>
+      <h2 class="sec-h">alecks67</h2>
+      <span class="sec-mark-rule" aria-hidden="true"></span>
+    </div>
+    <div class="sec-content">
+      <p class="subhead">Blog &middot; Substack</p>
+      <p><em>alecks67,</em> a blog.</p>
+      <hr>
+      <p>Where problems, half-finished ideas, and my personal life go to get written down. Some posts are mathematical and some are not; the useful thing about a blog is that a thought does not have to be finished to be worth writing, which is the opposite of everything else on this page.</p>
+      <p><a class="chip sm" href="https://alecks67.substack.com" target="_blank" rel="noopener">alecks67.substack.com</a> <span class="chip sm dim">ongoing</span></p>
+      <p class="pubs-more"><a href="textbooks.html">Textbooks &amp; notes &rarr;</a></p>
+    </div>
+  </div></div></div>
+</section>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="site-footer-inner">
+      <div class="lft">&copy; 2026 Alex Chen</div>
+      <div class="mid"><a href="https://alexanderbchen.github.io/index.html" target="_blank" rel="noopener">Alexander B. Chen</a> · <a href="mailto:alexbchen999@gmail.com">alexbchen999@gmail.com</a></div>
+      <div class="rgt"><a href="https://a-b-chen.github.io/alexanderbchen/" target="_blank" rel="noopener">a-b-chen.github.io/alexanderbchen</a></div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="app.js"></script>
+</body>
+</html>

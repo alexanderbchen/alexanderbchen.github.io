@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>document.documentElement.className += ' js';</script>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Independent Projects — Alexander B. Chen</title>
+<meta name="description" content="Independent mathematical projects by Alexander B. Chen: acute triangulation of obtuse triangles, the isoperimetric polygon, and a sharp piecewise generalization of Nesbitt's inequality." />
+<meta name="theme-color" content="#f6f7f4" />
+<link rel="icon" href="favicon.ico" sizes="32x32" />
+<link rel="icon" href="favicon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="apple-touch-icon.png" />
+<link rel="manifest" href="manifest.webmanifest" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;1,400&family=STIX+Two+Text:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="style.css" />
+<style>
+  /* cross-link out to a sibling page */
+  .pubs-more{ margin:1.1rem 0 0; padding-top:.6rem; border-top:1px solid var(--rule);
+    font-family:var(--mono); font-size:.7rem; letter-spacing:.12em; text-transform:uppercase; }
+  .pubs-more a{ color:var(--accent); text-decoration:none; border-bottom:1px solid transparent; }
+  .pubs-more a:hover{ border-bottom-color:var(--accent); }
+</style>
+</head>
+<body>
+
+<nav class="nav" aria-label="Sections">
+  <div class="wrap">
+    <a class="nav-name" href="index.html">Alexander B. Chen<span class="sec-sign"> -- '27</span></a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="works.html" class="active">Research</a>
+      <a href="expository.html">Expositories</a>
+      <a href="olympiads.html">Olympiads</a>
+      <a href="interests.html">Interests</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ===================== HERO ===================== -->
+<header id="top" class="band hero hero--page">
+  <div class="wrap">
+    <div class="hero-inner">
+      <p class="eyebrow"><a href="works.html#independent" style="color:var(--accent);text-decoration:none;">&larr; Research</a></p>
+      <h1 class="title">Independent Projects</h1>
+      <p class="standfirst">Details about my ongoing/past independent projects</p>
+    </div>
+  </div>
+</header>
+
+<!-- ===================== NESBITT ===================== -->
+<section id="nesbitt" class="band band--tint">
+  <div class="wrap"><div class="band-inner"><div class="sec-grid">
+    <div class="sec-aside">
+      <div class="sec-num">1.</div>
+      <h2 class="sec-h">Nesbitt, generalized</h2>
+      <span class="sec-mark-rule" aria-hidden="true"></span>
+    </div>
+    <div class="sec-content">
+      <p class="subhead">Manuscript</p>
+      <p><em>A Sharp Piecewise Generalization of Nesbitt&rsquo;s Inequality.</em> Solo manuscript (2026), refined through referee-style review rounds.</p>
+      <hr>
+      <p>Nesbitt&rsquo;s inequality says that for positive \( a,b,c \),</p>
+      \[ \frac{a}{b+c} + \frac{b}{c+a} + \frac{c}{a+b} \;\ge\; \frac{3}{2}, \]
+      <p>with equality at \( a=b=c \). Raise each term to a power, replacing the sum by \( \sum \left(\tfrac{a}{b+c}\right)^{\alpha} \), and ask what the sharp lower bound becomes as a function of \( \alpha \). The answer isn&rsquo;t one smooth formula: for small \( \alpha \) the symmetric point stays optimal, while past a threshold the extremum jumps to a boundary configuration. That threshold, a genuine phase transition in the sharp constant, lands exactly at</p>
+      \[ \alpha^\star = \log_2 \tfrac{3}{2} \approx 0.585. \]
+      <p>The paper establishes the sharp constant piecewise on each side of \( \alpha^\star \) and proves the crossover is where the two regimes meet. It&rsquo;s the result I&rsquo;m fondest of: an olympiad-flavored inequality that hides a clean transition once you let it vary.</p>
+      <p><a class="chip sm" href="https://drive.google.com/file/d/1Ca4lFZHIkeL6VFVME-FI2VKadyo1xivA/view?usp=sharing" target="_blank" rel="noopener">pdf</a> <span class="chip sm dim">solo manuscript &middot; complete</span></p>
+    </div>
+  </div></div></div>
+</section>
+
+<!-- ===================== ACUTE ===================== -->
+<section id="acute" class="band">
+  <div class="wrap"><div class="band-inner"><div class="sec-grid">
+    <div class="sec-aside">
+      <div class="sec-num">2.</div>
+      <h2 class="sec-h">Acute triangulation</h2>
+      <span class="sec-mark-rule" aria-hidden="true"></span>
+    </div>
+    <div class="sec-content">
+      <p class="subhead">Manuscript</p>
+      <p><em>Acute Triangulation of Obtuse Triangles: A Constructive Geometric Approach.</em> Solo manuscript (2025).</p>
+      <hr>
+      <p>Any polygon can be cut into triangles; requiring every piece to be <em>acute</em> is much harder, and for a single obtuse triangle it isn&rsquo;t obvious it can be done at all. Motivated by a deliberately silly picture, a child who will only eat an obtuse cookie in acute-triangle bites, the paper proves that every obtuse triangle admits a triangulation into either seven or eight acute triangles.</p>
+      <figure class="fig">
+        <img src="img/rsimple.png" width="1400" height="565" loading="lazy" alt="An obtuse triangle ABC cut into seven numbered regions around an inscribed pentagon WXYZ and the incenter I." />
+        <figcaption>The seven pieces, numbered. Regions 2&ndash;6 fan out from the incenter \( I \); regions 1 and 7 are what is left against the two acute vertices.</figcaption>
+      </figure>
+      <p>The construction is explicit: drop the incenter, its angle bisectors, and perpendicular projections, then add a circle through the obtuse vertex, and verify each resulting piece is acute using congruence, symmetry, and angle inequalities. A short lemma handles the leftover near-right and very-obtuse cases, which is where the eighth triangle can appear. The method is universal rather than minimal, and I discuss where fewer pieces might be possible.</p>
+      <figure class="fig">
+        <img src="img/rcomplex.png" width="1400" height="565" loading="lazy" alt="The same construction with angles alpha, beta and gamma at the vertices and the repeated angles xi and eta marked at the cut points." />
+        <figcaption>The same picture with the angle bookkeeping: every piece is checked against \( \alpha, \beta, \gamma \) and the repeated pairs \( \xi \) and \( \eta \).</figcaption>
+      </figure>
+      <p><a class="chip sm" href="https://drive.google.com/file/d/1H3XnFLM-tZh8SCuZA2xuFn6BFXyzZcwx/view?usp=sharing" target="_blank" rel="noopener">pdf</a> <span class="chip sm dim">solo manuscript &middot; complete</span></p>
+    </div>
+  </div></div></div>
+</section>
+
+<!-- ===================== ISOPERIMETRIC ===================== -->
+<section id="isoperimetric" class="band band--tint">
+  <div class="wrap"><div class="band-inner"><div class="sec-grid">
+    <div class="sec-aside">
+      <div class="sec-num">3.</div>
+      <h2 class="sec-h">Isoperimetric polygon</h2>
+      <span class="sec-mark-rule" aria-hidden="true"></span>
+    </div>
+    <div class="sec-content">
+      <p class="subhead">Manuscript</p>
+      <p><em>Maximizing the Area of Polygons with Fixed Perimeter: The Regular Polygon.</em> Solo manuscript (2025).</p>
+      <hr>
+      <p>Among all simple \( n \)-gons with a fixed perimeter \( P \), which encloses the most area? The intuitive answer, the regular one, is true, and this paper proves it from the ground up. The engine is a lemma about a triangle inscribed in a circle: if two of its sides are unequal, sliding the odd vertex along the arc toward the perpendicular bisector strictly increases the area while fixing the base. Iterated, that forces a cyclic polygon to be regular to be optimal.</p>
+      <figure class="fig">
+        <img src="img/figure.png" width="1400" height="565" loading="lazy" alt="The same construction with angles alpha, beta and gamma at the vertices and the repeated angles xi and eta marked at the cut points." />
+        <figcaption>Regular \(n\)-gons with \(n\) ranging from 3 to 12.</figcaption>
+      </figure>
+      <p>Extending past the cyclic case uses the isoperimetric inequality and a convexity argument on \( \sin \), giving the clean bound</p>
+      \[ S \;\le\; \frac{P^2}{4n}\,\cot\!\left(\frac{\pi}{n}\right), \]
+      <p>with equality exactly for the regular \( n \)-gon. Letting \( n \to \infty \) recovers \( S \to P^2/4\pi \), the circle, so the discrete result sits underneath the classical continuous one as a special case.</p>
+      <p><a class="chip sm" href="https://drive.google.com/file/d/1jCjif4cMT2TV-E3RGWGTWis-aqy2t5DA/view?usp=sharing" target="_blank" rel="noopener">pdf</a> <span class="chip sm dim">solo manuscript &middot; complete</span></p>
+      <p class="pubs-more"><a href="publications.html">Publications &rarr;</a></p>
+    </div>
+  </div></div></div>
+</section>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="site-footer-inner">
+      <div class="lft">&copy; 2026 Alex Chen</div>
+      <div class="mid"><a href="https://alexanderbchen.github.io/index.html" target="_blank" rel="noopener">Alexander B. Chen</a> · <a href="mailto:alexbchen999@gmail.com">alexbchen999@gmail.com</a></div>
+      <div class="rgt"><a href="https://a-b-chen.github.io/alexanderbchen/" target="_blank" rel="noopener">a-b-chen.github.io/alexanderbchen</a></div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="app.js"></script>
+</body>
+</html>

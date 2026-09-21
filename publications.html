@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>document.documentElement.className += ' js';</script>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Publications — Alexander B. Chen</title>
+<meta name="description" content="Publications by Alexander B. Chen, with full write-ups: Measuring Localization in the One-Dimensional Anderson Model." />
+<meta name="theme-color" content="#f6f7f4" />
+<link rel="icon" href="favicon.ico" sizes="32x32" />
+<link rel="icon" href="favicon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="apple-touch-icon.png" />
+<link rel="manifest" href="manifest.webmanifest" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;1,400&family=STIX+Two+Text:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="style.css" />
+<style>
+  /* citation lines, shared with the Publications section on works.html */
+  .pubs-body{ margin:.65rem 0 .3rem; padding-left:1.05rem; border-left:2px solid var(--redrule);
+    display:grid; gap:.7rem; }
+  .pubs-item{ font-family:var(--serif); font-size:1rem; line-height:1.5; color:var(--ink); }
+  .pubs-item .cite-meta{ color:var(--muted); }
+  .pubs-links{ margin-top:.45rem; display:flex; flex-wrap:wrap; gap:.4rem; }
+  .cite-row{ display:flex; justify-content:space-between; align-items:baseline; gap:1.75rem; }
+  .cite-row > .cite-text{ min-width:0; }
+  .cite-row > .venue{ flex:none; white-space:nowrap; }
+  .pubs-more{ margin:1.1rem 0 0; padding-top:.6rem; border-top:1px solid var(--rule);
+    font-family:var(--mono); font-size:.7rem; letter-spacing:.12em; text-transform:uppercase; }
+  .pubs-more a{ color:var(--accent); text-decoration:none; border-bottom:1px solid transparent; }
+  .pubs-more a:hover{ border-bottom-color:var(--accent); }
+  @media (max-width:640px){
+    .cite-row{ display:block; }
+    .cite-row > .venue{ display:block; text-align:right; margin-top:.3rem; white-space:normal; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav" aria-label="Sections">
+  <div class="wrap">
+    <a class="nav-name" href="index.html">Alexander B. Chen<span class="sec-sign"> -- '27</span></a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="works.html" class="active">Research</a>
+      <a href="expository.html">Expositories</a>
+      <a href="olympiads.html">Olympiads</a>
+      <a href="interests.html">Interests</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ===================== HERO ===================== -->
+<header id="top" class="band hero hero--page">
+  <div class="wrap">
+    <div class="hero-inner">
+      <p class="eyebrow"><a href="works.html#publications" style="color:var(--accent);text-decoration:none;">&larr; Research</a></p>
+      <h1 class="title">Publications</h1>
+      <p class="standfirst">Details about my ongoing/past publication projects</p>
+    </div>
+  </div>
+</header>
+
+<!-- ===================== ANDERSON ===================== -->
+<section id="anderson" class="band band--tint">
+  <div class="wrap"><div class="band-inner"><div class="sec-grid">
+    <div class="sec-aside">
+      <div class="sec-num">1.</div>
+      <h2 class="sec-h">Anderson localization</h2>
+      <span class="sec-mark-rule" aria-hidden="true"></span>
+    </div>
+    <div class="sec-content">
+      <p class="subhead">Publication · Advances in Nonlinear Analysis</p>
+      <p><em>Measuring Localization in the One-Dimensional Anderson Model</em> (with E. Mei, N. Shaw, Y.M. Tang, S.V. Loaiza, X. Wang). Accepted to <b>Advances in Nonlinear Analysis</b> (2026).</p>
+      <hr>
+      <p>A quantum particle on the lattice \( \mathbb{Z} \) is governed by the discrete Schr&ouml;dinger operator \( H_\omega = \Delta + V_\omega \), with the potential \( V_\omega(n) \) drawn i.i.d. at each site. Turning on that disorder does something dramatic: eigenstates that would otherwise spread across the whole line become exponentially localized. This project answers the quantitative question, not just <em>that</em> states localize but <em>how fast</em>, and with what guaranteed error.</p>
+      <p>I work with the eigenfunction correlator \( Q(k) \), which controls transport, and estimate the localization rate from a finite-volume model. The main analytic statement is that the empirical mean of \( -\tfrac{1}{k}\log Q(k) \) concentrates around the true rate \( \gamma \) with a Hoeffding-type bound: for \( M \) disorder samples,</p>
+      \[ \mathbb{P}\!\left( \big|\hat\gamma_k - \gamma\big| \ge \varepsilon \right) \le 2\,e^{-c M \varepsilon^2}, \]
+      <p>so the sample size for a target accuracy is fixed in advance rather than hoped for afterward, and it is the sample count, not the lattice size, that sets the error.</p>
+      <figure class="fig">
+        <img src="img/bernoulli.png" width="1900" height="677" loading="lazy" alt="Two plots of the negative log correlator per site versus k for Bernoulli disorder at N=1500, settling near a rate of 0.0169." />
+        <figcaption>\( -\tfrac{1}{k}\log \mathbb{E}\,Q(k) \) for Bernoulli disorder, N&nbsp;=&nbsp;1500.</figcaption>
+      </figure>
+      <p>Numerically I estimate the rate across Bernoulli, discrete-uniform, and continuous-uniform disorder. The eigenproblem is tridiagonal, so I never build the dense matrix, and I parallelize over the independent disorder configurations to reach \( N = 1500 \) with enough samples for the error bars above. The singular Bernoulli case sits at the edge of the theory, and the Monte Carlo bound is exactly what keeps it honest.</p>
+      <p><a class="chip sm" href="https://drive.google.com/file/d/1TAHVKZBkKymMEy0KaXUgLcF5JeAeCWJZ/view?usp=sharing" target="_blank" rel="noopener">MathFest poster</a> <a class="chip sm" href="https://drive.google.com/file/d/1OpZ8SqfvBa6mnfmyrqRXpkrxVLEWobus/view?usp=sharing" target="_blank" rel="noopener">talk slides</a> <span class="chip sm dim">Advances in Nonlinear Analysis &middot; accepted</span></p>
+      <p class="pubs-more"><a href="independent-projects.html">Independent Projects &rarr;</a></p>
+    </div>
+  </div></div></div>
+</section>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="site-footer-inner">
+      <div class="lft">&copy; 2026 Alex Chen</div>
+      <div class="mid"><a href="https://alexanderbchen.github.io/index.html" target="_blank" rel="noopener">Alexander B. Chen</a> · <a href="mailto:alexbchen999@gmail.com">alexbchen999@gmail.com</a></div>
+      <div class="rgt"><a href="https://a-b-chen.github.io/alexanderbchen/" target="_blank" rel="noopener">a-b-chen.github.io/alexanderbchen</a></div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="app.js"></script>
+</body>
+</html>

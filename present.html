@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>document.documentElement.className += ' js';</script>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Stage performance — Alexander B. Chen</title>
+<meta name="description" content="Stage performance — DECA pitches, teaching math, hosting, and card magic, with a working Gilbreath shuffle to play with." />
+<meta name="theme-color" content="#f6f7f4" />
+<link rel="icon" href="favicon.ico" sizes="32x32" />
+<link rel="icon" href="favicon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="apple-touch-icon.png" />
+<link rel="manifest" href="manifest.webmanifest" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;1,400&family=STIX+Two+Text:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="style.css" />
+<style>
+  /* ===== card magic widgets ===== */
+  .magic-kicker{ font-family:var(--mono); font-size:.68rem; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--redrule); margin:2rem 0 .3rem; }
+  .magic-h{ font-family:var(--serif); font-size:1.35rem; font-weight:600; line-height:1.2; margin:0 0 .5rem; color:var(--ink); }
+  .magic-box{ border:1px solid var(--rule); border-left:3px solid var(--accent); border-radius:4px;
+    background:#fbfbf9; padding:1rem 1.05rem 1.1rem; margin:.9rem 0 1.2rem; }
+  .gil-row{ display:flex; flex-wrap:wrap; gap:.4rem; margin:0 0 .9rem; }
+  .gil-btn{ font-family:var(--mono); font-size:.7rem; letter-spacing:.06em; text-transform:uppercase;
+    background:transparent; color:var(--accent); border:1px solid var(--accent); border-radius:3px;
+    padding:.4rem .7rem; cursor:pointer; transition:background .15s ease, color .15s ease; }
+  .gil-btn:hover:not(:disabled){ background:var(--accent); color:#fbfbf9; }
+  .gil-btn:disabled{ opacity:.35; cursor:default; }
+  .gil-btn.ghost{ color:var(--muted); border-color:var(--rule); }
+  .gil-cards{ display:flex; flex-wrap:wrap; gap:.3rem; margin:0 0 .7rem; min-height:3.4rem; }
+  .gil-pairs{ display:flex; flex-wrap:wrap; gap:.75rem; margin:0 0 .7rem; }
+  .gil-pair{ display:flex; gap:.25rem; padding:.3rem; border:1px solid var(--rule); border-radius:3px; }
+  .gil-pair.ok{ border-color:#3f7d4e; }
+  .gil-pair.bad{ border-color:var(--redrule); }
+  .card{ width:1.55rem; height:2.25rem; border-radius:3px; border:1px solid rgba(0,0,0,.28);
+    background:#fdfdfb; display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono); font-size:.72rem; line-height:1; box-shadow:0 1px 1px rgba(0,0,0,.09); }
+  .card.r{ color:#b23b2e; }
+  .card.b{ color:#1a1b18; }
+  .card.face-down{ background:repeating-linear-gradient(45deg,#2e3a8c,#2e3a8c 3px,#3d4ba3 3px,#3d4ba3 6px);
+    color:transparent; border-color:#2e3a8c; }
+  .gil-note{ font-family:var(--mono); font-size:.7rem; line-height:1.5; color:var(--muted); margin:0; }
+  .gil-note b{ color:var(--ink); font-weight:500; }
+  .gil-note .win{ color:#3f7d4e; }
+  .gil-tally{ font-family:var(--mono); font-size:.68rem; color:var(--muted); margin:.5rem 0 0; }
+  /* flourish */
+  .flr-stage{ position:relative; height:8.5rem; margin:.2rem 0 .8rem; overflow:hidden; }
+  .flr-card{ position:absolute; left:50%; top:50%; width:1.6rem; height:2.35rem; margin:-1.17rem 0 0 -.8rem;
+    border-radius:3px; border:1px solid rgba(0,0,0,.25);
+    background:repeating-linear-gradient(45deg,#2e3a8c,#2e3a8c 3px,#3d4ba3 3px,#3d4ba3 6px);
+    box-shadow:0 1px 2px rgba(0,0,0,.14); transition:transform .8s cubic-bezier(.34,.9,.3,1); }
+  @media (prefers-reduced-motion:reduce){ .flr-card{ transition:none; } }
+</style>
+</head>
+<body>
+<nav class="nav" aria-label="Sections">
+  <div class="wrap">
+    <a class="nav-name" href="index.html">Alexander B. Chen<span class="sec-sign"> -- '27</span></a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="works.html">Works</a>
+      <a href="olympiads.html">Olympiads</a>
+      <a href="interests.html" class="active">Interests</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </div>
+</nav>
+<header id="top" class="band hero hero--page">
+  <div class="wrap">
+    <div class="hero-inner">
+      <p class="eyebrow"><a href="interests.html" style="color:var(--accent);text-decoration:none;">&larr; Interests</a></p>
+      <h1 class="title">Stage performance</h1>
+      <p class="standfirst">Mic, chalk, and a deck of cards &mdash; the same skill in a few different costumes</p>
+    </div>
+  </div>
+</header>
+<section id="present" class="band band--tint">
+  <div class="wrap"><div class="band-inner"><div class="sec-grid">
+    <div class="sec-aside">
+      <h2 class="sec-h">Up in front of a room</h2>
+      <span class="sec-mark-rule" aria-hidden="true"></span>
+    </div>
+    <div class="sec-content">
+      <p>I&rsquo;ve slowly realized that a lot of the things I enjoy are the same skill wearing different costumes: standing in front of people and getting something across. A proof, a pitch, a card trick &mdash; the underlying problem is identical, which is to make the room actually care.</p>
+      <p>One version is competitive. In DECA I present business cases to a panel of judges on the clock, and I&rsquo;ve done alright at it &mdash; a state champion and a two-time international qualifier. It taught me how to think on my feet: build an argument fast, read the room, and sound sure of myself even when I&rsquo;m half-improvising the next sentence.</p>
+      <p>The version I care about most is teaching. Somewhere between tutoring AP Calculus, TA-ing math at our Chinese school, and running Math Club, I had to actually learn how to <em>talk</em> &mdash; how to take something that&rsquo;s obvious to me and make it land for someone it isn&rsquo;t obvious to yet. That turns out to be harder than the math itself. Lately I&rsquo;ve been chasing the same thing on my YouTube channel, <a href="https://www.youtube.com/@orz67" target="_blank" rel="noopener">@orz67</a>, where I explain ideas with animation and can&rsquo;t fall back on a whiteboard and some hand-waving.</p>
+      <figure><img src="img/present1.JPG" width="600" height="350" loading="lazy" alt="At a microphone on stage in front of a green curtain, presenting." /><figcaption>Just me and a microphone.</figcaption></figure>
+      <p>Then there&rsquo;s the pure-fun version: hosting. I&rsquo;ve MC&rsquo;d our Chinese school&rsquo;s gala, worked a microphone for a whole evening&rsquo;s program, and on any given day I&rsquo;ll corner just about anyone to show them something I can&rsquo;t stop thinking about.</p>
+      <div class="gallery">
+        <figure><img src="img/present3.JPG" width="1446" height="1084" loading="lazy" alt="Co-hosting on stage with another emcee, both holding microphones." /><figcaption>Co-hosting the gala.</figcaption></figure>
+        <figure><img src="img/present2.JPG" width="1513" height="1080" loading="lazy" alt="The full cast of a gala lined up on stage with balloons." /><figcaption>The whole cast, curtain call.</figcaption></figure>
+      </div>
+      <p>The one nobody expects is card magic. Magic is presentation stripped down to its cleanest form &mdash; the entire trick is controlling what the audience notices, and when. When it works, the reveal lands the way a good proof does: you never saw it coming, and then it&rsquo;s obvious.</p>
+      <p>My first trick, at thirteen, was an ace production built on a triple lift, then a double, then a single. The whole thing depends on the lift looking like one card. Mine didn&rsquo;t. The double was visible from space and the triple was a war crime. I filmed myself, watched it back, and concluded my hands had the dexterity of a polite raccoon.</p>
+      <p>So I switched to self-working tricks, the ones where modular arithmetic and permutation parity do the work and your hands just deal in the right order. The cleanest of them is the Gilbreath principle, and it&rsquo;s the reason I stopped thinking of magic and math as separate hobbies.</p>
+
+      <p class="magic-kicker">Interactive &middot; Gilbreath principle</p>
+      <h3 class="magic-h">Run the shuffle yourself</h3>
+      <p>Twelve cards, strictly alternating red and black. You&rsquo;ll <em>cut</em>, then <em>riffle shuffle</em> (the app randomizes the interleave, the way a real riffle does), then <em>deal in pairs</em>. The claim: every pair comes out one red, one black. Every time. No marked cards, no sleight &mdash; just a fact about how a riffle interacts with an alternating sequence. Run it as many times as it takes to get suspicious.</p>
+      <div class="magic-box">
+        <div class="gil-row">
+          <button class="gil-btn" id="gil-cut" type="button">Cut deck</button>
+          <button class="gil-btn" id="gil-riffle" type="button" disabled>Riffle shuffle</button>
+          <button class="gil-btn" id="gil-deal" type="button" disabled>Deal in pairs</button>
+          <button class="gil-btn ghost" id="gil-reset" type="button">Reset</button>
+        </div>
+        <div class="gil-cards" id="gil-cards" aria-live="polite"></div>
+        <div class="gil-pairs" id="gil-pairs"></div>
+        <p class="gil-note" id="gil-note">Twelve cards, alternating red and black. Hit <b>Cut deck</b> to start.</p>
+        <p class="gil-tally" id="gil-tally"></p>
+      </div>
+      <p>The proof is short enough to ruin the trick, which I think is the best possible property for a trick to have. Cut an alternating deck and the two halves either start on the same color or opposite ones; a riffle then drops cards from one half or the other, and in both cases the parity of what&rsquo;s left forces consecutive pairs to split colors. Once someone asks <em>why does that work</em>, you&rsquo;re not doing magic anymore. You&rsquo;re doing math with cards as props, which is the version I actually like.</p>
+
+      <p class="magic-kicker">Interactive &middot; flourishes</p>
+      <h3 class="magic-h">The part that&rsquo;s just showing off</h3>
+      <p>Self-working tricks got me in the door, but the hands did eventually improve. Somewhere in eleventh grade I came back to the double lift and could finally make it look like one card, then the pinky break, the side steal, and a center deal that&rsquo;s still ugly but no longer a war crime. Flourishes are the purely decorative end of that &mdash; no method to hide, nothing to misdirect, just the deck doing something pretty on the way to the trick.</p>
+      <div class="magic-box">
+        <div class="gil-row">
+          <button class="gil-btn" id="flr-fan" type="button">Fan</button>
+          <button class="gil-btn" id="flr-riffle" type="button">Riffle</button>
+          <button class="gil-btn" id="flr-cascade" type="button">Cascade</button>
+          <button class="gil-btn" id="flr-spring" type="button">Spring</button>
+          <button class="gil-btn" id="flr-idle" type="button">Square up</button>
+        </div>
+        <div class="flr-stage" id="flr-stage" aria-hidden="true"></div>
+        <p class="gil-note" id="flr-note">Squared up, in the hands. Pick a flourish.</p>
+      </div>
+      <p>I don&rsquo;t perform much. I do tricks for friends in the math room when a problem has beaten us and we need ten minutes off, and for kids at Chinese-school events who&rsquo;ll watch a self-working trick three times before asking whether I&rsquo;m just doing math at them. Yes. Obviously yes.</p>
+      <p>Underneath all of it is the same small thrill &mdash; the moment a room shifts because you finally got something across. Pitch, lecture, or sleight of hand, that&rsquo;s the part I&rsquo;m actually chasing.</p>
+    </div>
+  </div></div></div>
+</section>
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="site-footer-inner">
+      <div class="lft">&copy; 2026 Alex Chen</div>
+      <div class="mid"><a href="https://alexanderbchen.github.io/index.html" target="_blank" rel="noopener">Alexander B. Chen</a> · <a href="mailto:alexbchen999@gmail.com">alexbchen999@gmail.com</a></div>
+      <div class="rgt"><a href="https://a-b-chen.github.io/alexanderbchen/" target="_blank" rel="noopener">a-b-chen.github.io/alexanderbchen</a></div>
+    </div>
+  </div>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+(function(){
+  /* ---------- Gilbreath ---------- */
+  var N=12, RANKS=["A","2","3","4","5","6","7","8","9","10","J","Q"];
+  var cardsEl=document.getElementById("gil-cards"), pairsEl=document.getElementById("gil-pairs"),
+      noteEl=document.getElementById("gil-note"), tallyEl=document.getElementById("gil-tally"),
+      bCut=document.getElementById("gil-cut"), bRif=document.getElementById("gil-riffle"),
+      bDeal=document.getElementById("gil-deal"), bRes=document.getElementById("gil-reset");
+  if(!cardsEl) return;
+  var deck=[], stage=0, runs=0, wins=0;
+
+  function fresh(){
+    deck=[]; for(var i=0;i<N;i++) deck.push({c:(i%2===0?"r":"b"), t:RANKS[i]+(i%2===0?"\u2665":"\u2660")});
+  }
+  function draw(list,down){
+    cardsEl.innerHTML="";
+    list.forEach(function(c){
+      var d=document.createElement("span");
+      d.className="card "+c.c+(down?" face-down":"");
+      d.textContent=c.t; cardsEl.appendChild(d);
+    });
+  }
+  function setBtns(cut,rif,deal){ bCut.disabled=!cut; bRif.disabled=!rif; bDeal.disabled=!deal; }
+
+  function reset(){
+    fresh(); stage=0; pairsEl.innerHTML=""; draw(deck,false);
+    noteEl.innerHTML="Twelve cards, alternating red and black. Hit <b>Cut deck</b> to start.";
+    setBtns(true,false,false);
+  }
+  bRes.addEventListener("click",reset);
+
+  bCut.addEventListener("click",function(){
+    // cut anywhere in the middle; keep both halves visible in order
+    var k=3+Math.floor(Math.random()*(N-5)); // 3..N-3
+    window._gilTop=deck.slice(0,k); window._gilBot=deck.slice(k);
+    draw(deck,false);
+    noteEl.innerHTML="Cut after <b>"+k+"</b> cards. Two packets: "+k+" and "+(N-k)+
+      ". Now riffle them together &mdash; the interleave is random.";
+    stage=1; setBtns(false,true,false);
+  });
+
+  bRif.addEventListener("click",function(){
+    // Gilbreath needs one packet reversed (a real riffle reverses one half relative to the other)
+    var A=window._gilTop.slice().reverse(), B=window._gilBot.slice(), out=[];
+    while(A.length||B.length){
+      if(!A.length){ out.push(B.shift()); }
+      else if(!B.length){ out.push(A.shift()); }
+      else { out.push(Math.random()< A.length/(A.length+B.length) ? A.shift() : B.shift()); }
+    }
+    deck=out; draw(deck,true);
+    noteEl.innerHTML="Riffled. The order is genuinely scrambled &mdash; cards face down, no peeking. Now <b>deal in pairs</b>.";
+    stage=2; setBtns(false,false,true);
+  });
+
+  bDeal.addEventListener("click",function(){
+    draw(deck,false);
+    pairsEl.innerHTML="";
+    var allSplit=true;
+    for(var i=0;i<N;i+=2){
+      var a=deck[i], b=deck[i+1], ok=(a.c!==b.c);
+      if(!ok) allSplit=false;
+      var w=document.createElement("div"); w.className="gil-pair "+(ok?"ok":"bad");
+      [a,b].forEach(function(c){
+        var d=document.createElement("span"); d.className="card "+c.c; d.textContent=c.t; w.appendChild(d);
+      });
+      pairsEl.appendChild(w);
+    }
+    runs++; if(allSplit) wins++;
+    noteEl.innerHTML = allSplit
+      ? "<span class=\"win\">All six pairs split one red, one black.</span> Told you. Reset and try to break it."
+      : "A pair came out matching &mdash; which means the cut or riffle wasn&rsquo;t a real one. Reset and run it again.";
+    tallyEl.textContent = runs+" run"+(runs===1?"":"s")+" \u00b7 "+wins+" with every pair split";
+    stage=3; setBtns(false,false,false);
+  });
+
+  reset();
+
+  /* ---------- flourishes ---------- */
+  var stageEl=document.getElementById("flr-stage"), flrNote=document.getElementById("flr-note");
+  if(!stageEl) return;
+  var M=26, els=[];
+  for(var i=0;i<M;i++){ var d=document.createElement("div"); d.className="flr-card"; stageEl.appendChild(d); els.push(d); }
+  function apply(fn){ els.forEach(function(el,i){ el.style.transform=fn(i,i/(M-1)); }); }
+  var moves={
+    idle:   function(){ return function(i){ return "translate("+(i*0.35-4)+"px,"+(-i*0.5)+"px) rotate(0deg)"; }; },
+    fan:    function(){ return function(i,f){ var a=-78+f*156; return "rotate("+a+"deg) translateY(-58px) rotate("+(-a*0.15)+"deg)"; }; },
+    riffle: function(){ return function(i,f){ return "translate("+(f*150-75)+"px,"+(Math.sin(f*Math.PI)*-26)+"px) rotate("+(f*20-10)+"deg)"; }; },
+    cascade:function(){ return function(i,f){ return "translate("+(f*180-90)+"px,"+(f*f*66-20)+"px) rotate("+(f*300)+"deg)"; }; },
+    spring: function(){ return function(i,f){ var a=f*Math.PI; return "translate("+(Math.sin(a)*96-6)+"px,"+(Math.cos(a)*-42)+"px) rotate("+(f*160-80)+"deg)"; }; }
+  };
+  var labels={ idle:"Squared up, in the hands. Pick a flourish.",
+    fan:"A pressure fan &mdash; thumb across the deck, the whole thing opens into an arc.",
+    riffle:"The riffle. Two halves, interlaced, springing back into one.",
+    cascade:"A cascade &mdash; the deck falls hand to hand and every card turns on the way down.",
+    spring:"A spring. Bend, release, and hope the carpet is clean." };
+  function go(name){ apply(moves[name]()); flrNote.textContent=labels[name]; }
+  [["flr-fan","fan"],["flr-riffle","riffle"],["flr-cascade","cascade"],["flr-spring","spring"],["flr-idle","idle"]]
+    .forEach(function(p){ var b=document.getElementById(p[0]); if(b) b.addEventListener("click",function(){ go(p[1]); }); });
+  go("idle");
+})();
+</script>
+<script src="app.js"></script>
+</body>
+</html>

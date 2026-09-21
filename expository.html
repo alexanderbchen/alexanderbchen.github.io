@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>document.documentElement.className += ' js';</script>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Expositories — Alexander B. Chen</title>
+<meta name="description" content="Expository writing by Alexander B. Chen: the ARC textbook series, a multivariable calculus book, lecture notes, plus videos, essays, and side projects." />
+<meta name="theme-color" content="#f6f7f4" />
+<link rel="icon" href="favicon.ico" sizes="32x32" />
+<link rel="icon" href="favicon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="apple-touch-icon.png" />
+<link rel="manifest" href="manifest.webmanifest" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;1,400&family=STIX+Two+Text:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="style.css" />
+<style>
+  /* contents panel in the hero side column */
+  .hero-toc{ border-top:2px solid var(--redrule); padding-top:.7rem; }
+  .hero-toc-h{ font-family:var(--mono); font-size:.68rem; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--muted); margin:0 0 .6rem; }
+  .hero-toc-list{ list-style:none; padding:0; margin:0; }
+  .hero-toc-list li{ display:flex; gap:.55rem; align-items:baseline; padding:.34rem 0;
+    border-top:1px solid var(--rule); }
+  .hero-toc-list li:first-child{ border-top:none; }
+  .hero-toc-list .n{ font-family:var(--mono); font-size:.68rem; color:var(--muted); flex:none; min-width:1.15rem; }
+  .hero-toc-list a{ font-family:var(--serif); font-size:.98rem; color:var(--ink); text-decoration:none;
+    border-bottom:1px solid transparent; }
+  .hero-toc-list a:hover{ color:var(--accent); border-bottom-color:var(--accent); }
+  .hero-toc-foot{ font-family:var(--mono); font-size:.66rem; line-height:1.6; color:var(--muted);
+    margin:.85rem 0 0; padding-top:.6rem; border-top:1px solid var(--rule); }
+  .hero-toc-foot a{ color:var(--accent); text-decoration:none; }
+  .hero-toc-foot a:hover{ text-decoration:underline; }
+  /* disclosure lists */
+  details.pubs{ border-top:1px solid var(--rule); padding-top:.55rem; }
+  details.pubs > summary{
+    list-style:none; cursor:pointer; display:inline-flex; align-items:center; gap:.55rem;
+    font-family:var(--mono); font-size:.7rem; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--accent); padding:.15rem 0;
+  }
+  details.pubs > summary::-webkit-details-marker{ display:none; }
+  details.pubs > summary::before{
+    content:""; flex:none; width:0; height:0;
+    border-left:5px solid currentColor; border-top:4px solid transparent; border-bottom:4px solid transparent;
+    transition:transform .18s ease;
+  }
+  details.pubs[open] > summary::before{ transform:rotate(90deg); }
+  details.pubs .count{ font-size:.66rem; letter-spacing:.06em; color:var(--muted); }
+  .pubs-body{ margin:.65rem 0 .3rem; display:grid; gap:1.4rem; }
+  .pubs-item{ font-family:var(--serif); font-size:1rem; line-height:1.5; color:var(--ink);
+    padding-left:1.05rem; border-left:2px solid var(--redrule); }
+  .pubs-item .cite-title{  }
+  .pubs-item .cite-meta{ color:var(--muted); }
+  .pubs-links{ margin-top:.45rem; display:flex; flex-wrap:wrap; gap:.4rem; }
+  /* link out to a detail page */
+  .pubs-more{ margin:1.1rem 0 0; padding-top:.6rem; border-top:1px solid var(--rule);
+    font-family:var(--mono); font-size:.7rem; letter-spacing:.12em; text-transform:uppercase; }
+  .pubs-more a{ color:var(--accent); text-decoration:none; border-bottom:1px solid transparent; }
+  .pubs-more a:hover{ border-bottom-color:var(--accent); }
+  /* right-flush venue on a citation line */
+  .cite-row{ display:flex; justify-content:space-between; align-items:baseline; gap:1.75rem; }
+  .cite-row > .cite-text{ min-width:0; }
+  .cite-row > .venue{ flex:none; white-space:nowrap; }
+  @media (max-width:640px){
+    .cite-row{ display:block; }
+    .cite-row > .venue{ display:block; text-align:right; margin-top:.3rem; white-space:normal; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav" aria-label="Sections">
+  <div class="wrap">
+    <a class="nav-name" href="index.html">Alexander B. Chen<span class="sec-sign"> -- '27</span></a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="works.html">Research</a>
+      <a href="expository.html" class="active">Expositories</a>
+      <a href="olympiads.html">Olympiads</a>
+      <a href="interests.html">Interests</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ===================== HERO ===================== -->
+<header id="top" class="band hero hero--tight">
+  <div class="wrap">
+    <div class="hero-inner">
+      <div class="hero-grid">
+        <div class="hero-main">
+          <p class="eyebrow">Books, Notes, &amp; Other Projects</p>
+          <h1 class="title">Expositories</h1>
+          <p class="subtitle">Other independent projects out of personal interest.</p>
+          <p class="abstract">
+            <span class="abs-label">On this page.</span><span>Almost everything here started the same way: I finally understood something, and then immediately wanted to explain it to somebody. That impulse has often turned into a lot of pages that are featured here.
+
+            <span style="display: block; margin-top: 1em;"></span>
+
+            Writing for a reader is a different problem from solving. A proof only has to be correct; an exposition has to be correct <i>and</i> land for someone who isn&rsquo;t already convinced. Getting that wrong is often invisible to me but obvious to them, so bear with me. :]
+            </span>
+          </p>
+        </div>
+        <div class="hero-side">
+          <span style="display: block; margin-top: 6em;"></span>
+          <nav class="hero-toc" aria-label="Contents">
+            <p class="hero-toc-h">Contents</p>
+            <ul class="hero-toc-list">
+              <li><span class="n">1.</span><a href="#expository">Textbooks &amp; notes</a></li>
+              <li><span class="n">2.</span><a href="#current-textbooks">Current textbooks</a></li>
+              <li><span class="n">3.</span><a href="#current-notes">Current notes</a></li>
+              <li><span class="n">4.</span><a href="#projects">Projects &amp; writings</a></li>
+              <li><span class="n">5.</span><a href="#featured">Featured projects</a></li>
+              <li><span class="n">6.</span><a href="#tests">Tests &amp; mock tests</a></li>
+            </ul>
+            <p class="hero-toc-foot">Papers, manuscripts, and modeling are featured on the <a href="works.html">Research</a> page.</p>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+<span style="display: block; margin-top: 2em;"></span>
+
+<!-- ===================== TEXTBOOKS & NOTES ===================== -->
+<section id="expository" class="band band--tint">
+  <div class="wrap"><div class="band-inner"><div class="sec-grid">
+    <div class="sec-aside">
+      <div class="sec-num">1.</div>
+      <h2 class="sec-h">Textbooks &amp; notes</h2>
+      <span class="sec-mark-rule" aria-hidden="true"></span>
+    </div>
+    <div class="sec-content">
+      <p class="subhead">Textbooks &amp; notes &middot; 2 books, 4 note sets</p>
+      <p>Most of what I write is meant to be handed to a student who is one insight away. Some of it is a full book; some is a lecture series for the math team.</p>
+      <div class="pubs-wrap">
+        <details class="pubs">
+          <summary>Books <span class="count">(2)</span></summary>
+          <div class="pubs-body">
+            <div class="pubs-item">
+              <div class="cite-row">
+                <div class="cite-text"><span class="cite-title"><em>ARC: AIME Roadmap &amp; Curricula</em></span> <span class="cite-meta">(with Ryan Gong); completed Combinatorics volume (2026-present).</span></div>
+                <div class="venue">series</div>
+              </div>
+              <div class="pubs-links"><a class="chip sm" href="#current-textbooks">details &darr;</a> <a class="chip sm" href="https://drive.google.com/file/d/14A-oxgwPII438xd9MjiBf7Wo_FjZIBlZ/view?usp=sharing" target="_blank" rel="noopener">combinatorics pdf</a> <a class="chip sm" href="https://drive.google.com/drive/folders/1r_W_rcSNr5aO2rfgV_lvlJTAHKZkOKyN?usp=sharing" target="_blank" rel="noopener">series folder</a></div>
+            </div>
+            <div class="pubs-item">
+              <div class="cite-row">
+                <div class="cite-text"><span class="cite-title"><em>Multivariable Calculus.</em></span> <span class="cite-meta">Independent textbook.</span></div>
+              </div>
+              <div class="pubs-links"><a class="chip sm" href="textbooks.html#calc3">details &rarr;</a> <a class="chip sm" href="https://drive.google.com/file/d/14erpD4iBdTqWrkAp4FkGKjTiEO3C7mgQ/view?usp=sharing" target="_blank" rel="noopener">pdf</a></div>
+            </div>
+          </div>
+        </details>
+        <span style="display: block; margin-top: 1.5em;"></span>
+        <details class="pubs">
+          <summary>Courses &amp; Notes <span class="count">(4)</span></summary>
+          <div class="pubs-body">
+            <div class="pubs-item">
+              <div class="cite-row">
+                <div class="cite-text"><span class="cite-title"><em>Abstract Algebra &amp; Number Theory.</em></span> <span class="cite-meta">An original course for Math Team meetings (2026-27).</span></div>
+              </div>
+              <div class="pubs-links"><a class="chip sm" href="#current-notes">details &darr;</a> <a class="chip sm" href="https://drive.google.com/drive/folders/1TzajzytMm9_KOFgID2fVpZQm4fgK2Vyj?usp=sharing" target="_blank" rel="noopener">lectures &amp; homework</a></div>
+            </div>
+            <div class="pubs-item">
+              <div class="cite-row">
+                <div class="cite-text"><span class="cite-title"><em>Partial Differential Equations.</em></span> <span class="cite-meta">Lecture notes from the UPitt MA 1470 course (2026).</span></div>
+              </div>
+              <div class="pubs-links"><a class="chip sm" href="#current-notes">details &darr;</a> <a class="chip sm" href="https://drive.google.com/drive/folders/1mnvM3ybdQNb9YjbQifzMkVz-eU6ssunP?usp=sharing" target="_blank" rel="noopener">notes folder</a></div>
+            </div>
+            <div class="pubs-item">
+              <div class="cite-row">
+                <div class="cite-text"><span class="cite-title"><em>Set Theory.</em></span> <span class="cite-meta">Notes and projects from the Set Theory course offered at Shady Side Academy (2025-26).</span></div>
+              </div>
+              <div class="pubs-links"><a class="chip sm" href="textbooks.html#settheory">details &rarr;</a> <a class="chip sm" href="https://drive.google.com/drive/folders/1tErktvqccqgccbKjz-OM4w-WpLTGF2ul?usp=sharing" target="_blank" rel="noopener">projects folder</a></div>
+            </div>
+            <div class="pubs-item">
+              <div class="cite-row">
+                <div class="cite-text"><span class="cite-title"><em>Fractal Geometry &amp; Chaos Theory.</em></span> <span class="cite-meta">Notes and projects from the Fractal Geometry &amp; Chaos Theory course offered at Shady Side Academy (2025-26).</span></div>
+              </div>
+              <div class="pubs-links"><a class="chip sm" href="textbooks.html#fractals">details &rarr;</a> <a class="chip sm" href="https://drive.google.com/drive/folders/1I8aH29_7IVlmoSVN3RyZNq_jhfpK6yOo?usp=sharing" target="_blank" rel="noopener">projects folder</a></div>
+            </div>
+          </div>
+        </details>
+      </div>
+      <span style="display: block; margin-top: 1.5em;"></span>
+      <p class="pubs-more"><a href="textbooks.html">Textbooks &amp; notes in detail &rarr;</a></p>
+    </div>
+  </div></div></div>
+</section>
+
+<!-- ===================== CURRENT TEXTBOOKS ===================== -->
+<section id="current-textbooks" class="band">
+  <div class="wrap"><div class="band-inner"><div class="sec-grid">
+    <div class="sec-aside">
+      <div class="sec-num">2.</div>
+      <h2 class="sec-h">Current Textbooks</h2>
+      <span class="sec-mark-rule" aria-hidden="true"></span>
+    </div>
+    <div class="sec-content">
+      <p class="subhead">ARC &middot; competition mathematics</p>
+      <p><em>ARC: AIME Roadmap &amp; Curricula</em> (with Ryan Gong); completed Combinatorics volume (2026-present).</p>
+      <hr>
+      <p>ARC is the book we wanted when we were starting out: a path from the end of the school curriculum to the AIME that treats the reader as someone who wants to understand a technique rather than memorize a list of them. Each chapter builds one tool, shows where it came from, and then hands over problems chosen to fail in instructive ways.</p>
+      <p>The combinatorics volume is finished at 573 pages, running from counting principles through inclusion&ndash;exclusion, expected value, generating functions, and proof technique. Number theory and algebra are in progress, with geometry planned to close the series. It is the project I expect to still be working on when I graduate.</p>
+      <div class="gallery">
+        <figure><img src="img/titlepage.png" width="707" height="1000" loading="lazy" alt="The ARC series title page: a compass-and-circles geometry figure with formulas set into the diagram." /><figcaption>The series title page.</figcaption></figure>
+        <figure><img src="img/combi.png" width="707" height="1000" loading="lazy" alt="The ARC combinatorics volume cover, the same figure overlaid with the word Combinatorics." /><figcaption>The combinatorics volume.</figcaption></figure>
+      </div>
+      <p><a class="chip sm" href="https://drive.google.com/file/d/14A-oxgwPII438xd9MjiBf7Wo_FjZIBlZ/view?usp=sharing" target="_blank" rel="noopener">combinatorics pdf</a> <a class="chip sm" href="https://drive.google.com/drive/folders/1r_W_rcSNr5aO2rfgV_lvlJTAHKZkOKyN?usp=sharing" target="_blank" rel="noopener">series folder</a></span></p>
+    </div>
+    <p class="pubs-more"><a href="textbooks.html">all books &amp; notes &rarr;</a></p>
+  </div></div></div>
+</section>
+
+<!-- ===================== CURRENT NOTES ===================== -->
+<section id="current-notes" class="band band--tint">
+  <div class="wrap"><div class="band-inner"><div class="sec-grid">
+    <div class="sec-aside">
+      <div class="sec-num">3.</div>
+      <h2 class="sec-h">Current Notes</h2>
+      <span class="sec-mark-rule" aria-hidden="true"></span>
+    </div>
+    <div class="sec-content">
+      <p class="subhead">Abstract algebra &amp; number theory &middot; Math Team, 2026&ndash;27</p>
+      <p><em>An Abstract Algebra &amp; Number Theory Course,</em> written and taught at club meetings.</p>
+      <p>A course I wrote and now teach, modeled on how Ross does it: start from the order and ring axioms, prove the things everyone assumes, and let the interesting theorems arrive as consequences rather than announcements. These are real lecture notes with problem sets behind them, not slides.</p>
+      <p>Each lecture ships with a matching homework set, and a few results are posed as prove-or-disprove-and-salvage rather than stated outright, which is the part students find most annoying and learn the most from.</p>
+      <p><a class="chip sm" href="https://drive.google.com/drive/folders/1TzajzytMm9_KOFgID2fVpZQm4fgK2Vyj?usp=sharing" target="_blank" rel="noopener">lectures &amp; homework</a> <span class="chip sm dim">ongoing</span></p>
+
+      <hr>
+
+      <span style="display: block; margin-top: 1.5em;"></span>
+
+      <p class="subhead">Partial differential equations &middot; University of Pittsburgh</p>
+      <p><em>PDE Lecture Notes,</em> typed alongside the UPitt course.</p>
+      <p>Notes I keep for my own PDE course at Pitt, typed as the lectures happen and cleaned up afterward, with the derivations written out at the length I need them rather than the length a textbook allots. Homework solutions live in the same folder.</p>
+      <p><a class="chip sm" href="https://drive.google.com/drive/folders/1mnvM3ybdQNb9YjbQifzMkVz-eU6ssunP?usp=sharing" target="_blank" rel="noopener">notes folder</a> <span class="chip sm dim">ongoing</span></p>
+    </div>
+    <p class="pubs-more"><a href="textbooks.html">all books &amp; notes &rarr;</a></p>
+  </div></div></div>
+</section>
+
+<!-- ===================== PROJECTS & WRITINGS ===================== -->
+<section id="projects" class="band">
+  <div class="wrap"><div class="band-inner"><div class="sec-grid">
+    <div class="sec-aside">
+      <div class="sec-num">4.</div>
+      <h2 class="sec-h">Projects &amp; writings</h2>
+      <span class="sec-mark-rule" aria-hidden="true"></span>
+    </div>
+    <div class="sec-content">
+      <p class="subhead">Projects &amp; writings &middot; 4 written, 5 built</p>
+      <p>Videos, essays, and side projects, usually an attempt to explain something the moment after it finally made sense.</p>
+      <div class="pubs-wrap">
+        <details class="pubs">
+          <summary>Writing <span class="count">(4)</span></summary>
+          <div class="pubs-body">
+            <div class="pubs-item">
+              <div class="cite-row">
+                <div class="cite-text"><span class="cite-title"><em>A Sharp Piecewise Generalization of Nesbitt&rsquo;s Inequality.</em></span> <span class="cite-meta">Solo manuscript (2026).</span></div>
+              </div>
+              <div class="pubs-links"><a class="chip sm" href="works.html#nesbitt">details &rarr;</a><a class="chip sm" href="https://drive.google.com/file/d/1Ca4lFZHIkeL6VFVME-FI2VKadyo1xivA/view?usp=sharing" target="_blank" rel="noopener">pdf</a></div>
+            </div>
+            <div class="pubs-item">
+              <div class="cite-row">
+                <div class="cite-text"><span class="cite-title"><em>The Political Faucet.</em></span> <span class="cite-meta">On U.S. science funding opened in Cold-War panic and shut in peacetime apathy (2025).</span></div>
+              </div>
+              <div class="pubs-links"><a class="chip sm" href="projects.html#faucet">details &rarr;</a> <a class="chip sm" href="https://docs.google.com/document/d/1S-1x8QNlAWStZuDROdJ3orwXG1-GeBewab5HMKH21T4/edit?usp=sharing" target="_blank" rel="noopener">document</a></div>
+            </div>
+            <div class="pubs-item">
+              <div class="cite-row">
+                <div class="cite-text"><span class="cite-title"><em>The Cursed Series.</em></span> <span class="cite-meta">Deliberately cursed problems and constructions (2023-24).</span></div>
+              </div>
+              <div class="pubs-links"><a class="chip sm" href="projects.html#cursed">details &rarr;</a> <a class="chip sm" href="https://drive.google.com/drive/folders/1UIGuV9BywmbSYdc1-6k0EyxHEp2Ot_6O?usp=sharing" target="_blank" rel="noopener">series folder</a></div>
+            </div>
+            <div class="pubs-item">
+              <div class="cite-row">
+                <div class="cite-text"><span class="cite-title"><em>alecks67.</em></span> <span class="cite-meta">A blog, where problems, half-finished ideas, and my personal life go to get written down.</span></div>
+              </div>
+              <div class="pubs-links"><a class="chip sm" href="projects.html#blog">details &rarr;</a> <a class="chip sm" href="https://alecks67.substack.com" target="_blank" rel="noopener">alecks67.substack.com</a></div>
+            </div>
+          </div>
+        </details>
+        <span style="display: block; margin-top: 1.5em;"></span>
+        <details class="pubs">
+          <summary>Video &amp; Projects <span class="count">(5)</span></summary>
+          <div class="pubs-body">
+            <div class="pubs-item">
+              <div class="cite-row">
+                <div class="cite-text"><span class="cite-title"><em>orz67.</em></span> <span class="cite-meta">A YouTube channel where I animate proofs with Manim.</span></div>
+              </div>
+              <div class="pubs-links"><a class="chip sm" href="projects.html#orz67">details &rarr;</a> <a class="chip sm" href="https://www.youtube.com/@orz67" target="_blank" rel="noopener">@orz67</a></div>
+            </div>
+            <div class="pubs-item">
+              <div class="cite-row">
+                <div class="cite-text"><span class="cite-title"><em>Roller Coaster Accelerometer Data.</em></span> <span class="cite-meta">With Hunter Faderewski; Kennywood and Cedar Point, both live.</span></div>
+              </div>
+              <div class="pubs-links"><a class="chip sm" href="#featured">details &darr;</a> <a class="chip sm" href="https://a-b-chen.github.io/Kennywood-data/" target="_blank" rel="noopener">Kennywood site</a> <a class="chip sm" href="https://a-b-chen.github.io/Cedarpoint-data/" target="_blank" rel="noopener">Cedar Point site</a> <a class="chip sm" href="https://drive.google.com/file/d/1U7raRvoIoLE0fCqt6S4wRQz9z91k7FQc/view?usp=sharing" target="_blank" rel="noopener">slides</a></div>
+            </div>
+            <div class="pubs-item">
+              <div class="cite-row">
+                <div class="cite-text"><span class="cite-title"><em>Semi-Realistic RC Car.</em></span> <span class="cite-meta">With Tony Chen; Ackermann steering, a printed monocoque, and two brushless motors (2025-26).</span></div>
+              </div>
+              <div class="pubs-links"><a class="chip sm" href="#featured">details &darr;</a> <a class="chip sm" href="https://docs.google.com/presentation/d/1MAEEe8kfd7dzwFSqsQDTlqcebLrmcQQQdQ4Im_FJXsI/edit?usp=sharing" target="_blank" rel="noopener">slides</a> <a class="chip sm" href="https://youtu.be/DLAN9uTsK14" target="_blank" rel="noopener">FEA video 1</a> <a class="chip sm" href="https://youtu.be/INI3lCIAvs0" target="_blank" rel="noopener">FEA video 2</a></div>
+            </div>
+            <div class="pubs-item">
+              <div class="cite-row">
+                <div class="cite-text"><span class="cite-title"><em>Biomimicry Youth Design Challenge.</em></span> <span class="cite-meta">Translating a mechanism from nature into an engineered solution.</span></div>
+              </div>
+              <div class="pubs-links"><a class="chip sm" href="projects.html#biomimicry">details &rarr;</a> <a class="chip sm" href="https://drive.google.com/file/d/1KmJM8j99b70oHvgbCFQCNPyyR4YZTsI0/view?usp=sharing" target="_blank" rel="noopener">pdf</a></div>
+            </div>
+            <div class="pubs-item">
+              <div class="cite-row">
+                <div class="cite-text"><span class="cite-title"><em>Card Magic.</em></span> <span class="cite-meta">Taught for a few years at my local Chinese school.</span></div>
+              </div>
+              <div class="pubs-links"><a class="chip sm" href="projects.html#cardmagic">details &rarr;</a></div>
+            </div>
+          </div>
+        </details>
+      </div>
+      <span style="display: block; margin-top: 1.5em;"></span>
+      <p class="pubs-more"><a href="projects.html">Projects &amp; writings in detail &rarr;</a></p>
+    </div>
+  </div></div></div>
+</section>
+
+<!-- ===================== FEATURED PROJECTS ===================== -->
+<section id="featured" class="band band--tint">
+  <div class="wrap"><div class="band-inner"><div class="sec-grid">
+    <div class="sec-aside">
+      <div class="sec-num">5.</div>
+      <h2 class="sec-h">Featured Projects</h2>
+      <span class="sec-mark-rule" aria-hidden="true"></span>
+    </div>
+    <div class="sec-content">
+      <p class="subhead">RC car &middot; with Tony Chen, 2025&ndash;26</p>
+      <p><em>Semi-Realistic RC Car,</em> designed, printed, and wired from scratch.</p>
+      <p>The idea was to build the car the way a real one gets designed rather than the way a kit goes together. Steering is a genuine Ackermann linkage, so the inside and outside wheels turn through different angles and all four wheel circles share one turn center; fifteen degrees of positive caster gives the moment arm that makes the wheels self-center. The motors were sized from \( \tau = rF \approx 0.18\ \mathrm{N\,m} \) rather than picked off a shelf, and running one per driven wheel let us delete the axle, differential, and prop shafts.</p>
+      <figure><img src="img/rc3.png" width="700" height="400" loading="lazy" alt="The ARC series title page: a compass-and-circles geometry figure with formulas set into the diagram." /><figcaption>RC car chassis design.</figcaption></figure>
+      <p>The chassis is a monocoque modeled on Formula SAE and late-1990s F1, checked each revision with light static-stress studies in Fusion. The electronics were the part that fought back: the Raspberry Pi plan lost to GPIO timing and two ESCs at once, and what finally worked was a Y cable from one receiver into both ESCs with the servo on channel one.</p>
+      <p><a class="chip sm" href="projects.html#rccar">details &rarr;</a> <a class="chip sm" href="https://docs.google.com/presentation/d/1MAEEe8kfd7dzwFSqsQDTlqcebLrmcQQQdQ4Im_FJXsI/edit?usp=sharing" target="_blank" rel="noopener">slides</a> <a class="chip sm" href="https://youtu.be/DLAN9uTsK14" target="_blank" rel="noopener">FEA video 1</a> <a class="chip sm" href="https://youtu.be/INI3lCIAvs0" target="_blank" rel="noopener">FEA video 2</a></a>
+
+      <hr>
+
+      <span style="display: block; margin-top: 1.5em;"></span>
+
+      <p class="subhead">Roller coaster data &middot; with Hunter Faderewski</p>
+      <p><em>Kennywood</em> and <em>Cedar Point,</em> two accelerometer studies, both live.</p>
+      <p>We rode with accelerometers and turned the raw logs into ride profiles: g-forces, airtime, and the shape of every drop. A coaster is a physical system you are allowed to instrument by getting on it, and the data comes back messy enough to need real signal processing before it says anything at all.</p>
+      <p>Each site puts the quantitative side next to the experience, so the plots sit beside the part where we describe what that particular drop actually felt like.</p>
+      <p><a class="chip sm" href="projects.html#coasters">details &rarr;</a> <a class="chip sm" href="https://a-b-chen.github.io/Kennywood-data/" target="_blank" rel="noopener">Kennywood site</a> <a class="chip sm" href="https://a-b-chen.github.io/Cedarpoint-data/" target="_blank" rel="noopener">Cedar Point site</a></p>
+    </div>
+    <p class="pubs-more"><a href="projects.html">all projects &amp; writings &rarr;</a></p>
+  </div></div></div>
+</section>
+
+<!-- ===================== TESTS & MOCK TESTS ===================== -->
+<section id="tests" class="band">
+  <div class="wrap"><div class="band-inner"><div class="sec-grid">
+    <div class="sec-aside">
+      <div class="sec-num">6.</div>
+      <h2 class="sec-h">Tests &amp; mock tests</h2>
+      <span class="sec-mark-rule" aria-hidden="true"></span>
+    </div>
+    <div class="sec-content">
+      <p>Problems written for other people to actually sit down and take. Writing a contest is the strictest exposition test I know: a problem either works under timed conditions or it doesn&rsquo;t, and there is nobody to explain it to afterward.</p>
+      <ul class="entries">
+        <li><strong>Mock AMCs, 2026&ndash;27.</strong> A full-length set in progress, each test 25 problems with complete solutions. <span class="tag">ongoing</span> <a class="chip sm" href="https://drive.google.com/drive/folders/1vfeks9H-Ld3k1A9I5v48jAlVhHfNc9vK?usp=sharing" target="_blank" rel="noopener">folder</a>
+          <ul class="sub">
+            <li><span class="yr">Finished.</span> Mock AMC 10A and mock AMC 12A, with full solutions.</li>
+            <li><span class="yr">In progress.</span> Mock AMC 10B and 12B, a mock AIME, and SSA(J)MMO, the SSA (Junior) Mock Math Olympiad.</li>
+          </ul>
+        </li>
+        <li><strong>ARMC.</strong> A mock AMC 12, written and administered last year. <span class="tag">mock &middot; 2025&ndash;26</span> <a class="chip sm" href="https://drive.google.com/drive/folders/1WGSIBr1KYUvb8-5sz56ZHuGNUHe9GrKC?usp=sharing" target="_blank" rel="noopener">tests</a></li>
+        <li><strong>SSAMO.</strong> The Shady Side Academy Mathematics Olympiad, which I founded and run: designed the website, wrote the problems and solutions, curated the grading system, and administered schoolwide, alongside a monthly Problem of the Month feature. <span class="tag">olympiad &middot; 2025-present</span> <a class="chip sm" href="https://drive.google.com/drive/folders/1yY1EpvUyW01DxI9GFEXFAj6p3gXcwbod?usp=drive_link" target="_blank" rel="noopener">past tests</a> <a class="chip sm" href="https://sites.google.com/view/ssamo-ssa-mathematics-olympiad/home" target="_blank" rel="noopener">competition site</a></li>
+      </ul>
+    </div>
+  </div></div></div>
+</section>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="site-footer-inner">
+      <div class="lft">&copy; 2026 Alex Chen</div>
+      <div class="mid"><a href="https://alexanderbchen.github.io/index.html" target="_blank" rel="noopener">Alexander B. Chen</a> · <a href="mailto:alexbchen999@gmail.com">alexbchen999@gmail.com</a></div>
+      <div class="rgt"><a href="https://a-b-chen.github.io/alexanderbchen/" target="_blank" rel="noopener">a-b-chen.github.io/alexanderbchen</a></div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="app.js"></script>
+</body>
+</html>

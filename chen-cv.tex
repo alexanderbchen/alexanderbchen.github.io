@@ -1,0 +1,540 @@
+\documentclass[11pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{txfonts}
+\usepackage{geometry}
+\geometry{left=0.5in,right=0.5in,bottom=0.475in,top=0.475in}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{microtype}
+\usepackage[document]{ragged2e}
+\usepackage{needspace}
+\usepackage{hyperref}
+\usepackage{booktabs}
+
+\definecolor{ink}{HTML}{1A1B18}
+\definecolor{accent}{HTML}{2E3A8C}
+\definecolor{muted}{HTML}{6E7063}
+\definecolor{gold}{HTML}{B8860B}
+\definecolor{copper}{HTML}{B87333}
+
+\hypersetup{
+  colorlinks=true, urlcolor=accent, linkcolor=accent,
+  pdftitle={Alexander B. Chen -- Resume}, pdfauthor={Alexander B. Chen}
+}
+
+\color{ink}
+\setlength{\parindent}{0pt}
+\pagenumbering{gobble}
+
+\titleformat{\section}
+  {\normalfont\Large\sc\color{gold}}{}{0pt}{}
+  [\vspace{-12pt}{\color{gold}\rule{\linewidth}{0.9pt}}]
+\titlespacing*{\section}{0pt}{9pt}{5pt}
+
+\titleformat{\subsection}
+  {\normalfont\large\it\color{copper}}{}{0pt}{}
+  [\vspace{-0.5em}]
+  %[\vspace{-8pt}{\color{copper}\rule{\linewidth}{0.9pt}}]
+%\titlespacing*{\section}{0pt}{9pt}{5pt}
+
+\newcommand{\dt}[1]{{\normalfont\small\color{muted}#1}}
+\newenvironment{items}
+  {\begin{itemize}[leftmargin=1.15em,itemsep=1.5pt,topsep=2pt,parsep=0pt,label={\color{accent}\small\textbullet}]}
+  {\end{itemize}}
+  
+% Define a custom environment for indented left-aligned text
+\newenvironment{indt}[1][2em]{%
+ \vspace{-1cm}
+  \begin{list}{}{%
+    \setlength{\leftmargin}{#1}% Set the indent size
+    \setlength{\parsep}{0pt}%
+    \setlength{\parskip}{\baselineskip}%
+  }%
+  \item\relax
+}{%
+  \end{list}%
+    \vspace{-0.75cm}
+}
+
+% title line, optional right-aligned date/context
+\newcommand{\entry}[2]{\textbf{#1}\hfill\dt{#2}\par}
+% description paragraph that sits under a title
+\newcommand{\desc}[1]{\vspace{1.5pt}{\small #1}\par\vspace{7pt}}
+% row with a right-aligned result/score
+\newcommand{\rowr}[2]{#1\hfill{\normalfont\small\color{muted}#2}\par}
+\newcommand{\gold}[1]{\textcolor{gold}{#1}}
+
+\begin{document}
+
+\begin{minipage}{0.6\textwidth}
+  {\fontsize{16}{18}\selectfont\bfseries \href{https://alexanderbchen.github.io/index.html}{Alexander B. Chen}}\\[3pt]
+  {\color{muted}\small Shady Side Academy \ $\cdot$ \ Pittsburgh, PA \ $\cdot$ \ Class of 2027}\\[-1pt]
+  {\small \href{mailto:27chena@shadysideacademy.org}{27chena@shadysideacademy.org} \ \textcolor{muted}{$\cdot$} \ \href{https://alexanderbchen.github.io/index.html}{Personal Website}}
+\end{minipage}
+\begin{minipage}{0.4\textwidth}
+	\begin{flushright}\includegraphics[width=0.3\linewidth]{ssa.png}\end{flushright}
+\end{minipage}
+
+
+%\vspace{-0.75cm}
+
+% ===================== MATHEMATICS =====================
+\section*{Awards \& Honors}
+
+\subsection*{Mathematics}
+
+\entry{United States of America Mathematics Olympiad \href{https://maa.org/news/maa-introduces-official-competition-sites-for-the-2026-usamo-and-usajmo/}{(USAMO)$^{\dagger}$}}{National \, $\cdot$ \, 2026}
+\desc{Scored a 5, top 50\% of 250-300 participants was 6} %{\bf First-ever \href{https://maa.org/news/maa-introduces-official-competition-sites-for-the-2026-usamo-and-usajmo/}{USAMO} qualifier from Shady Side Academy}}
+
+\medskip
+
+\begin{indt}[3em]
+	\entry{American Invitational Mathematics Examination \href{https://maa.org/maa-invitational-competitions/}{(AIME)$^{\ast}$}}{National \, $\cdot$ \, 2024/25/26}
+	\desc{3-time qualifier; top score 12} %for the prestigious annual \href{https://maa.org/maa-invitational-competitions/}{AIME}, scoring 5, 8, 12 out of 15 in 2024, 25, 26. Placed in the top 5\% of 6000 participants in 2026, earning a qualification to the \href{https://maa.org/news/maa-introduces-official-competition-sites-for-the-2026-usamo-and-usajmo/}{2026 USAMO} \\ Highest-ever recorded score (12) on the \href{https://maa.org/maa-invitational-competitions/}{AIME} from Shady Side Academy}
+	
+	\entry{American Mathematics Competition \href{https://maa.org/student-programs/amc/}{(AMC)} 10/12}{National \, $\cdot$ \, 2023/24/25}
+	
+	$ $
+	
+	\vspace{-0.9em}
+	
+	\desc{1st Place in Shady Side Academy for \href{https://maa.org/student-programs/amc/}{AMC 12} in 2025-2026\\ 1st Place in Shady Side Academy for \href{https://maa.org/student-programs/amc/}{AMC 10} in 2023-2024 and 2024-25}
+\end{indt}
+
+\smallskip
+
+\begin{table}[h] \footnotesize
+	\centering
+	\begin{tabular}{p{1cm}p{2.5cm} p{3.5cm} p{3.5cm} p{4cm}}
+		 & & 2025-26 (Grade 11) & 2024-25 (Grade 10) & 2023-24 (Grade 9) \\[0.5em]
+		%{\bf \href{https://maa.org/news/maa-introduces-official-competition-sites-for-the-2026-usamo-and-usajmo/}{USAMO$^{\dagger}$}} & {\bf 5} (top 50\% is 6) & --- & --- \\[0.5em]
+		& {\bf \href{https://maa.org/maa-invitational-competitions/}{AIME I$^{\ast}$}}   & {\bf 12} (top 5\% is 13)   & 8 & 5 \\[0.5em]
+		& \textbf{\href{https://maa.org/student-programs/amc/}{AMC 10/12}} & 117 (12A) &  112.5 (10A, top 5\%) & {\bf 115.5} (10A, top 5\%) \\
+		& & {\bf 127.5} (12B, top 5\%) & 94.5 (12B) & 111 (10B)\\
+	\end{tabular}
+\end{table}
+
+\vspace{-0.15cm}
+
+\dt{\small $^{\dagger}$ First-ever \href{https://maa.org/news/maa-introduces-official-competition-sites-for-the-2026-usamo-and-usajmo/}{USAMO} qualifier from Shady Side Academy}
+
+\dt{\small$^{\ast}$ Highest-ever recorded score on the \href{https://maa.org/maa-invitational-competitions/}{AIME} from Shady Side Academy}
+
+\bigskip
+
+\entry{MathLeague High School (Inter)National Championship}{}
+\desc{1st Place in \href{https://mathleague.org/results/highschool/indivresults.php?event=13927}{MathLeague High School National Championship,} Grade 11 \hfill \textcolor{muted}{\small National \, $\cdot$ \, 2026}
+
+2nd Place in \href{https://mathleague.org/results/highschool/indivresults.php?event=12913}{MathLeague High School International Championship,} Grade 10 \hfill \textcolor{muted}{\small International \, $\cdot$ \, 2025}}
+
+\medskip
+
+\begin{indt}[3em]
+	\entry{MathLeague High School State Championship}{}
+	\desc{1st Place in \href{https://mathleague.org/results/highschool/indivresults.php?event=13649}{MathLeague High School State Championship,} Grade 11 \hfill \textcolor{muted}{\small State \, $\cdot$ \, 2026}
+	
+	1st Place in \href{https://mathleague.org/results/highschool/indivresults.php?event=12713}{MathLeague High School State Championship,} Grade 10 \hfill \textcolor{muted}{\small State \, $\cdot$ \, 2025}}
+\end{indt}
+
+\bigskip
+\medskip
+
+\entry{United States of America Mathematics Talent Search \href{https://www.usamts.org/}{(USAMTS)}}{}
+\desc{\href{https://www.usamts.org/leaderboard/?year=37}{Gold Prize (top 5\%)} \hfill \textcolor{muted}{National \, $\cdot$ \, 2026}
+
+\smallskip
+
+The \href{https://www.usamts.org/}{USAMTS} is a free, national proof-based math competition (consisting of three rounds) open to all U.S. middle and high school students. It gives participants a month to write up detailed solutions to challenging problems and puzzles. }
+%Roughly top 5\% of all participants receive Gold prizes, the next 7.5\% Silver, the following 12.5\% Bronze, and finally the next 20\% receive Honorable Mentions.}
+
+\entry{High School Mathematical Contest in Modeling \href{https://www.contest.comap.com/highschool/contests/himcm/instructions.html}{(HiMCM)}}{}
+\desc{
+Meritorious (M) prize (top 18\%) \hfill \textcolor{muted}{International \, $\cdot$ \, 2025}\\
+Honorable Mention (HM) prize (top 45\%)  \hfill \textcolor{muted}{International \, $\cdot$ \, 2024}
+
+\smallskip
+
+The \href{https://www.contest.comap.com/highschool/contests/himcm/instructions.html}{HiMCM}, run by COMAP, is an international team contest that trades numerical problem-solving for problem-designing. Teams of up to four are tasked with addressing a physical problem by designing a mathematical model and typing up a research-style paper.
+
+\vspace{0.00cm}
+
+\begin{items}
+	\item \textbf{\href{https://drive.google.com/file/d/1XI2BHCVpS4T-9Frp54UZE2bwBmct69Z1/view?usp=sharing}{2025 (Problem B).}} A Pressure-State-Response model ranking Super Bowl host cities by environmental footprint was built that identified Tampa as the most sustainable host. I led the data analysis by using ARIMA for emissions forecasting, AHP-CRITIC for weighting, TOPSIS for city-ranking, and MICE and random-forest imputation for missing indicators, and we were able to generalize our results to the NBA All-Star Weekend.
+	%506 teams chose Problem B, with 3 Outstanding, 27 Finalist, 63 Meritorious, 152 Honorable Mention, and 255 Successful Participant, plus 5 disqualified and 1 not judged. So Meritorious or above was 93 of 506 teams — about 18%
+	\item \textbf{\href{https://drive.google.com/file/d/1yZSkJLbzX3YiFnF07ruonkP32KPWLvro/view?usp=sharing}{2024 (Problem A).}} A decision-tree expert system classifying sports into families and scoring each on popularity (Olympic YouTube view counts), accessibility, safety, and marketability was built that recommended which sports the International Olympic Committee should add or cut for the 2032 Brisbane Olympics. We used Monte Carlo simulation in Python to generate weighted inputs and logistic-growth curves to project the relevance of fast-emerging sports.\\[0.25em]
+\end{items}}
+
+\entry{University of Pittsburgh High School Integration Bee \href{https://www.mathematics.pitt.edu/events/pitt-high-school-integration-bee}{(HSIB)}}{}
+\desc{\href{https://www.mathematics.pitt.edu/news/pitt-math-high-school-integration-bee-2026}{Champion, 1st Place} \hfill \textcolor{muted}{\small Regional \, $\cdot$ \, 2026}
+
+2nd Place \hfill \textcolor{muted}{\small Regional \, $\cdot$ \, 2025}}
+
+\newpage
+
+%\entry{American Mathematics Competition (AMC) 10/12}{2023-present}
+%\begin{items}
+%	\item \textbf{\href{https://maa.org/student-programs/amc/}{AMC 12.}} \quad\quad 127.5 (2025 12B, top 5\%) \qquad \hspace{-0.22cm} 117 (2025 12A) \qquad\qquad\quad \hspace{0.35cm}  94.5 (2024 12B)
+%	\item \textbf{\href{https://maa.org/student-programs/amc/}{AMC 10.}} \quad\quad 112.5 (2024 10A) \qquad\qquad\quad 115.5 (2023 10A, top 5\%) \qquad 111 (2023 10B)
+%\end{items}
+
+\subsection*{Business}
+
+\entry{Distributive Education Clubs of America \href{https://www.deca.org/}{(DECA)}}{}
+\desc{\href{https://www.deca.org/}{DECA} prepares high schoolers for careers in business, marketing, finance, and entrepreneurship, and runs a competition ladder from regionals up to the International Career Development Conference. My event was the Innovation Plan (EIP): a team starts from a blank page, invents a genuinely new product or service, works it into a full business plan, and defends it to a panel of judges.}
+
+\begin{indt}[3em]
+	\entry{International Career Development Conference \href{https://www.deca.org/conferences/icdc}{(ICDC)}}{}
+	
+	\vspace{-0.15cm}
+	
+	\desc{2-time qualifier \hfill \textcolor{muted}{International \, $\cdot$ \, 2024/25}}
+	
+	\entry{State Career Development Conference \href{https://www.deca.org/compete}{(SCDC)}}{}
+	
+	\vspace{-0.05cm}
+	
+	\desc{State Champion\hfill \textcolor{muted}{State \, $\cdot$ \, 2025}\\[-0.2em]
+	3rd Place \hfill \textcolor{muted}{State \, $\cdot$ \, 2024}}
+\end{indt}
+
+\smallskip
+
+\desc{\begin{items}
+	\item \textbf{\href{https://drive.google.com/file/d/1VHQuPpSuxhH_pgQz7ZlE2JOvex3af_O_/view?usp=sharing}{2024 --- CookGPT.}} By curating a generative-AI cooking assistant, we attempted to tailor the experience to each user's specific taste preferences. A single photograph of your fridge allows the app to identify the ingredients and the AI builds recipes from what's on hand, tracks each meal's nutrition to flag surpluses and shortfalls, and learns your tastes over time. The pitch was targeted to busy parents, seniors and the elderly, and people with dietary restrictions on a subscription model.\\[0.25em]
+	\item \textbf{\href{https://drive.google.com/file/d/1HmpxrXitr-0cNpSLlF3SSC1-5s90fysr/view?usp=sharing}{2025 --- VITALIS.}} A wearable health monitor was developed, our main target being aimed at strokes and heart attacks, where continuous biometric sensors feed a cloud database, machine-learning models flag danger patterns and raise preventive alerts, and an integrated microneedle system delivers emergency medication while contacting help. We also offer a plan to sell users' data to hospitals and research institutions to both better understand patients' medical conditions as well as making such data more widely accessible. The pitch was targeted to high-risk patients, clinicians, and research institutions on a device-plus-subscription model.
+\end{items}}
+
+\vspace{-0.5cm}
+
+\subsection{Music}
+
+\entry{Pittsburgh International Piano Competition \href{https://www.mypipc.org/}{(PIPC)}}{}
+\desc{2nd Place. Invited to perform at the \href{https://www.mypipc.org/}{Winner's Concert} \hfill \textcolor{muted}{International \, $\cdot$ \, 2024}}
+
+\entry{Steinway Society of Western Pennsylvania \href{https://www.sswpa.org/}{(SSWPA)}}{}
+\desc{3-time winner. Invited to perform at \href{https://www.sswpa.org/young-artists/heinz-hall}{Heinz Hall} \hfill \textcolor{muted}{Regional \, $\cdot$ \, 2024/25/26}}
+
+\entry{Westmoreland Symphony Orchestra \href{https://westmorelandsymphony.org/young-artist-solo-ensemble-festival/}{(WSO)}: Young Artist Solo \& Ensemble Festival}{}
+\desc{Gold Prize, scoring 98\% \hfill\textcolor{muted}{Regional \, $\cdot$ \, 2026}}
+
+\vspace{-0.5cm}
+
+\subsection{Swimming}
+
+\entry{Eastern Zone Long Course Meters Age Group Championships \href{https://www.easternzoneswimming.org/page/meets}{(EZ LCM AGC)}}{}
+\desc{Competed for the Allegheny Mountain Swimming (AMS) All-Star Swim Team with all states in the Eastern Zone. \hfill \textcolor{muted}{\small Zonal \, $\cdot$ \, 2024}%\href{https://www.swimcloud.com/results/286296/swimmer/759192/}{
+
+\vspace{-0.15cm}
+
+\begin{table}[h] \footnotesize
+\center
+	\begin{tabular}{p{2cm}p{7cm} p{7cm}}
+		{\bf Relays} &  13th Place in the 4$\times$100m Freestyle Relay & 13th Place in the 4$\times$50m Freestyle Relay\\
+		& 15th Place in the 4$\times$100m Medley Relay &\\[0.5em]
+		{\bf Individual} & 100m Freestyle (58.06) & 50m Freestyle (27.22)\\
+		&200m Individual Medley (IM) (2:28.35) &
+	\end{tabular}
+\end{table}}
+
+\vspace{-0.45cm}
+
+\entry{Pennsylvania Interscholastic Athletic Association \href{https://www.piaa.org/}{(PIAA)} State Championships}{}
+\desc{2-time qualifier for the annual \href{https://www.piaa.org/}{PIAA State Championship} swim meet at Bucknell University. \hfill \textcolor{muted}{State \, $\cdot$ \, 2025/26} \\ Placed 6th in the 4$\times$100 Freestyle Relay (2025). Qualified for B-final in the 4$\times$50 Freestyle Relay (2026). (short course yards, SCY)}
+
+\entry{Western Pennsylvania Interscholastic Athletic League \href{https://wpial.org/}{(WPIAL)}}{}
+\desc{3-time qualifier for annual \href{https://wpial.org/}{WPIAL Championship} swim meet at the University of Pittsburgh (short course yards, SCY).
+
+\vspace{-0.1cm}
+
+\begin{table}[h] \footnotesize
+	\centering
+	\begin{tabular}{p{3.5cm} p{4cm} p{4cm} p{4cm}}
+		& 2025-26 (Grade 11) & 2024-25 (Grade 10) & 2023-24 (Grade 9) \\[0.5em]
+		\textbf{4$\times$50 Freestyle Relay} & {3rd} & --- & --- \\[0.5em]
+		\textbf{4$\times$50 Medley Relay} & {4th} & --- & --- \\[0.5em]
+		\textbf{100 Backstroke} & 10th (57.80) & 12th (58.55) & 13th (59.73) \\[0.5em]
+		\textbf{200 Freestyle} & 10th (1:51.07) & --- & --- \\[0.5em]
+		\textbf{200 Individual Medley} & --- & 15th (2:07.30) & --- \\
+	\end{tabular}
+\end{table}}
+
+\vspace{-0.4cm}
+
+\entry{Western Pennsylvania Interscholastic Athletic League \href{https://wpial.org/}{(PIAA District VII)} Section Champions}{}
+\desc{Shady Side Academy's first-ever back-to-back undefeated seasons for Boys Varsity Swimming \hfill \textcolor{muted}{Regional \, $\cdot$ \, 2024-25/2025-26} \\ \& Diving, earning back-to-back Section Titles/Section Champions.}
+
+\vspace{-0.25cm}
+
+\vspace{-0.5cm}
+
+\subsection*{Foreign Language}
+
+\smallskip
+
+\entry{National Latin Exam \href{https://www.nle.org/}{(NLE)}}{}
+
+\smallskip
+
+\desc{Latin II, {\it Maxima Cum Laude}, Silver Medal; \ \ \ Latin III, {\it Cum Laude}, Honorable Mention \hfill \textcolor{muted}{National \, $\cdot$ \, 2024/25}\\}
+
+\entry{Pittsburgh Chinese School \href{https://www.pittsburgh-chinese-school.org/}{(PCS)}}{}
+
+\smallskip
+
+\desc{Outstanding Graduate; \ \ \ Chinese Cultural Scholarship \hfill \textcolor{muted}{Regional \, $\cdot$ \, 2023-24}\\[0.25em]
+
+Graduated with honors after years of weekend coursework in Mandarin language and Chinese culture. Outstanding Graduate is awarded to two students per graduating class. Selected to give a speech at the graduation ceremony.}
+%A weekend school for Mandarin language and Chinese culture, taught over years of coursework through to graduation. In 2024, I completed the PCS curriculum and all the requirements, officially graduating with honors. Its Outstanding Graduate honor goes to only two students in each graduating class; I was invited to give a speech during the graduating ceremony.}
+
+\section*{Activities}
+
+%\vspace{-0.15cm}
+
+\subsection*{Research \& Projects}
+
+\smallskip
+
+%\vspace{-0.05cm}
+
+\entry{Program for Research in Mathematics \href{https://sites.google.com/tamu.edu/suprema/home?authuser=0}{\large(PReMa)} --- Texas A\&M University}{2025-present}
+\desc{A year of research on Anderson localization with Prof. Wencai Liu and Dr. Xueyin Wang, studying how disorder in a material confines quantum particles rather than letting them spread. Completed an intensive semester-long proof-based linear algebra course as preparation. Quantified the rate of exponential decay for the one-dimensional Anderson model with explicit error bounds, then used Monte Carlo simulation to estimate localization length across three types of disorder.
+
+\smallskip
+
+\begin{items}
+	\item {\bf Publication.} \emph{Finite-volume eigenfunction correlators for the one-dimensional Anderson model: a numerical study},  \hfill \dt{2026} \\
+	\qquad \qquad \quad \ accepted by {\bf \href{https://www.degruyterbrill.com/journal/key/anona/html?srsltid=AfmBOopzHpfb6n3aHSkhjnyeeLjKJIKLTMmThJiDBs0mJUAElGytFVeV}{Advances in Nonlinear Analysis}}
+	
+	\smallskip
+	
+	\item Conferences and Talks
+	\begin{items}
+	
+	\vspace{-0.05cm}
+	
+		\item[] Accepted to present at \href{https://maa.org/event/mathfest/}{MAA MathFest} in Boston \hfill \textcolor{muted}{2026}
+		
+		\vspace{-0.05cm}
+		
+		\item[] Talks presented at the \href{https://sites.google.com/tamu.edu/suprema/home?authuser=0}{PReMa} research seminar and the \href{https://rossprogram.org/}{Ross Math Program}\hfill \textcolor{muted}{2026}
+	\end{items}
+\end{items}}
+
+	\smallskip
+	
+%\desc{A year of mentored research on Anderson localization and discrete random Schr\"odinger operators with Prof.\ Wencai Liu and Dr. Xueyin Wang. First took an intensive college-level semester-long proof-based Linear Algebra course. The project proves exponential decay of the eigenfunction correlator for the one-dimensional Anderson model with a Hoeffding-type error bound, and uses Monte Carlo methods to estimate the localization length across Bernoulli, discrete-uniform, and continuous-uniform disorder. The resulting paper, \textit{Measuring Localization in the One-Dimensional Anderson Model}, is published at \textit{Advances in Nonlinear Analysis}. Conferences attended:
+%\begin{items}
+%	\item Paper accepted to {\it \href{https://www.degruyterbrill.com/journal/key/anona/html?srsltid=AfmBOopzHpfb6n3aHSkhjnyeeLjKJIKLTMmThJiDBs0mJUAElGytFVeV}{Advances in Nonlinear Analysis}} \hfill \dt{2026}
+%	\item Accepted and invited to present at \href{https://maa.org/event/mathfest/}{MAA MathFest} in Boston \hfill \textcolor{muted}{2026}
+%	\item Talks presented at the \href{https://sites.google.com/tamu.edu/suprema/home?authuser=0}{PReMa} research seminar and the \href{https://rossprogram.org/}{Ross Math Program}\hfill \textcolor{muted}{2026}
+%\end{items}}
+
+%\vspace{-0.2cm}
+
+%\vspace{-0.05cm}
+
+\entry{Projects \& Writings}{}
+
+%\vspace{-0.1cm}
+
+\desc{
+\begin{items}
+	\item \textbf{\href{https://a-b-chen.github.io/Kennywood-data/}{Roller-coaster dynamics: a day in Kennywood}}, two data projects with Hunter Faderewski: we rode with \hfill \dt{2026}\\ accelerometers and extracted g-forces, airtime, and the shape of every drop. Slides about Kennywood's background: \href{https://drive.google.com/file/d/1U7raRvoIoLE0fCqt6S4wRQz9z91k7FQc/view?usp=sharing}{slides}.
+	
+	\smallskip
+	
+	\item A sharp piecewise generalization of {\bf \href{https://drive.google.com/file/d/1Ca4lFZHIkeL6VFVME-FI2VKadyo1xivA/view?usp=sharing}{Nesbitt's inequality}}. \hfill \dt{2026}
+	
+	\smallskip
+	
+	\item \textbf{\href{https://drive.google.com/file/d/1KmJM8j99b70oHvgbCFQCNPyyR4YZTsI0/view?usp=sharing}{Biomimetic solar panel}}, a Youth Design Challenge entry: fractal electrode layout generated from 725 leaf-cell epochs. \hfill \dt{2025}
+	
+	\smallskip
+	
+%	\item \textbf{\href{https://www.youtube.com/@orz67}{orz67}} (YouTube), Animated proofs in \href{https://www.manim.community/}{Manim}. \hfill \dt{2025-26}
+	\item \textbf{\href{https://docs.google.com/document/d/1S-1x8QNlAWStZuDROdJ3orwXG1-GeBewab5HMKH21T4/edit?usp=sharing}{The Political Faucet}}, U.S. funds science like a faucet, opened in Cold War panic and shut in peacetime apathy.\hfill \dt{2025}
+	
+	\smallskip
+	
+	\item \textbf{\href{https://alecks67.substack.com}{alecks67}} (Substack), a blog for problems and half-finished ideas, including the \href{https://drive.google.com/drive/folders/1UIGuV9BywmbSYdc1-6k0EyxHEp2Ot_6O?usp=sharing}{Cursed series} of deliberately \hfill \dt{2025-present}\\  perverse problems and constructions that look wrong and turn out to be right.
+	
+	\smallskip
+	
+	\item \textbf{\href{https://docs.google.com/presentation/d/1MAEEe8kfd7dzwFSqsQDTlqcebLrmcQQQdQ4Im_FJXsI/edit?usp=sharing}{An RC Car}} that I 3D-printed along with Tony Chen through Fusion 360. A video demonstration \href{https://drive.google.com/file/d/1QFQXMuDk9HDybgWvN6PcD5fWI3GQrarg/view?usp=sharing}{here.} \hfill \dt{2024}
+\end{items}}
+
+%\vspace{-0.1cm}
+
+	\smallskip
+
+\entry{Expository Notes}{}
+\desc{Expository writing on topics I've found challenging and deeply interesting. All freely available.
+
+\vspace{0.05cm}
+
+\begin{items}
+	\item \textbf{\href{https://drive.google.com/drive/folders/1TzajzytMm9_KOFgID2fVpZQm4fgK2Vyj?usp=sharing}{Abstract Algebra \& Number Theory}}, a year-long course I designed and am teaching at Math Team meetings, \hfill \dt{2026-present}\\ with typeset lecture notes and problem sets.
+	
+	\smallskip
+	
+	\item \textbf{\href{https://drive.google.com/drive/folders/1r_W_rcSNr5aO2rfgV_lvlJTAHKZkOKyN?usp=sharing}{ARC}} (AIME Roadmap \& Curricula), a competition mathematics textbook series co-written with Ryan Gong. \hfill \dt{2025-present}\\ I wrote the \href{https://drive.google.com/file/d/14A-oxgwPII438xd9MjiBf7Wo_FjZIBlZ/view?usp=sharing}{combinatorics volume}; number theory, geometry, and algebra volumes are in progress.
+	
+	\smallskip
+	
+	\item \textbf{Compiled lecture notes.} \href{https://drive.google.com/drive/folders/1mnvM3ybdQNb9YjbQifzMkVz-eU6ssunP?usp=sharing}{Partial differential equations}, \href{https://drive.google.com/drive/folders/1tErktvqccqgccbKjz-OM4w-WpLTGF2ul?usp=sharing}{set theory}, and \href{https://drive.google.com/drive/folders/1I8aH29_7IVlmoSVN3RyZNq_jhfpK6yOo?usp=sharing}{fractal geometry \& chaos}.  \hfill \dt{2025-present}
+	
+	\smallskip
+	
+	\item \textbf{\href{https://drive.google.com/file/d/14erpD4iBdTqWrkAp4FkGKjTiEO3C7mgQ/view?usp=sharing}{Multivariable Calculus}}, a 360-page textbook written sophomore year, after my advisor asked \hfill \dt{2024-25}\\ why, if I disliked the assigned book, I didn't write my own.
+%	\\ \href{https://drive.google.com/drive/folders/1mnvM3ybdQNb9YjbQifzMkVz-eU6ssunP?usp=sharing}{Partial differential equations}, \href{https://drive.google.com/drive/folders/1tErktvqccqgccbKjz-OM4w-WpLTGF2ul?usp=sharing}{set theory}, and \href{https://drive.google.com/drive/folders/1I8aH29_7IVlmoSVN3RyZNq_jhfpK6yOo?usp=sharing}{fractal geometry \& chaos}.
+\end{items}}
+
+\vspace{-0.25cm}
+
+\subsection*{Summer Programs}
+
+%\vspace{-0.1cm}
+
+\desc{Accepted to the Stanford University Mathematics Camp \href{https://sumac.spcs.stanford.edu/}{(SUMaC online)}, Program in Mathematics for Young Scientists \href{https://promys.org/}{(PROMYS)}, and the Ross  Mathematics Program \href{https://rossprogram.org/}{(Ross)}. I ended up participating in the Ross Math Program.}
+
+%\vspace{-0.1cm}
+\vspace{-0.05cm}
+%\vspace{-0.6cm}
+
+\entry{Ross Mathematics Program \href{https://rossprogram.org/}{\large (Ross)}}{Summer 2026}
+
+%\subsection*{\bf \textcolor{black}{Ross Mathematics Program} \href{https://rossprogram.org/}{\bf (Ross)}}
+
+%\vspace{-1.2em}
+
+%\hfill \dt{Summer 2026}
+
+%\vspace{-0.05cm}
+\desc{Six weeks of intensive number theory in the \href{https://rossprogram.org/}{Ross/Ohio Camp} at the Otterbein University campus, rebuilding the subject from first principles: from ring and order axioms through unique factorization and quadratic reciprocity into group and field theory, and finally Galois theory. Completed 14 problem sets and took two advanced elective courses, in point-set topology and elliptic curves.}
+%\desc{Attended a highly prestigious and selective number theory camp for six weeks (specifically, the Ross/Ohio Camp at Otterbein University). Reconstructed number theory from first principles, working from Ring and Order axioms to define $\mathbb{Z}, \mathbb{Q}, \mathbb{R},$ and $\mathbb{C}$. Worked up to Unique Factorization Theorem, leading into Quadratic Reciprocity, and finally Group Theory and Field Theory (including Galois Theory). Proved the multiplicative group modulo a prime is cyclic, and went past the core number theory problem-sets into two advanced lecture courses, Point-Set Madness (point-set topology) and Elliptic Curves. Completed a total of 14 problem sets.}
+
+\newpage
+
+
+\subsection*{Accelerated High School Program \href{https://www.chs.pitt.edu/accelerated-high-school}{(AHS)} at the \href{https://www.chs.pitt.edu/accelerated-high-school}{\bf University of Pittsburgh}}
+
+\desc{Enrolled at the University of Pittsburgh in the Kenneth P. Dietrich School of Arts and Sciences, taking university mathematics from multivariable calculus through partial differential equations alongside degree-seeking undergraduates, graded on the same basis.\\
+%\vspace{-2pt}
+\begin{items}
+%\item[]
+%\begin{items}
+  \item Introduction to Matrices \& Linear Algebra (MA 0280) --- A+ \hfill \dt{Summer 2024}
+  \item Analytic Geometry \& Calculus 3 (MA 0240) --- A+ \hfill \dt{Spring 2025}
+  \item Differential Equations (MA 0290) --- A+ \hfill \dt{Spring 2026}
+  \item *Partial Differential Equations 1 (MA 1470) --- in progress \hfill \dt{Fall 2026}
+%\end{items}
+\end{items}
+
+\vspace{-0.1cm}
+
+\dt{* Upper-level coursework}}
+
+\vspace{-0.25cm}
+
+\subsection*{Music}
+\entry{Carnegie Mellon Music Preparatory School \href{https://www.cmu.edu/cfa/music/preparatory-summer-programs/preparatory-school/prep-school-programs.html}{(CMU Prep)}, \ \ Shady Side Academy \href{https://shadysideacademy.org/arts/music}{String Orchestra}}{}
+\desc{Piano since age 5; CMU Prep piano division since 2014; SSA String Orchestra pianist since 2023.
+
+\vspace{.025cm}
+
+\begin{items}
+	\item \textbf{\href{https://www.cmu.edu/cfa/music/preparatory-summer-programs/preparatory-school/prep-school-programs.html}{CMU Preparaatory School.}} Saturday music theory, music history and weekly lessons on the Carnegie Mellon campus\hfill \dt{2014-present}\\ under \href{https://www.cmu.edu/cfa/music/preparatory-summer-programs/preparatory-school/bios/gelman-tanya.html}{Tatyana Gelman}, performed in public recitals each semester (Winter, Spring, and occasionally Summer). 
+	
+	\vspace{.05cm}
+	
+	\item \textbf{\href{https://shadysideacademy.org/arts/music}{String Orchestra.}} Sole pianist in the ensemble since Grade 9, which admits one student per year, under director \hfill \dt{2023-present}\\ Mr.\ Jeff Gross. Four concerts annually, monthly graded assignments, and honors-level credit each year past the first. 
+\end{items}}
+
+\vspace{-0.5cm}
+
+\subsection*{Swimming}
+\entry{Club Swimming: Jewish Community Center Sailfish \href{https://www.gomotionapp.com/team/amjccs/page/home}{(JCCS)}, Pittsburgh Elite Aquatics \href{https://www.teampittsburghswimming.com/}{(PEAQ)}}{}
+\desc{Joined the \href{https://www.gomotionapp.com/team/amjccs/page/home}{JCCS} at age 7, and switched to \href{https://www.teampittsburghswimming.com/}{PEAQ} swim team at 15.
+\begin{items}
+	\item \textbf{\href{https://www.gomotionapp.com/team/amjccs/page/home}{JCCS.}} Achieved national AAA time, 2-time qualifier for the annual Eastern Zone LC Age Group Championships \hfill \dt{2016-25}
+	\item \textbf{\href{https://www.teampittsburghswimming.com/}{PEAQ.}} Recently switched to the PEAQ team \hfill \dt{2025-present}
+\end{items}}
+
+%\vspace{-0.2cm}
+
+\entry{Varsity Swimming: Shady Side Academy \href{https://www.shadysideacademy.org/teams/winter-sports/swimming/senior/varsity-boys-swimming}{(SSA)}}{}
+3-time recipient of Varsity Letter (Freshman year, 2023-24, to Junior year, 2025-26)\hfill \dt{2023-present}
+
+\vspace{0.5cm}
+
+\section*{Leadership \& Volunteering}
+
+\entry{Founder of Shady Side Academy Math Team \& Math Club President}{}
+
+\vspace{-1.25em}
+
+$ $ \hfill \dt{2023-present}
+
+\desc{Founded the school's first competition math program and team in 2025, securing \$6,000 in School Board funding in the 2025-2026 school year, recruiting and training students for the \href{https://maa.org/student-programs/amc/}{AMC}, \href{https://maa.org/maa-invitational-competitions/}{AIME}, \href{https://mathleague.org/}{MathLeague}, and captaining the first-ever \href{https://arml3.com/}{ARML} team. Now in my third year as math club president, running twice-weekly meetings and weekly problem sessions, and olympiad preparation workshops, setting the curriculum, and teaching the club's first \href{https://drive.google.com/drive/folders/1TzajzytMm9_KOFgID2fVpZQm4fgK2Vyj?usp=sharing}{abstract algebra} course. Membership grew from under 30 (5 active) to over 85, with 15-20 competing regularly, becoming one of the 3 largest clubs at the school.}
+
+%Founded the school's competition math program and competitive math team in 2025 and led the math club as president for the past three years, running weekly problem sessions, twice-a-week meetings, organizing olympiad/competition preparatory meetings, and setting the year's curriculum by introducing a first-ever abstract algebra course taught by myself during team meetings. I successfully gathered \$6,000 in funds from the School Board in the 2025-2026 school year, also helping out to recruit and train students for the \href{https://maa.org/student-programs/amc/}{AMC}, \href{https://maa.org/maa-invitational-competitions/}{AIME}, \href{https://mathleague.org/}{MathLeague}, and captaining the first-ever \href{https://arml3.com/}{ARML} team, organizing tryouts as well as other team contests. Over the past three years, the team grew from a little under 30 people (with 5 active participants) to over 85 people (with 15-20 active participants attending competitions, meetings, and lectures), becoming one of Shady Side Academy's top 3 largest clubs.
+%\vspace{-0.45cm}
+
+\entry{Founder \& Lead Organizer --- Shady Side Academy Mathematics Olympiad \href{https://sites.google.com/view/ssamo-ssa-mathematics-olympiad/home}{(SSAMO)}}{2025-present}
+
+%\vspace{-1.25em}
+
+%$ $ \hfill \dt{2025-present}
+
+\desc{Created Shady Side's first student-led olympiad competition in 2025, drawing 20 registrations and 12 competing participants. Over eight months, I built and maintained the contest website, curated the problem set, and assembled the organizing team that handled logistics and 3D-printed the awards. I also designed a Problem of the Month page with full solutions and wrote a complete 25-problem mock AMC 12, and launched a Problem of the Month leaderboard in September 2026.}
+
+%Created Shady Side's first student-led olympiad mathematics competition, with 20 registered students and 12 competing participants. Over eight months, I constructed and maintained the website, curated the problems, and selected students comprising the SSAMO Team that organized the logistics and 3D-printed the awards to host the first-ever SSA-hosted mathematics olympiad. The past year I designed a Problem of the Month (POTM, with solutions) page and wrote a complete 25-problem mock AMC 12 with full solutions. This year, I added a POTM Leaderboard system (starting September 2026) with the intention of growing out the team by writing both the A, B tests of AMC 10/12 as well as AIME mocks and even USA(J)MO mocks.
+
+%\vspace{-0.45cm}
+
+\entry{Pittsburgh Chinese School \href{https://www.pittsburgh-chinese-school.org/}{(PCS)}, \textcolor{copper}{225 hours}}{Regional \ $\cdot$ \ 2024-present}
+
+%\vspace{-1.25em}
+
+%$ $ \hfill \dt{Regional \ $\cdot$ \ 2024-present}
+
+\desc{2-time recipient of the Gold Service Award. Served as teaching assistant for both language and cultural math classes, 3 hours weekly across the school year, leading classroom discussions and readings, and grading assignments and quizzes. MCed the 2024 Spring Gala and graduation ceremony, was Youth Leader in the annual picnic, and organized canned-goods donations for a local food bank drive.}
+
+%2-time recipient of the Gold service award. Volunteered as a Language Teaching Assistant and the Cultural Math Class Teaching Assistant for 3 hours each week over the course of a regular school year. Helped grade homeworks, quizzes, and led classroom discussions and readings. Also MCed the Spring Gala Festival as well as the Graduating Ceremony in 2024. Finally, in conjunction with the Food Bank, organized and categorized canned-goods donations inside the Chinese School.
+
+%\vspace{-0.45cm}
+
+\entry{\href{https://www.davincimath.com/}{da Vinci Math} Tutor \& Teaching Assistant (TA), \textcolor{copper}{20 hours}}{National \ $\cdot$ \ 2023-25}
+
+%\vspace{-1.25em}
+
+%$ $\hfill \dt{National \ $\cdot$ \ 2023-25}
+
+\desc{\href{https://www.davincimath.com/}{da Vinci Math} is an online competition mathematics school serving students from all around the country. I led the weekly recitation and homework discussion, roughly an hour each week, being the TA for Introduction to Counting and Probability in 2023-24 and AP Calculus BC in 2024-25.}
+%taught by Dr.\ Shi, who has coached me in competition math since sixth grade. 
+%running a course ladder from pre-algebra through AMC 10/12, AIME, and USAMO preparation, 
+
+%\desc{Served as a teaching assistant during the 2024-25 school year, leading the weekly recitation lectures and homework discussion, for around 1 hour each week. Helped students navigate through challenging coursework in the AP Calculus BC class.}
+
+%\vspace{-0.45cm}
+
+\entry{Greater Pittsburgh Community \href{https://pittsburghfoodbank.org/}{Food Bank}, \textcolor{copper}{9 hours}}{Regional \ $\cdot$ \ Summer 2025}
+
+%\vspace{-1.25em}
+
+%$ $\hfill \dt{Regional \ $\cdot$ \ summer 2025}
+
+Distributed food, fresh produce, and supplies to families facing food insecurity at local sites.
+%Helped local food banks to serve the homeless and/or those in need of food, fresh produce, and supplies.
+
+%Over the course of 3 years, volunteered for the Greater Pittsburgh Community Food Bank, in conjunction with the Pittsburgh Chinese School for over 100+ hours. One weekend every two weeks, I headed down to local food banks to serve the homeless and/or those in need of food, fresh produce, and supplies.
+
+
+
+
+
+\end{document}

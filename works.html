@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>document.documentElement.className += ' js';</script>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Research — Alexander B. Chen</title>
+<meta name="description" content="Research and manuscripts by Alexander B. Chen: Anderson localization, a sharp Nesbitt generalization, acute triangulation, the isoperimetric polygon, and modeling work." />
+<meta name="theme-color" content="#f6f7f4" />
+<link rel="icon" href="favicon.ico" sizes="32x32" />
+<link rel="icon" href="favicon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="apple-touch-icon.png" />
+<link rel="manifest" href="manifest.webmanifest" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;1,400&family=STIX+Two+Text:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="style.css" />
+<style>
+  /* contents panel in the hero side column */
+  .hero-toc{ border-top:2px solid var(--redrule); padding-top:.7rem; }
+  .hero-toc-h{ font-family:var(--mono); font-size:.68rem; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--muted); margin:0 0 .6rem; }
+  .hero-toc-list{ list-style:none; padding:0; margin:0; }
+  .hero-toc-list li{ display:flex; gap:.55rem; align-items:baseline; padding:.34rem 0;
+    border-top:1px solid var(--rule); }
+  .hero-toc-list li:first-child{ border-top:none; }
+  .hero-toc-list .n{ font-family:var(--mono); font-size:.68rem; color:var(--muted); flex:none; min-width:1.15rem; }
+  .hero-toc-list a{ font-family:var(--serif); font-size:.98rem; color:var(--ink); text-decoration:none;
+    border-bottom:1px solid transparent; }
+  .hero-toc-list a:hover{ color:var(--accent); border-bottom-color:var(--accent); }
+  .hero-toc-foot{ font-family:var(--mono); font-size:.66rem; line-height:1.6; color:var(--muted);
+    margin:.85rem 0 0; padding-top:.6rem; border-top:1px solid var(--rule); }
+  .hero-toc-foot a{ color:var(--accent); text-decoration:none; }
+  .hero-toc-foot a:hover{ text-decoration:underline; }
+  /* Publications disclosure (works page) */
+  details.pubs{ border-top:1px solid var(--rule); padding-top:.55rem; }
+  details.pubs > summary{
+    list-style:none; cursor:pointer; display:inline-flex; align-items:center; gap:.55rem;
+    font-family:var(--mono); font-size:.7rem; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--accent); padding:.15rem 0;
+  }
+  details.pubs > summary::-webkit-details-marker{ display:none; }
+  details.pubs > summary::before{
+    content:""; flex:none; width:0; height:0;
+    border-left:5px solid currentColor; border-top:4px solid transparent; border-bottom:4px solid transparent;
+    transition:transform .18s ease;
+  }
+  details.pubs[open] > summary::before{ transform:rotate(90deg); }
+  details.pubs .count{ font-size:.66rem; letter-spacing:.06em; color:var(--muted); }
+  .pubs-body{ margin:.65rem 0 .3rem; display:grid; gap:1.4rem; }
+  .pubs-item{ font-family:var(--serif); font-size:1rem; line-height:1.5; color:var(--ink);
+    padding-left:1.05rem; border-left:2px solid var(--redrule); }
+  .pubs-item .cite-title{  }
+  .pubs-item .cite-meta{ color:var(--muted); }
+  .pubs-links{ margin-top:.45rem; display:flex; flex-wrap:wrap; gap:.4rem; }
+  /* link out to the standalone publications page */
+  .pubs-more{ margin:1.1rem 0 0; padding-top:.6rem; border-top:1px solid var(--rule);
+    font-family:var(--mono); font-size:.7rem; letter-spacing:.12em; text-transform:uppercase; }
+  .pubs-more a{ color:var(--accent); text-decoration:none; border-bottom:1px solid transparent; }
+  .pubs-more a:hover{ border-bottom-color:var(--accent); }
+  /* right-flush venue (journal) on a citation line */
+  .cite-row{ display:flex; justify-content:space-between; align-items:baseline; gap:1.75rem; }
+  .cite-row > .cite-text{ min-width:0; }
+  .cite-row > .venue{ flex:none; white-space:nowrap; }
+  @media (max-width:640px){
+    .cite-row{ display:block; }
+    .cite-row > .venue{ display:block; text-align:right; margin-top:.3rem; white-space:normal; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav" aria-label="Sections">
+  <div class="wrap">
+    <a class="nav-name" href="index.html">Alexander B. Chen<span class="sec-sign"> -- '27</span></a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="works.html" class="active">Research</a>
+      <a href="expository.html">Expositories</a>
+      <a href="olympiads.html">Olympiads</a>
+      <a href="interests.html">Interests</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ===================== HERO ===================== -->
+<header id="top" class="band hero hero--tight">
+  <div class="wrap">
+    <div class="hero-inner">
+      <div class="hero-grid">
+        <div class="hero-main">
+          <p class="eyebrow">Research Experience</p>
+          <h1 class="title">Research</h1>
+          <p class="subtitle">Publications, manuscripts, and independent projects.</p>
+          <p class="abstract">
+            <span class="abs-label">On this page.</span><span>Over the course of the past 6-7 years, I'd like to say I've significantly improved my ability in writing something <i>up</i>. I've learned a ton about \(\LaTeX\) and the iPe extensive drawing editor, and I've put them to good use.
+
+            <span style="display: block; margin-top: 1em;"></span>
+
+            Growing up doing mostly olympiad mathematics, I've naturally grown used to problems with a definite answer -- whether it be proving a result known to be true or solving a numerical problem. But the beauty of this page lies in the mathematical unknown. Many of the things I do today, from research to lecture notes to teaching, have no "right way" of doing it. 
+
+            <span style="display: block; margin-top: 1em;"></span>
+
+            But I still end up doing it anyway -- and not just doing it, but I truly <i>enjoy</i> doing it. In fact, I'd gladly let it take up most of my day.</span>
+          </p>
+        </div>
+        <div class="hero-side">
+          <span style="display: block; margin-top: 9.5em;"></span>
+          <nav class="hero-toc" aria-label="Contents">
+            <p class="hero-toc-h">Contents</p>
+            <ul class="hero-toc-list">
+              <li><span class="n">1.</span><a href="#publications">Publications</a></li>
+              <li><span class="n">2.</span><a href="#independent">Independent projects</a></li>
+              <li><span class="n">3.</span><a href="#anderson">Current research - Anderson Localization</a></li>
+              <li><span class="n">4.</span><a href="#nesbitt">Current projects - A Generalized Nesbitt's Inequality</a></li>
+              <li><span class="n">5.</span><a href="#modeling">Mathematical Modeling</a></li>
+            </ul>
+            <p class="hero-toc-foot">Aside from research publications, another type of project I'm interested in includes writing books, notes, and videos that are featured in <a href="expository.html">Expositories</a>.</p>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+<!-- ===================== PUBLICATIONS ===================== -->
+<section id="publications" class="band band--tint">
+  <div class="wrap"><div class="band-inner"><div class="sec-grid">
+    <div class="sec-aside">
+      <div class="sec-num">1.</div>
+      <h2 class="sec-h">Publications</h2>
+      <span class="sec-mark-rule" aria-hidden="true"></span>
+    </div>
+    <div class="sec-content">
+      <p class="subhead">Publications &middot; 1 accepted</p>
+      <p>A full list of publications.</p>
+      <!-- ===================== PUBLICATIONS ===================== -->
+      <div class="wrap pubs-wrap" id="publications">
+        <details class="pubs">
+          <summary>Publications <span class="count">(1)</span></summary>
+          <div class="pubs-body">
+            <div class="pubs-item">
+              <div class="cite-row">
+                <div class="cite-text"><span class="cite-title"><em>Measuring Localization in the One-Dimensional Anderson Model</em> (with E. Mei, N. Shaw, Y.M. Tang, S.V. Loaiza, X. Wang). Accepted to <b>Advances in Nonlinear Analysis</b> (2026).</div>
+              </div>
+              <div class="pubs-links"><a class="chip sm" href="#anderson">details &darr;</a> <a class="chip sm" href="https://drive.google.com/file/d/1TAHVKZBkKymMEy0KaXUgLcF5JeAeCWJZ/view?usp=sharing" target="_blank" rel="noopener">MathFest poster</a> <a class="chip sm" href="https://drive.google.com/file/d/1OpZ8SqfvBa6mnfmyrqRXpkrxVLEWobus/view?usp=sharing" target="_blank" rel="noopener">talk slides</a></div>
+            </div>
+          </div>
+        </details>
+        <span style="display: block; margin-top: 1.5em;"></span>
+        <details class="pubs">
+          <summary>Under Review <span class="count">(0)</span></summary>
+          <div class="pubs-body">
+            <div class="pubs-item">
+              <div class="cite-row">
+                <!-- <div class="cite-text"><span class="cite-title"><em>Measuring Localization in the One-Dimensional Anderson Model</em> (with E. Mei, N. Shaw, Y.M. Tang, S.V. Loaiza, X. Wang). Accepted to <b>Advances in Nonlinear Analysis</b> (2026).</div> -->
+              </div>
+              <!-- <div class="pubs-links"><a class="chip sm" href="#anderson">full write-up &darr;</a> <a class="chip sm" href="https://drive.google.com/file/d/1TAHVKZBkKymMEy0KaXUgLcF5JeAeCWJZ/view?usp=sharing" target="_blank" rel="noopener">MathFest poster</a> <a class="chip sm" href="https://drive.google.com/file/d/1OpZ8SqfvBa6mnfmyrqRXpkrxVLEWobus/view?usp=sharing" target="_blank" rel="noopener">talk slides</a></div>-->
+            </div>
+          </div>
+        </details>
+        <span style="display: block; margin-top: 1.5em;"></span>
+        <details class="pubs">
+          <summary>In Progress<span class="count">(0)</span></summary>
+          <div class="pubs-body">
+            <div class="pubs-item">
+              <div class="cite-row">
+                <!-- <div class="cite-text"><span class="cite-title"><em>Measuring Localization in the One-Dimensional Anderson Model</em> (with E. Mei, N. Shaw, Y.M. Tang, S.V. Loaiza, X. Wang). Accepted to <b>Advances in Nonlinear Analysis</b> (2026).</div> -->
+              </div>
+              <!-- <div class="pubs-links"><a class="chip sm" href="#anderson">full write-up &darr;</a> <a class="chip sm" href="https://drive.google.com/file/d/1TAHVKZBkKymMEy0KaXUgLcF5JeAeCWJZ/view?usp=sharing" target="_blank" rel="noopener">MathFest poster</a> <a class="chip sm" href="https://drive.google.com/file/d/1OpZ8SqfvBa6mnfmyrqRXpkrxVLEWobus/view?usp=sharing" target="_blank" rel="noopener">talk slides</a></div>-->
+            </div>
+          </div>
+        </details>
+      </div>
+      <span style="display: block; margin-top: 1.5em;"></span>
+      <p class="pubs-more"><a href="publications.html">Publications in detail &rarr;</a></p>
+    </div>
+  </div></div></div>
+</section>
+
+<!-- ===================== INDEPENDENT PROJECTS ===================== -->
+<section id="independent" class="band">
+  <div class="wrap"><div class="band-inner"><div class="sec-grid">
+    <div class="sec-aside">
+      <div class="sec-num">2.</div>
+      <h2 class="sec-h">Independent Projects</h2>
+      <span class="sec-mark-rule" aria-hidden="true"></span>
+    </div>
+    <div class="sec-content">
+      <p class="subhead">Independent projects &middot; 3 finished</p>
+      <p>Problems I picked up on my own, wrote up properly, and took through enough drafts to hand to someone else.</p>
+      <div class="wrap pubs-wrap" id="publications">
+        <details class="pubs">
+          <summary>Finished Work<span class="count">(3)</span></summary>
+          <div class="pubs-body">
+            <div class="pubs-item">
+              <div class="cite-row">
+                <div class="cite-text"><span class="cite-title"><em>A Sharp Piecewise Generalization of Nesbitt&rsquo;s Inequality.</em> solo manuscript (2026).</div>
+              </div>
+              <div class="pubs-links"><a class="chip sm" href="#nesbitt">details &darr;</a>
+              <a class="chip sm" href="https://drive.google.com/file/d/1Ca4lFZHIkeL6VFVME-FI2VKadyo1xivA/view?usp=sharing" target="_blank" rel="noopener">pdf</a></div>
+            </div>
+            <div class="pubs-item">
+              <div class="cite-row">
+                <div class="cite-text"><span class="cite-title"><em>Acute Triangulation of Obtuse Triangles: A Constructive Geometric Approach.</em> Solo manuscript (2025).</div>
+              </div>
+              <div class="pubs-links"><a class="chip sm" href="independent-projects.html#acute">details &rarr;</a> <a class="chip sm" href="https://drive.google.com/file/d/1H3XnFLM-tZh8SCuZA2xuFn6BFXyzZcwx/view?usp=sharing" target="_blank" rel="noopener">pdf</a></div>
+            </div>
+            <div class="pubs-item">
+              <div class="cite-row">
+                <div class="cite-text"><span class="cite-title"><em>Maximizing the Area of Polygons with Fixed Perimeter: The Regular Polygon.</em> Solo manuscript (2025).</div>
+              </div>
+              <div class="pubs-links"><a class="chip sm" href="independent-projects.html#isoperimetric">details &rarr;</a> <a class="chip sm" href="https://drive.google.com/file/d/1jCjif4cMT2TV-E3RGWGTWis-aqy2t5DA/view?usp=sharing" target="_blank" rel="noopener">pdf</a></div>
+            </div>
+          </div>
+        </details>
+        <span style="display: block; margin-top: 1.5em;"></span>
+        <details class="pubs">
+          <summary>Ongoing Projects<span class="count">(0)</span></summary>
+          <div class="pubs-body">
+            <div class="pubs-item">
+              <div class="cite-row">
+                <!-- <div class="cite-text"><span class="cite-title"><em>Measuring Localization in the One-Dimensional Anderson Model</em> (with E. Mei, N. Shaw, Y.M. Tang, S.V. Loaiza, X. Wang). Accepted to <b>Advances in Nonlinear Analysis</b> (2026).</div> -->
+              </div>
+              <!-- <div class="pubs-links"><a class="chip sm" href="#anderson">full write-up &darr;</a> <a class="chip sm" href="https://drive.google.com/file/d/1TAHVKZBkKymMEy0KaXUgLcF5JeAeCWJZ/view?usp=sharing" target="_blank" rel="noopener">MathFest poster</a> <a class="chip sm" href="https://drive.google.com/file/d/1OpZ8SqfvBa6mnfmyrqRXpkrxVLEWobus/view?usp=sharing" target="_blank" rel="noopener">talk slides</a></div>-->
+            </div>
+          </div>
+        </details>
+      </div>
+      <span style="display: block; margin-top: 1.5em;"></span>
+      <p class="pubs-more"><a href="independent-projects.html">Independent projects in detail &rarr;</a></p>
+    </div>
+  </div></div></div>
+</section>
+
+<!-- ===================== ANDERSON ===================== -->
+<section id="anderson" class="band band--tint">
+  <div class="wrap"><div class="band-inner"><div class="sec-grid">
+    <div class="sec-aside">
+      <div class="sec-num">3.</div>
+      <h2 class="sec-h">Current Research</h2>
+      <span class="sec-mark-rule" aria-hidden="true"></span>
+    </div>
+    <div class="sec-content">
+      <p class="subhead">Anderson Localization · Advances in Nonlinear Analysis</p>
+      <p><em>Measuring Localization in the One-Dimensional Anderson Model</em> (with E. Mei, N. Shaw, Y.M. Tang, S.V. Loaiza, X. Wang). Accepted to <b>Advances in Nonlinear Analysis</b> (2026).</p>
+      <hr>
+      <p>A quantum particle on the lattice \( \mathbb{Z} \) is governed by the discrete Schr&ouml;dinger operator \( H_\omega = \Delta + V_\omega \), with the potential \( V_\omega(n) \) drawn i.i.d. at each site. Turning on that disorder does something dramatic: eigenstates that would otherwise spread across the whole line become exponentially localized. This project answers the quantitative question, not just <em>that</em> states localize but <em>how fast</em>, and with what guaranteed error.</p>
+      <p>I work with the eigenfunction correlator \( Q(k) \), which controls transport, and estimate the localization rate from a finite-volume model. The main analytic statement is that the empirical mean of \( -\tfrac{1}{k}\log Q(k) \) concentrates around the true rate \( \gamma \) with a Hoeffding-type bound: for \( M \) disorder samples,</p>
+      \[ \mathbb{P}\!\left( \big|\hat\gamma_k - \gamma\big| \ge \varepsilon \right) \le 2\,e^{-c M \varepsilon^2}, \]
+      <p>so the sample size for a target accuracy is fixed in advance rather than hoped for afterward, and it is the sample count, not the lattice size, that sets the error.</p>
+      <figure class="fig">
+        <img src="img/bernoulli.png" width="1900" height="677" loading="lazy" alt="Two plots of the negative log correlator per site versus k for Bernoulli disorder at N=1500, settling near a rate of 0.0169." />
+        <figcaption>\( -\tfrac{1}{k}\log \mathbb{E}\,Q(k) \) for Bernoulli disorder, N&nbsp;=&nbsp;1500.</figcaption>
+      </figure>
+      <p>Numerically I estimate the rate across Bernoulli, discrete-uniform, and continuous-uniform disorder. The eigenproblem is tridiagonal, so I never build the dense matrix, and I parallelize over the independent disorder configurations to reach \( N = 1500 \) with enough samples for the error bars above. The singular Bernoulli case sits at the edge of the theory, and the Monte Carlo bound is exactly what keeps it honest.</p>
+      <p><a class="chip sm" href="https://drive.google.com/file/d/1TAHVKZBkKymMEy0KaXUgLcF5JeAeCWJZ/view?usp=sharing" target="_blank" rel="noopener">MathFest poster</a> <a class="chip sm" href="https://drive.google.com/file/d/1OpZ8SqfvBa6mnfmyrqRXpkrxVLEWobus/view?usp=sharing" target="_blank" rel="noopener">talk slides</a> <span class="chip sm dim">Advances in Nonlinear Analysis &middot; accepted</span></p>
+    </div>
+    <p class="pubs-more"><a href="publications.html">More publications &rarr;</a></p>
+  </div></div></div>
+</section>
+
+<!-- ===================== NESBITT ===================== -->
+<section id="nesbitt" class="band">
+  <div class="wrap"><div class="band-inner"><div class="sec-grid">
+    <div class="sec-aside">
+      <div class="sec-num">4.</div>
+      <h2 class="sec-h">Current Projects</h2>
+      <span class="sec-mark-rule" aria-hidden="true"></span>
+    </div>
+    <div class="sec-content">
+      <p class="subhead">Nesbitt, generalized · inequalities &amp; analysis</p>
+      <p><em>A Sharp Piecewise Generalization of Nesbitt&rsquo;s Inequality.</em> Solo manuscript (2026).</p>
+      <hr>
+      <p>Nesbitt&rsquo;s inequality says that for positive \( a,b,c \),</p>
+      \[ \frac{a}{b+c} + \frac{b}{c+a} + \frac{c}{a+b} \;\ge\; \frac{3}{2}, \]
+      <p>with equality at \( a=b=c \). Raise each term to a power, replacing the sum by \( \sum \left(\tfrac{a}{b+c}\right)^{\alpha} \), and ask what the sharp lower bound becomes as a function of \( \alpha \). The answer isn&rsquo;t one smooth formula: for small \( \alpha \) the symmetric point stays optimal, while past a threshold the extremum jumps to a boundary configuration. That threshold, a genuine phase transition in the sharp constant, lands exactly at</p>
+      \[ \alpha^\star = \log_2 \tfrac{3}{2} \approx 0.585. \]
+      <p>The paper establishes the sharp constant piecewise on each side of \( \alpha^\star \) and proves the crossover is where the two regimes meet. It&rsquo;s the result I&rsquo;m fondest of: an olympiad-flavored inequality that hides a clean transition once you let it vary.</p>
+      <p><a class="chip sm" href="https://drive.google.com/file/d/1Ca4lFZHIkeL6VFVME-FI2VKadyo1xivA/view?usp=sharing" target="_blank" rel="noopener">pdf</a></p>
+    </div>
+    <p class="pubs-more"><a href="publications.html">More projects &rarr;</a></p>
+  </div></div></div>
+</section>
+
+<!-- ===================== MODELING ===================== -->
+<section id="modeling" class="band band--tint">
+  <div class="wrap"><div class="band-inner"><div class="sec-grid">
+    <div class="sec-aside">
+      <div class="sec-num">5.</div>
+      <h2 class="sec-h">Mathematical Modeling</h2>
+      <span class="sec-mark-rule" aria-hidden="true"></span>
+    </div>
+    <div class="sec-content">
+      <p>Take something messy from the real world, decide what actually matters, and write down the smallest model that still behaves like the thing.</p>
+      <ul class="entries">
+        <li><strong>HiMCM.</strong> The <a href="https://www.contest.comap.com/highschool/contests/himcm/instructions.html" target="_blank" rel="noopener">High School Mathematical Contest in Modeling</a>, COMAP&rsquo;s international team contest, where up to four people take an open physical problem, design a model for it, and write the whole thing up as a research paper against the clock. Meritorious in 2025, Honorable Mention in 2024. <span class="tag">contest · 2024&ndash;25</span>
+          <ul class="sub">
+            <li><span class="yr">2024, Problem A.</span> A decision-tree expert system that sorts sports into families and scores each on popularity (Olympic YouTube view counts), accessibility, safety, and marketability, then recommends which ones the IOC should add or cut for the 2032 Brisbane Games. We generated the weighted inputs with Monte Carlo in Python and projected the fast-rising sports with logistic-growth curves. <a class="chip sm" href="https://drive.google.com/file/d/1yZSkJLbzX3YiFnF07ruonkP32KPWLvro/view?usp=sharing" target="_blank" rel="noopener">pdf</a></li>
+            <li><span class="yr">2025, Problem B.</span> A Pressure-State-Response model ranking Super Bowl host cities by environmental footprint, which put Tampa on top as the most sustainable. I led the data side: ARIMA for emissions forecasting, AHP-CRITIC for weighting, TOPSIS for the ranking, and MICE with random-forest imputation for the missing indicators, then generalized the method to NBA All-Star Weekend. <a class="chip sm" href="https://drive.google.com/file/d/1XI2BHCVpS4T-9Frp54UZE2bwBmct69Z1/view?usp=sharing" target="_blank" rel="noopener">pdf</a></li>
+          </ul>
+        </li>
+        <li><em>A Mathematical Model of Roller Coaster Thrill.</em> With Tina Xia. Reads a track as a height function \( y=f(x) \), scores each drop by its steepest descent angle times its height, and adds a fixed thrill value per inversion. <span class="tag">modeling</span> <a class="chip sm" href="https://drive.google.com/file/d/1U2DgjWQLa4yTrQhB4-QZa0b013kn7_W4/view?usp=sharing" target="_blank" rel="noopener">pdf</a></li>
+        <li><em>The Economic Effects of Trump&rsquo;s Recent Tariffs.</em> With Tina Xia. A partial-equilibrium model of the 2025 tariffs across steel, autos, and consumer goods, calibrated to Census trade data, landing near a 0.7% GDP loss. <span class="tag">modeling</span> <a class="chip sm" href="https://drive.google.com/file/d/1OY8HHKWldFAg9E9uZfIo84IkB9RSiqvZ/view?usp=sharing" target="_blank" rel="noopener">pdf</a></li>
+        <li><em>Quantifying Sudoku Puzzle Difficulty.</em> A difficulty score from clue count, candidate ambiguity per cell, and the hardest solving technique required, checked against standard easy-to-expert labels. <span class="tag">model</span> <a class="chip sm" href="https://drive.google.com/file/d/10tbAXjIa_DO4714s2f7qNDq1_Y6uTBwi/view?usp=sharing" target="_blank" rel="noopener">pdf</a></li>
+      </ul>
+    </div>
+  </div></div></div>
+</section>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="site-footer-inner">
+      <div class="lft">&copy; 2026 Alex Chen</div>
+      <div class="mid"><a href="https://alexanderbchen.github.io/index.html" target="_blank" rel="noopener">Alexander B. Chen</a> · <a href="mailto:alexbchen999@gmail.com">alexbchen999@gmail.com</a></div>
+      <div class="rgt"><a href="https://a-b-chen.github.io/alexanderbchen/" target="_blank" rel="noopener">a-b-chen.github.io/alexanderbchen</a></div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="app.js"></script>
+</body>
+</html>

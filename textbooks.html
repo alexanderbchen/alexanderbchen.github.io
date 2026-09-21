@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>document.documentElement.className += ' js';</script>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Textbooks &amp; Notes — Alexander B. Chen</title>
+<meta name="description" content="Textbooks and course notes by Alexander B. Chen: the ARC series, a multivariable calculus book, an abstract algebra course, PDE notes, set theory, and fractal geometry." />
+<meta name="theme-color" content="#f6f7f4" />
+<link rel="icon" href="favicon.ico" sizes="32x32" />
+<link rel="icon" href="favicon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="apple-touch-icon.png" />
+<link rel="manifest" href="manifest.webmanifest" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;1,400&family=STIX+Two+Text:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="style.css" />
+<style>
+  /* cross-link out to a sibling page */
+  .pubs-more{ margin:3rem 0 0; padding-top:1rem; border-top:1px solid var(--rule);
+    font-family:var(--mono); font-size:.7rem; letter-spacing:.12em; text-transform:uppercase; }
+  /* second group label in the contents panel */
+  .toc-list + .toc-h{ margin-top:1.05rem; }
+  .pubs-more a{ color:var(--accent); text-decoration:none; border-bottom:1px solid transparent; }
+  .pubs-more a:hover{ border-bottom-color:var(--accent); }
+</style>
+</head>
+<body>
+
+<nav class="nav" aria-label="Sections">
+  <div class="wrap">
+    <a class="nav-name" href="index.html">Alexander B. Chen<span class="sec-sign"> -- '27</span></a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="works.html">Research</a>
+      <a href="expository.html" class="active">Expositories</a>
+      <a href="olympiads.html">Olympiads</a>
+      <a href="interests.html">Interests</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ===================== HERO ===================== -->
+<header id="top" class="band hero hero--page">
+  <div class="wrap">
+    <div class="hero-inner">
+      <p class="eyebrow"><a href="expository.html#expository" style="color:var(--accent);text-decoration:none;">&larr; Expositories</a></p>
+      <h1 class="title">Textbooks &amp; Notes</h1>
+      <p class="standfirst">Details about the books and course material I&rsquo;ve written</p>
+    </div>
+  </div>
+</header>
+
+<!-- ===================== CONTENTS ===================== -->
+<div class="wrap toc-wrap">
+  <nav class="toc" aria-label="Contents">
+    <p class="toc-h">Textbooks</p>
+    <ul class="toc-list">
+      <li><span class="n">1.</span><a href="#arc">ARC</a></li>
+      <li><span class="n">2.</span><a href="#calc3">Multivariable calculus</a></li>
+    </ul>
+    <p class="toc-h">Notes</p>
+    <ul class="toc-list grid-2">
+      <li><span class="n">3.</span><a href="#algebra">Abstract algebra &amp; number theory</a></li>
+      <li><span class="n">4.</span><a href="#pde">Partial differential equations</a></li>
+      <li><span class="n">5.</span><a href="#settheory">Set theory</a></li>
+      <li><span class="n">6.</span><a href="#fractals">Fractal geometry &amp; chaos</a></li>
+    </ul>
+  </nav>
+</div>
+
+<span style="display: block; margin-top: 2em;"></span>
+
+<!-- ===================== ARC ===================== -->
+<section id="arc" class="band band--tint">
+  <div class="wrap"><div class="band-inner"><div class="sec-grid">
+    <div class="sec-aside">
+      <div class="sec-num">1.</div>
+      <h2 class="sec-h">ARC</h2>
+      <span class="sec-mark-rule" aria-hidden="true"></span>
+    </div>
+    <div class="sec-content">
+      <p class="subhead">ARC &middot; competition mathematics</p>
+      <p><em>ARC: AIME Roadmap &amp; Curricula</em> (with Ryan Gong); completed Combinatorics volume (2026-present).</p>
+      <hr>
+      <p>ARC is the book we wanted when we were starting out: a path from the end of the school curriculum to the AIME that treats the reader as someone who wants to understand a technique rather than memorize a list of them. Each chapter builds one tool, shows where it came from, and then hands over problems chosen to fail in instructive ways.</p>
+      <p>The combinatorics volume is finished at 573 pages, running from counting principles through inclusion&ndash;exclusion, expected value, generating functions, and proof technique. Number theory and algebra are in progress, with geometry planned to close the series. It is the project I expect to still be working on when I graduate.</p>
+      <div class="gallery">
+        <figure><img src="img/titlepage.png" width="707" height="1000" loading="lazy" alt="The ARC series title page: a compass-and-circles geometry figure with formulas set into the diagram." /><figcaption>The series title page.</figcaption></figure>
+        <figure><img src="img/combi.png" width="707" height="1000" loading="lazy" alt="The ARC combinatorics volume cover, the same figure overlaid with the word Combinatorics." /><figcaption>The combinatorics volume.</figcaption></figure>
+      </div>
+      <p><a class="chip sm" href="https://drive.google.com/file/d/14A-oxgwPII438xd9MjiBf7Wo_FjZIBlZ/view?usp=sharing" target="_blank" rel="noopener">combinatorics pdf</a> <a class="chip sm" href="https://drive.google.com/drive/folders/1r_W_rcSNr5aO2rfgV_lvlJTAHKZkOKyN?usp=sharing" target="_blank" rel="noopener">series folder</a></p>
+    </div>
+  </div></div></div>
+</section>
+
+<!-- ===================== CALC 3 ===================== -->
+<section id="calc3" class="band">
+  <div class="wrap"><div class="band-inner"><div class="sec-grid">
+    <div class="sec-aside">
+      <div class="sec-num">2.</div>
+      <h2 class="sec-h">Multivariable calculus</h2>
+      <span class="sec-mark-rule" aria-hidden="true"></span>
+    </div>
+    <div class="sec-content">
+      <p class="subhead">Textbook &middot; multivariable calculus</p>
+      <p><em>A Multivariable Calculus Textbook.</em> Solo, written sophomore year.</p>
+      <hr>
+      <p>This one started as a joke. My advisor, after listening to me complain about our textbook, asked why I didn&rsquo;t write one myself. Three hundred and sixty pages later, the school teaches from it.</p>
+      <p>The book takes the standard sequence but spends most of its length where students actually get stuck: double and triple integrals, changing coordinates, and the bookkeeping of setting up a region correctly in the first place. Writing it is where I learned that an explanation which satisfies me is not the same thing as one that works for a reader.</p>
+      <figure><img src="img/multi.png" width="400" height="575" loading="lazy" alt="The cover of the multivariable calculus textbook, set over a grayscale fractal spiral." /><figcaption>Multivariable Calculus book: August to June of 2024-25.</figcaption></figure>
+      <p><a class="chip sm" href="https://drive.google.com/file/d/14erpD4iBdTqWrkAp4FkGKjTiEO3C7mgQ/view?usp=sharing" target="_blank" rel="noopener">pdf</a> <span class="chip sm dim">in use at SSA</span></p>
+    </div>
+  </div></div></div>
+</section>
+
+<!-- ===================== ALGEBRA COURSE ===================== -->
+<section id="algebra" class="band band--tint">
+  <div class="wrap"><div class="band-inner"><div class="sec-grid">
+    <div class="sec-aside">
+      <div class="sec-num">3.</div>
+      <h2 class="sec-h">Abstract algebra &amp; number theory</h2>
+      <span class="sec-mark-rule" aria-hidden="true"></span>
+    </div>
+    <div class="sec-content">
+      <p class="subhead">Abstract algebra &amp; number theory &middot; Math Team, 2026&ndash;27</p>
+      <p><em>An Abstract Algebra &amp; Number Theory Course,</em> written and taught at club meetings.</p>
+      <p>A course I wrote and now teach, modeled on how Ross does it: start from the order and ring axioms, prove the things everyone assumes, and let the interesting theorems arrive as consequences rather than announcements. These are real lecture notes with problem sets behind them, not slides.</p>
+      <p>Each lecture ships with a matching homework set, and a few results are posed as prove-or-disprove-and-salvage rather than stated outright, which is the part students find most annoying and learn the most from.</p>
+      <p><a class="chip sm" href="https://drive.google.com/drive/folders/1TzajzytMm9_KOFgID2fVpZQm4fgK2Vyj?usp=sharing" target="_blank" rel="noopener">lectures &amp; homework</a> <span class="chip sm dim">ongoing</span></p>
+    </div>
+  </div></div></div>
+</section>
+
+<!-- ===================== PDE ===================== -->
+<section id="pde" class="band">
+  <div class="wrap"><div class="band-inner"><div class="sec-grid">
+    <div class="sec-aside">
+      <div class="sec-num">4.</div>
+      <h2 class="sec-h">Partial differential equations</h2>
+      <span class="sec-mark-rule" aria-hidden="true"></span>
+    </div>
+    <div class="sec-content">
+      <p class="subhead">Partial differential equations &middot; University of Pittsburgh</p>
+      <p><em>PDE Lecture Notes,</em> typed alongside the UPitt course.</p>
+      <hr>
+      <p>Notes I keep for my own PDE course at Pitt, typed as the lectures happen and cleaned up afterward, with the derivations written out at the length I need them rather than the length a textbook allots. Homework solutions live in the same folder.</p>
+      <p><a class="chip sm" href="https://drive.google.com/drive/folders/1mnvM3ybdQNb9YjbQifzMkVz-eU6ssunP?usp=sharing" target="_blank" rel="noopener">notes folder</a> <span class="chip sm dim">ongoing</span></p>
+    </div>
+  </div></div></div>
+</section>
+
+<!-- ===================== SET THEORY ===================== -->
+<section id="settheory" class="band band--tint">
+  <div class="wrap"><div class="band-inner"><div class="sec-grid">
+    <div class="sec-aside">
+      <div class="sec-num">5.</div>
+      <h2 class="sec-h">Set theory</h2>
+      <span class="sec-mark-rule" aria-hidden="true"></span>
+    </div>
+    <div class="sec-content">
+      <p class="subhead">Course projects &middot; foundations</p>
+      <p><em>Set Theory Projects,</em> from the axioms through ordinals and cardinals.</p>
+      <hr>
+      <p>A sequence of projects from a set theory course, starting at the axioms and working up through order types, ordinals, and cardinal arithmetic. It is the closest thing on this page to pure foundations, and the first place I had to be careful about the difference between a definition and a claim.</p>
+      <p><a class="chip sm" href="https://drive.google.com/drive/folders/1tErktvqccqgccbKjz-OM4w-WpLTGF2ul?usp=sharing" target="_blank" rel="noopener">projects folder</a></p>
+    </div>
+  </div></div></div>
+</section>
+
+<!-- ===================== FRACTALS ===================== -->
+<section id="fractals" class="band">
+  <div class="wrap"><div class="band-inner"><div class="sec-grid">
+    <div class="sec-aside">
+      <div class="sec-num">6.</div>
+      <h2 class="sec-h">Fractal geometry &amp; chaos</h2>
+      <span class="sec-mark-rule" aria-hidden="true"></span>
+    </div>
+    <div class="sec-content">
+      <p class="subhead">Course projects &middot; notes and code</p>
+      <p><em>Fractal Geometry &amp; Chaos Theory,</em> a project sequence.</p>
+      <hr>
+      <p>Iterated function systems, the Heighway dragon, the Mandelbrot set, and Julia sets, worked through as a sequence of written projects with the pictures generated rather than borrowed. The later projects prove the escape-radius bound and argue about what quasi-self-similarity actually means, which is more interesting than rendering pretty images and considerably harder.</p>
+      <p><a class="chip sm" href="https://drive.google.com/drive/folders/1I8aH29_7IVlmoSVN3RyZNq_jhfpK6yOo?usp=sharing" target="_blank" rel="noopener">projects folder</a></p>
+      <p class="pubs-more"><a href="projects.html">Projects &amp; writings &rarr;</a></p>
+    </div>
+  </div></div></div>
+</section>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="site-footer-inner">
+      <div class="lft">&copy; 2026 Alex Chen</div>
+      <div class="mid"><a href="https://alexanderbchen.github.io/index.html" target="_blank" rel="noopener">Alexander B. Chen</a> · <a href="mailto:alexbchen999@gmail.com">alexbchen999@gmail.com</a></div>
+      <div class="rgt"><a href="https://a-b-chen.github.io/alexanderbchen/" target="_blank" rel="noopener">a-b-chen.github.io/alexanderbchen</a></div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="app.js"></script>
+</body>
+</html>
