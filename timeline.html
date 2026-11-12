@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>document.documentElement.className += ' js';</script>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Timeline — Alexander B. Chen</title>
+<meta name="description" content="Thirteen years as a magician's memorized deck: fifty-two cards in four suits, a cascade turnover, and eight perfect shuffles that bring every year home." />
+<meta name="theme-color" content="#f6f7f4" />
+<link rel="icon" href="favicon.ico" sizes="32x32" />
+<link rel="icon" href="favicon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="apple-touch-icon.png" />
+<link rel="manifest" href="manifest.webmanifest" />
+<meta property="og:title" content="The memorized deck — Alexander B. Chen" />
+<meta property="og:description" content="Fifty-two cards, thirteen years, four suits, and every card exactly where I left it." />
+<meta property="og:type" content="website" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;1,400&family=STIX+Two+Text:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
+<style>
+  :root{ --felt1:#2d6a4f; --felt2:#215239; --felt3:#173b2a; --gold:#d9b45a; --gold-hi:#f2d27a; --cream:#fffdf7; --cardred:#b23b2e; }
+
+  /* ===================== the stage ===================== */
+  .stage{ position:relative; overflow:hidden; color:#ece6d3; border-top:1px solid #143224;
+    background:
+      radial-gradient(62% 55% at 50% 30%, rgba(255,236,190,.13), transparent 72%),
+      radial-gradient(130% 110% at 50% 0%, var(--felt1) 0%, var(--felt2) 52%, var(--felt3) 100%); }
+  .stage .band-inner{ padding:4.2rem 0 3.6rem; }
+  .valance{ position:absolute; z-index:7; left:0; right:0; top:0; height:30px; pointer-events:none;
+    background:
+      radial-gradient(circle at 50% 0, #232d6d 17px, rgba(0,0,0,0) 18px) 0 6px / 36px 26px repeat-x,
+      linear-gradient(#141a45, #1d2560) 0 0 / 100% 10px no-repeat;
+    filter:drop-shadow(0 4px 4px rgba(0,0,0,.35)); }
+  .valance::after{ content:""; position:absolute; left:0; right:0; top:9px; height:2px; background:var(--gold); opacity:.85; }
+  .curtain{ position:absolute; z-index:6; top:0; bottom:0; width:51%; pointer-events:none;
+    background:repeating-linear-gradient(90deg, #121841 0, #232d6d 16px, #34419a 24px, #232d6d 32px, #121841 48px);
+    box-shadow:inset 0 -60px 80px rgba(0,0,0,.35);
+    transition:transform 1.8s cubic-bezier(.7,0,.25,1); }
+  .curtain.l{ left:0; } .curtain.r{ right:0; }
+  .curtain::after{ content:""; position:absolute; bottom:0; left:0; right:0; height:6px; background:var(--gold); opacity:.7; }
+  .stage.open .curtain.l{ transform:translateX(-102%); }
+  .stage.open .curtain.r{ transform:translateX(102%); }
+  html:not(.js) .curtain{ display:none; }
+
+  .stage-head{ display:flex; align-items:baseline; gap:.7rem; margin:0 0 .35rem; }
+  .stage-head .sec-num{ color:var(--gold); }
+  .stage-head .sec-h{ color:#f7f2e3; margin:0; }
+  .stage-note{ color:#e6dfca; max-width:44rem; margin:.25rem 0 1.1rem; }
+  .stage a{ color:#f7f2e3; text-decoration-color:rgba(247,242,227,.45); }
+  .stage :focus-visible{ outline-color:var(--gold-hi); }
+
+  .ctl{ display:flex; flex-wrap:wrap; align-items:center; gap:.5rem .6rem; margin:0 0 .6rem; }
+  .tbtn{ font-family:var(--mono); font-size:.74rem; letter-spacing:.02em; padding:.5rem .85rem; border-radius:3px; cursor:pointer;
+    border:1px solid var(--gold); background:var(--gold); color:#1d2b22; transition:background .15s ease; }
+  .tbtn:hover:not(:disabled){ background:#e8c66d; }
+  .tbtn.ghost{ background:transparent; color:#f2e9cf; border-color:rgba(242,233,207,.5); }
+  .tbtn.ghost:hover:not(:disabled){ background:rgba(242,233,207,.1); }
+  .tbtn:disabled{ opacity:.45; cursor:default; }
+  .suits{ display:inline-flex; border:1px solid rgba(242,233,207,.42); border-radius:3px; overflow:hidden; }
+  .suits button{ font-family:var(--mono); font-size:.7rem; padding:.48rem .62rem; background:transparent; color:#f2e9cf; border:0; cursor:pointer; }
+  .suits button + button{ border-left:1px solid rgba(242,233,207,.3); }
+  .suits button[aria-pressed="true"]{ background:#f2e9cf; color:#1d2b22; }
+  .faro-n{ font-family:var(--mono); font-size:.72rem; color:var(--gold-hi); min-height:1.2em; margin:.2rem 0 0; }
+
+  /* ===================== the spread ===================== */
+  .table-scroll{ overflow-x:auto; overflow-y:hidden; margin:0 -.2rem; padding:1.9rem .2rem .4rem; scrollbar-width:thin; }
+  .table{ position:relative; height:152px; }
+  .c{ position:absolute; left:0; top:0; width:66px; height:92px; padding:0; border:0; background:none; cursor:pointer; perspective:620px;
+    transform:translate3d(var(--x,0px), calc(var(--y,0px) + var(--lift,0px)), 0) rotate(var(--r,0deg));
+    transition:transform .6s cubic-bezier(.3,.7,.2,1), opacity .3s ease; }
+  .c:hover, .c:focus-visible{ --lift:-17px; z-index:300 !important; outline:none; }
+  .c:focus-visible .c-in{ box-shadow:0 0 0 2px var(--gold-hi); border-radius:7px; }
+  .c.sel{ --lift:-24px; z-index:310 !important; }
+  .c.dim{ opacity:.22; }
+  .c-in{ position:absolute; inset:0; transform-style:preserve-3d; transition:transform .5s cubic-bezier(.3,.7,.2,1); }
+  .c.up .c-in{ transform:rotateY(180deg); }
+  .c-back, .c-face{ position:absolute; inset:0; border-radius:6px; -webkit-backface-visibility:hidden; backface-visibility:hidden;
+    box-shadow:0 1px 0 rgba(0,0,0,.35), 0 7px 12px -8px rgba(0,0,0,.85); }
+  .c-back, .bc.back{ background:
+      radial-gradient(circle at 50% 50%, var(--cream) 0 8px, #2e3a8c 8.5px 10px, rgba(0,0,0,0) 10.5px),
+      repeating-linear-gradient(45deg, rgba(255,253,247,.16) 0 1px, rgba(0,0,0,0) 1px 6px),
+      repeating-linear-gradient(-45deg, rgba(255,253,247,.16) 0 1px, rgba(0,0,0,0) 1px 6px),
+      #2e3a8c;
+    border:3px solid var(--cream); }
+  .c.sel .c-back{ box-shadow:0 0 0 2px var(--gold-hi), 0 10px 18px -8px rgba(0,0,0,.9); }
+  .c-face{ background:var(--cream); color:#1a1b18; transform:rotateY(180deg); overflow:hidden; }
+  .c.sel .c-face{ box-shadow:0 0 0 2px var(--gold-hi), 0 10px 18px -8px rgba(0,0,0,.9); }
+  .c-face.red{ color:var(--cardred); }
+  .c-face .ix{ position:absolute; left:3px; top:4px; width:13px; font-family:var(--serif); font-weight:600; font-size:13px; line-height:1; text-align:center; }
+  .c-face .ix small{ display:block; font-size:11px; font-weight:400; margin-top:1px; }
+  .c-face .yr{ position:absolute; left:4px; top:35px; font-family:var(--mono); font-size:8.5px; letter-spacing:.05em; color:#6b6d60;
+    writing-mode:vertical-rl; transform:rotate(180deg); white-space:nowrap; }
+  .c-face .pip{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:30px; }
+  .c-face.joker .ix{ font-size:7.5px; letter-spacing:.02em; writing-mode:vertical-rl; text-orientation:upright; width:auto; left:4px; }
+  .c-face.blank{ background:repeating-linear-gradient(0deg, rgba(0,0,0,0) 0 9px, rgba(26,27,24,.05) 9px 10px), var(--cream); }
+  .c-face.blank::after{ content:""; position:absolute; inset:6px; border:1px dashed rgba(26,27,24,.25); border-radius:3px; }
+  .ruler{ position:absolute; left:0; right:0; top:118px; height:30px; transition:opacity .35s ease; }
+  .ruler.off{ opacity:0; }
+  .ruler span{ position:absolute; font-family:var(--mono); font-size:10px; color:var(--gold-hi); white-space:nowrap; }
+  .ruler span::before{ content:""; position:absolute; left:0; top:-7px; width:1px; height:5px; background:var(--gold); opacity:.8; }
+  .ruler .row2{ top:13px; }
+
+  /* ===================== the spotlight ===================== */
+  .spot{ display:grid; grid-template-columns:auto minmax(0,1fr); gap:2.4rem; align-items:center; margin-top:1.2rem; padding:1.6rem 1.7rem;
+    border:1px dashed rgba(242,233,207,.28); border-radius:.8rem;
+    background:radial-gradient(48% 90% at 18% 50%, rgba(255,236,190,.17), rgba(0,0,0,0) 72%); }
+  .spot-card{ perspective:900px; min-width:14.4em; }
+  .bc-deal{ animation:deal .6s cubic-bezier(.3,.7,.2,1) both; transform-origin:50% 60%; }
+  @keyframes deal{ from{ opacity:0; transform:translateY(-20px) rotateY(85deg) scale(.92); } to{ opacity:1; transform:none; } }
+  .sp-meta{ font-family:var(--mono); font-size:.72rem; color:var(--gold-hi); margin:0 0 .55rem; letter-spacing:.02em; }
+  .sp-t{ font-family:var(--serif); font-style:italic; font-weight:500; font-size:clamp(1.5rem, 3vw, 2.15rem); line-height:1.14; color:#fbf6e6; margin:0 0 .75rem; }
+  .sp-x{ font-size:1.12rem; line-height:1.62; color:#ece6d3; margin:0 0 .9rem; max-width:36rem; }
+  .sp-link{ font-family:var(--mono); font-size:.72rem; color:var(--gold-hi) !important; }
+  .sp-nav{ display:flex; gap:.5rem; flex-wrap:wrap; margin-top:1.15rem; }
+
+  /* the big card */
+  .bc{ font-size:16px; width:14.4em; height:20.1em; border-radius:.9em; background:var(--cream); color:#1a1b18; position:relative;
+    font-family:var(--serif); box-shadow:0 2px 0 rgba(0,0,0,.35), 0 26px 40px -22px rgba(0,0,0,.9); overflow:hidden; }
+  .bc.red{ color:var(--cardred); }
+  .bc-ix{ position:absolute; z-index:2; left:.48em; top:.4em; font-weight:600; font-size:1.62em; line-height:1; text-align:center; min-width:1em; }
+  .bc-ix small{ display:block; font-size:.85em; font-weight:400; margin-top:.05em; }
+  .bc-ix.b{ left:auto; top:auto; right:.48em; bottom:.4em; transform:rotate(180deg); }
+  .bc-pip{ position:absolute; font-size:1.9em; line-height:1; transform:translate(-50%,-50%); }
+  .bc-pip.inv{ transform:translate(-50%,-50%) rotate(180deg); }
+  .bc-ace{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:6.9em; line-height:1; }
+  .bc-court{ position:absolute; inset:3.2em 2.35em; border:1.5px solid currentColor; border-radius:.4em; outline:1px solid currentColor; outline-offset:3px;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:.1em; }
+  .bc-court b{ font-size:5.4em; font-style:italic; font-weight:500; line-height:.9; }
+  .bc-court i{ font-style:normal; font-size:2.1em; line-height:1; }
+  .bc-art{ position:absolute; inset:3.2em 2.15em; border-radius:.4em; overflow:hidden; background:#e9e6dc;
+    box-shadow:0 0 0 1.5px currentColor, 0 0 0 4px var(--cream), 0 0 0 5px currentColor; }
+  .bc-art img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .bc-jk{ position:absolute; left:.55em; top:.55em; font-weight:600; font-size:.95em; letter-spacing:.05em; writing-mode:vertical-rl; text-orientation:upright; }
+  .bc-jk.b{ left:auto; top:auto; right:.55em; bottom:.55em; transform:rotate(180deg); }
+  .bc-hat{ position:absolute; left:50%; top:50%; width:8.6em; height:8.6em; transform:translate(-50%,-50%); }
+  .bc.blank{ background:repeating-linear-gradient(0deg, rgba(0,0,0,0) 0 1.1em, rgba(26,27,24,.05) 1.1em 1.17em), var(--cream); }
+  .bc.blank::after{ content:""; position:absolute; inset:.8em; border:1px dashed rgba(26,27,24,.28); border-radius:.45em; }
+  .bc-blank-yr{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-style:italic; font-size:3.4em; color:rgba(26,27,24,.2); }
+  .bc-blank-note{ position:absolute; left:0; right:0; bottom:2.2em; text-align:center; font-family:var(--mono); font-size:.7em; letter-spacing:.06em; color:rgba(26,27,24,.42); }
+
+  /* ===================== paper sections ===================== */
+  .suit-p{ display:grid; grid-template-columns:2.6rem minmax(0,1fr); gap:0 .9rem; align-items:start; margin:0 0 1.15rem; }
+  .suit-p .g{ font-size:2.3rem; line-height:1; padding-top:.1rem; color:var(--ink); }
+  .suit-p .g.red{ color:var(--redrule); }
+  .suit-p p{ margin:0; }
+  .coda{ font-style:italic; font-size:1.14rem; margin-top:1.6rem !important; }
+  .eq{ font-family:var(--mono); font-size:.92rem; background:var(--abs-bg); border-left:3px solid var(--accent); padding:.7rem 1rem; border-radius:2px; display:block; margin:.2rem 0 1rem; }
+  .pair{ display:flex; flex-wrap:wrap; gap:1.6rem; margin:1.4rem 0 1.2rem; }
+  .pair figure{ margin:0; }
+  .pair figcaption{ margin-top:.6rem; text-align:center; }
+  .pair .bc, .solo-card .bc{ font-size:13px; }
+  .solo-card{ margin:1.2rem 0 .6rem; }
+  .hint{ font-family:var(--mono); font-size:.74rem; color:var(--muted); }
+
+  @media (max-width:760px){
+    .spot{ grid-template-columns:1fr; gap:1.3rem; padding:1.2rem 1rem; justify-items:center; text-align:left; }
+    .spot-text{ justify-self:stretch; }
+    .spot .bc{ font-size:13.5px; }
+  }
+  @media (prefers-reduced-motion:reduce){
+    .curtain{ display:none; }
+    .c, .c-in{ transition:none; }
+    .bc-deal{ animation:none; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav" aria-label="Sections">
+  <div class="wrap">
+    <a class="nav-name" href="index.html">Alexander B. Chen<span class="sec-sign"> -- '27</span></a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="works.html">Research</a>
+      <a href="expository.html">Expositories</a>
+      <a href="olympiads.html">Olympiads</a>
+      <a href="interests.html">Interests</a>
+      <a href="timeline.html" class="active">Timeline</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ===================== HERO ===================== -->
+<header id="top" class="band hero hero--page">
+  <div class="wrap">
+    <div class="hero-inner">
+      <p class="eyebrow">Timeline</p>
+      <h1 class="title">The memorized deck</h1>
+      <p class="standfirst">I keep one deck in an order I know by heart: thirteen years, four suits, and every card exactly where I left it.</p>
+    </div>
+  </div>
+</header>
+
+<!-- ===================== PROGRAM ===================== -->
+<div class="wrap toc-wrap">
+  <nav class="toc" aria-label="Tonight's program">
+    <p class="toc-h">Tonight&rsquo;s program</p>
+    <ul class="toc-list">
+      <li><span class="n">1.</span><a href="#spread">The spread</a></li>
+      <li><span class="n">2.</span><a href="#suits">Four suits</a></li>
+      <li><span class="n">3.</span><a href="#faro">Eight perfect shuffles</a></li>
+      <li><span class="n">4.</span><a href="#jokers">The jokers</a></li>
+      <li><span class="n">5.</span><a href="#blank">The blank card</a></li>
+    </ul>
+  </nav>
+  <p>Each card is a moment, dealt in the order it happened, from a five-year-old&rsquo;s first piano lesson to a paper with six names on it. Turn the whole spread over at once, or tap any card to pull it into the light.</p>
+</div>
+
+<span style="display:block; margin-top:2em;"></span>
+
+<!-- ===================== 1. THE SPREAD ===================== -->
+<section id="spread" class="band stage">
+  <div class="valance" aria-hidden="true"></div>
+  <div class="curtain l" aria-hidden="true"></div>
+  <div class="curtain r" aria-hidden="true"></div>
+  <div class="wrap"><div class="band-inner">
+    <div class="stage-head"><span class="sec-num">1.</span><h2 class="sec-h">The spread</h2></div>
+    <p class="stage-note">Fifty-two cards, face down, in the order they happened. Hover to fan through them, tap one to deal it into the light, or turn the whole spread over and watch thirteen years land face up.</p>
+    <div class="ctl">
+      <button class="tbtn" id="b-turn" type="button">Turn the spread over</button>
+      <button class="tbtn ghost" id="b-faro" type="button">Faro shuffle</button>
+      <div class="suits" id="suit-filter" role="group" aria-label="Show one suit">
+        <button type="button" data-s="all" aria-pressed="true">All</button>
+        <button type="button" data-s="S" aria-pressed="false">&spades;&#xFE0E; Math</button>
+        <button type="button" data-s="H" aria-pressed="false">&hearts;&#xFE0E; Music</button>
+        <button type="button" data-s="D" aria-pressed="false">&diams;&#xFE0E; Water</button>
+        <button type="button" data-s="C" aria-pressed="false">&clubs;&#xFE0E; People</button>
+      </div>
+      <button class="tbtn ghost" id="b-sound" type="button" aria-pressed="true">Sound on</button>
+    </div>
+    <p class="faro-n" id="faro-n" aria-live="polite"></p>
+    <div class="table-scroll" id="table-scroll">
+      <div class="table" id="table"><div class="ruler" id="ruler" aria-hidden="true"></div></div>
+    </div>
+    <div class="spot" id="spot">
+      <div class="spot-card" id="spot-card"></div>
+      <div class="spot-text">
+        <div id="spot-text" aria-live="polite"></div>
+        <div class="sp-nav">
+          <button class="tbtn ghost" id="sp-prev" type="button">&larr; Previous card</button>
+          <button class="tbtn" id="sp-next" type="button">Deal the first card &rarr;</button>
+        </div>
+      </div>
+    </div>
+  </div></div>
+</section>
+
+<!-- ===================== 2. FOUR SUITS ===================== -->
+<section id="suits" class="band">
+  <div class="wrap"><div class="band-inner"><div class="sec-grid">
+    <div class="sec-aside">
+      <div class="sec-num">2.</div>
+      <h2 class="sec-h">Four suits</h2>
+      <span class="sec-mark-rule" aria-hidden="true"></span>
+    </div>
+    <div class="sec-content">
+      <div class="suit-p"><span class="g" aria-hidden="true">&spades;&#xFE0E;</span><p><b>Spades are the math,</b> and they start late. The Ace doesn&rsquo;t show up until sixth grade, and for a while after that it&rsquo;s mostly practice. Then the suit comes in a rush: three AIMEs in three Februaries, a USAMO, a summer at Ross, and a King I didn&rsquo;t see coming, a published paper.</p></div>
+      <div class="suit-p"><span class="g red" aria-hidden="true">&hearts;&#xFE0E;</span><p><b>Hearts are the music,</b> the oldest suit in the deck. Its Ace is a five-year-old at Carnegie Mellon, and its King is a 98 at Westmoreland. Somewhere in the middle, I joined the String Orchestra and learned to play inside a sound much bigger than mine.</p></div>
+      <div class="suit-p"><span class="g red" aria-hidden="true">&diams;&#xFE0E;</span><p><b>Diamonds are the water:</b> ten years of black lines, two trips to Eastern Zones, back-to-back undefeated seasons, and relays where four of us share a single time.</p></div>
+      <div class="suit-p"><span class="g" aria-hidden="true">&clubs;&#xFE0E;</span><p><b>Clubs are the people,</b> which feels right, since so many of them came from a club. Peter, who kept showing me harder problems. Ryan, who&rsquo;s writing ARC with me. Family 5 at Ross. The kids in my classes at the Chinese school, and a math club that&rsquo;s grown past eighty-five.</p></div>
+      <p class="coda">A suit has thirteen cards, and from my first piano lesson to this fall is thirteen years on the calendar, 2014 through 2026. I didn&rsquo;t plan that. The deck did.</p>
+    </div>
+  </div></div></div>
+</section>
+
+<!-- ===================== 3. FARO ===================== -->
+<section id="faro" class="band band--tint">
+  <div class="wrap"><div class="band-inner"><div class="sec-grid">
+    <div class="sec-aside">
+      <div class="sec-num">3.</div>
+      <h2 class="sec-h">Eight perfect shuffles</h2>
+      <span class="sec-mark-rule" aria-hidden="true"></span>
+    </div>
+    <div class="sec-content">
+      <p>Of course, a deck in perfect order is practically begging to be shuffled.</p>
+      <p>A faro shuffle cuts the deck into two exact halves and weaves them back together, one card from each side, perfectly. It looks like chaos. Shuffle once and <span id="faro-first">my first piano lesson lands right next to the fall I became Math Club president</span>. Keep going and the years scatter across the table.</p>
+      <p>Shuffle eight times, though, and every card comes home.</p>
+      <p>The reason is arithmetic. Number the positions 0 through 51, and a perfect out-faro sends the card in position <i>i</i> to position 2<i>i</i>, counting modulo 51. Eight shuffles multiply by 2<sup>8</sup>, and</p>
+      <span class="eq">2<sup>8</sup> = 256 = 5 &times; 51 + 1,</span>
+      <p>so every card lands exactly where it started. It&rsquo;s the same kind of arithmetic I spent a summer at Ross rebuilding from the axioms, tucked inside a flourish.</p>
+      <p id="faro-still">Two cards never move at all: the first and the last, a five-year-old at the piano and a senior swim season that hasn&rsquo;t started yet. Two more, my first WPIALs and SSAMO, just trade places, shuffle after shuffle. I didn&rsquo;t plan that either.</p>
+      <p><a class="chip sm" href="#spread">try it on the table &uarr;</a></p>
+    </div>
+  </div></div></div>
+</section>
+
+<!-- ===================== 4. JOKERS ===================== -->
+<section id="jokers" class="band">
+  <div class="wrap"><div class="band-inner"><div class="sec-grid">
+    <div class="sec-aside">
+      <div class="sec-num">4.</div>
+      <h2 class="sec-h">The jokers</h2>
+      <span class="sec-mark-rule" aria-hidden="true"></span>
+    </div>
+    <div class="sec-content">
+      <p>Before a faro, a magician takes the jokers out. Mine sit at the edge of the table, but they&rsquo;re the reason the rest of the deck holds together.</p>
+      <div class="pair" id="joker-pair"></div>
+      <p>The black joker is me at thirteen, attempting an ace production on a triple lift. The red one is the Gilbreath principle, the day magic and math stopped being separate hobbies.</p>
+      <p>Since then, nearly everything I do runs through a card trick sooner or later: the research, the classes I teach, the essays I write. A joker can stand in for any card. That&rsquo;s the job magic does in my life.</p>
+      <p class="hint">P.S. There&rsquo;s a second deck hidden somewhere on this site, with a trick we learned at Ross. It isn&rsquo;t on this page.</p>
+    </div>
+  </div></div></div>
+</section>
+
+<!-- ===================== 5. THE BLANK CARD ===================== -->
+<section id="blank" class="band band--tint">
+  <div class="wrap"><div class="band-inner"><div class="sec-grid">
+    <div class="sec-aside">
+      <div class="sec-num">5.</div>
+      <h2 class="sec-h">The blank card</h2>
+      <span class="sec-mark-rule" aria-hidden="true"></span>
+    </div>
+    <div class="sec-content">
+      <p>Magicians keep a blank card or two for the moments they can&rsquo;t plan. Mine is 2027.</p>
+      <div class="solo-card" id="blank-solo"></div>
+      <p>I haven&rsquo;t written it yet, and it&rsquo;s already my favorite card in the deck.</p>
+    </div>
+  </div></div></div>
+</section>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="site-footer-inner">
+      <div class="lft">&copy; 2026 Alex Chen</div>
+      <div class="mid"><a href="https://alexanderbchen.github.io/index.html" target="_blank" rel="noopener">Alexander B. Chen</a> · <a href="mailto:alexbchen999@gmail.com">alexbchen999@gmail.com</a></div>
+      <div class="rgt"><a href="https://github.com/alexanderbchen" target="_blank" rel="noopener">github.com/alexanderbchen</a></div>
+    </div>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+<script>
+(function () {
+  "use strict";
+  function $(id) { return document.getElementById(id); }
+  function esc(s) { return String(s).replace(/&(?!amp;|#|[a-z]+;)/g, "&amp;").replace(/"/g, "&quot;"); }
+  var reduce = !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+  var VS = "\uFE0E", SUIT = { S: "\u2660", H: "\u2665", D: "\u2666", C: "\u2663" };
+  var SUIT_NAME = { S: "spades", H: "hearts", D: "diamonds", C: "clubs" };
+  var THREAD = { S: "math", H: "music", D: "water", C: "people" };
+  var RANKS = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
+  var RANK_NAME = ["Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King"];
+
+  /* ---------- the deck: four suits, each running Ace to King in the order it happened ---------- */
+  var DECK = [
+    /* hearts: the music */
+    { s: "H", r: 1,  d: 2014.70, when: "2014", t: "Five years old at Carnegie Mellon", x: "My first piano lessons, at Carnegie Mellon&rsquo;s Music Preparatory School. I was five, and the bench was built for someone much taller.", href: "piano.html" },
+    { s: "H", r: 2,  d: 2016.65, when: "2016", t: "Tatyana Gelman", x: "I started studying with Tatyana Gelman, and I still do. Every semester ends the same way, with a recital at Kresge Theatre.", href: "piano.html", img: "img/piano2.jpg", alt: "Mid-performance at the CMU Preparatory School recital." },
+    { s: "H", r: 3,  d: 2019.40, when: "2019", t: "Carmel Klavier", x: "Grand Prize and First Prize at the Carmel Klavier International Piano Competition, and a winners&rsquo; recital to go with them.", href: "piano.html", img: "img/piano6.jpg", alt: "At the winners&rsquo; recital after the Carmel Klavier Grand Prize." },
+    { s: "H", r: 4,  d: 2019.60, when: "2019", t: "A run of First Prizes", x: "The first of several First Prizes at the Pittsburgh International Piano Competition. Between 2019 and 2023, it kept sending me back onstage.", href: "piano.html" },
+    { s: "H", r: 5,  d: 2020.20, when: "Between 2019 and 2023", yr: "2019&ndash;23", t: "Carnegie Hall, twice", x: "Two of those prizes came with an invitation to New York, and twice I walked out onto the stage at Carnegie Hall.", href: "piano.html", img: "img/piano5.JPG", alt: "Walking to the Steinway at Carnegie Hall." },
+    { s: "H", r: 6,  d: 2021.45, when: "2021", t: "The Grand Prize", x: "The Grand Prize at the Pittsburgh International Piano Competition. If I could frame one heart in this deck, it&rsquo;d be this one.", href: "piano.html" },
+    { s: "H", r: 7,  d: 2022.40, when: "2022", t: "Carmel Klavier, again", x: "Back at Carmel Klavier, this time for Second Prize.", href: "piano.html" },
+    { s: "H", r: 8,  d: 2023.66, when: "Fall 2023", t: "One pianist a year", x: "Shady Side&rsquo;s String Orchestra takes one pianist a year, and in ninth grade it took me. For the first time, someone else held the tempo, and I learned to follow it.", href: "piano.html" },
+    { s: "H", r: 9,  d: 2024.28, when: "2024", t: "Second Prize, and a Winner&rsquo;s Concert", x: "Second Prize at the Pittsburgh International Piano Competition, and a spot in the Winner&rsquo;s Concert.", href: "piano.html" },
+    { s: "H", r: 10, d: 2024.30, when: "2024", t: "The Steinway Society", x: "My first win with the Steinway Society of Western Pennsylvania. It wouldn&rsquo;t be the last.", href: "piano.html" },
+    { s: "H", r: 11, d: 2024.85, when: "2024&ndash;25", t: "Accompanist", x: "Twice that year I accompanied the Concert Choir, which meant listening to a room full of voices instead of to myself.", href: "piano.html" },
+    { s: "H", r: 12, d: 2025.30, when: "2025", t: "Two for two", x: "A second Steinway Society win.", href: "piano.html" },
+    { s: "H", r: 13, d: 2026.30, when: "2026", t: "Three for three, and a 98", x: "A third straight Steinway Society win, a night at Heinz Hall somewhere along the way, and Gold at the Westmoreland Young Artist Festival with a score of 98.", href: "piano.html", img: "img/piano4.JPG", alt: "On stage at Heinz Hall." },
+
+    /* clubs: the people */
+    { s: "C", r: 1,  d: 2015.70, when: "2015", t: "Weekends in Mandarin", x: "My first weekend at the Pittsburgh Chinese School, the beginning of nine years of Mandarin and Chinese culture. I&rsquo;d graduate eventually, and then come back to teach.", href: "olympiads.html#honors" },
+    { s: "C", r: 2,  d: 2023.72, when: "Fall 2023", t: "Peter", x: "Freshman year, at the back of BC Calculus, Peter Huang decided I was worth the time. He dragged me into Math Club, put on a 3Blue1Brown video, and kept handing me harder problems.", href: "math.html" },
+    { s: "C", r: 3,  d: 2023.74, when: "2023&ndash;25", t: "The other side of the problem set", x: "My first time teaching: assistant for counting and probability at da Vinci Math, then AP Calculus BC the year after.", href: "olympiads.html#honors" },
+    { s: "C", r: 4,  d: 2024.36, when: "Spring 2024", t: "A microphone and a gala", x: "I MC&rsquo;d the Chinese school&rsquo;s Spring Gala: a microphone, a whole evening&rsquo;s program, and an auditorium full of families.", href: "present.html", img: "img/present3.JPG", alt: "Co-hosting the gala, both of us holding microphones." },
+    { s: "C", r: 5,  d: 2024.44, when: "2024", t: "Outstanding Graduate", x: "Nine years after that first weekend, I graduated from the Chinese school as one of its two Outstanding Graduates, and gave a speech at the ceremony.", href: "olympiads.html#honors" },
+    { s: "C", r: 6,  d: 2024.70, when: "Fall 2024", t: "Back, at the front of the room", x: "I went back to the Chinese school as a teaching assistant for language and math classes. Two hundred twenty-five hours so far, and two Gold Service Awards.", href: "olympiads.html#honors" },
+    { s: "C", r: 7,  d: 2024.72, when: "Fall 2024", t: "Math Club president", x: "I became president of Math Club, which meant the curriculum was suddenly mine to write.", href: "olympiads.html#ssamo", img: "img/mathclub-recruit.jpg", alt: "Recruiting for Math Club at the annual Club Fair." },
+    { s: "C", r: 8,  d: 2025.40, when: "2025", t: "A team of our own", x: "I founded Shady Side&rsquo;s first competition math team and talked the School Board into funding it: six thousand dollars for the year.", href: "olympiads.html#ssamo", img: "img/mathclub-cafeteria.jpg", alt: "The Shady Side math team at a national competition." },
+    { s: "C", r: 9,  d: 2025.45, when: "2025", t: "SSAMO", x: "The Shady Side Academy Mathematics Olympiad, our school&rsquo;s first student-led olympiad. Eight months of building it: the website, the problems, an organizing team, and awards we 3D-printed ourselves.", href: "olympiads.html#ssamo", img: "img/ssamo-awards.jpg", alt: "SSAMO winners holding their trophies and certificates in the library." },
+    { s: "C", r: 10, d: 2025.60, when: "2025", t: "ARC, with Ryan", x: "My best friend Ryan Gong and I started writing ARC, the AIME book we wished we&rsquo;d had. The combinatorics volume is finished, all 573 pages of it.", href: "textbooks.html" },
+    { s: "C", r: 11, d: 2026.42, when: "2026", t: "ARML", x: "Captain of Shady Side&rsquo;s first ARML team.", href: "olympiads.html#ladder" },
+    { s: "C", r: 12, d: 2026.50, when: "Summer 2026", t: "Family 5", x: "Ross, the people part: Family 5, all-nighters over problem sets, Arnold Palmer iced tea, and the first-ever Ross World Cup, where I scored a hat trick in the final.", href: "ross.html", img: "img/ross-small.jpg", alt: "Family 5 at Ross." },
+    { s: "C", r: 13, d: 2026.72, when: "Fall 2026", t: "Eighty-five", x: "This fall I&rsquo;m a Math Department Associate, teaching a year-long abstract algebra course I designed, and running a Problem of the Month leaderboard. The club has grown from under thirty members to more than eighty-five.", href: "olympiads.html#ssamo", img: "img/mts.JPG", alt: "A problem on the board." },
+
+    /* diamonds: the water */
+    { s: "D", r: 1,  d: 2016.75, when: "2016", t: "Age seven, one black line", x: "I joined the JCCS Sailfish at seven, and there&rsquo;s been a black line at the bottom of a pool to follow ever since.", href: "swimming.html" },
+    { s: "D", r: 2,  d: 2022.55, when: "2022", t: "Eastern Zones", x: "My first Eastern Zone Championships: long course, fifty-meter lanes, and swimmers from every state in the zone.", href: "swimming.html" },
+    { s: "D", r: 3,  d: 2023.88, when: "Winter 2023", t: "Varsity", x: "Freshman year on Shady Side varsity. Suddenly there was a whole deck of people yelling for a race that&rsquo;s over in under a minute. A pool deck, but still.", href: "swimming.html" },
+    { s: "D", r: 4,  d: 2024.17, when: "2024", t: "WPIALs", x: "My first WPIAL championships, at Pitt&rsquo;s pool: 13th in the 100 backstroke, and the first of three straight trips.", href: "swimming.html" },
+    { s: "D", r: 5,  d: 2024.55, when: "Summer 2024", t: "Eastern Zones, again", x: "Back to Eastern Zones, this time with the Allegheny Mountain all-star team.", href: "swimming.html" },
+    { s: "D", r: 6,  d: 2025.14, when: "2025", t: "Undefeated", x: "An undefeated season and a section title, the first half of Shady Side&rsquo;s first back-to-back.", href: "swimming.html" },
+    { s: "D", r: 7,  d: 2025.17, when: "2025", t: "WPIALs, two", x: "Back at WPIALs: 12th in the 100 backstroke and 15th in the 200 individual medley.", href: "swimming.html" },
+    { s: "D", r: 8,  d: 2025.21, when: "2025", t: "States, at Bucknell", x: "The PIAA state meet at Bucknell, and 6th in the 4&times;100 freestyle relay: four of us, one combined time, and nobody wanting to be the leg that let the others down.", href: "swimming.html", img: "img/swim-medals.jpg", alt: "A season&rsquo;s worth of medals, collected at states." },
+    { s: "D", r: 9,  d: 2025.55, when: "2025", t: "New lane, same line", x: "At fifteen I switched club teams to Pittsburgh Elite Aquatics. New lane, same black line.", href: "swimming.html" },
+    { s: "D", r: 10, d: 2026.14, when: "2026", t: "Undefeated, again", x: "Undefeated again. Back-to-back, a first for the program.", href: "swimming.html", img: "img/swim1.JPG", alt: "Holding medals on the pool deck at the end of the season." },
+    { s: "D", r: 11, d: 2026.17, when: "2026", t: "Third at WPIALs", x: "Third at WPIALs in the 4&times;50 freestyle relay and fourth in the medley relay, plus tenth in the 200 free and the 100 back.", href: "swimming.html", img: "img/swim-relay.jpg", alt: "Celebrating with teammates after a relay at WPIALs." },
+    { s: "D", r: 12, d: 2026.21, when: "2026", t: "States, again", x: "Back to Bucknell, with a B-final in the 4&times;50 freestyle relay.", href: "swimming.html" },
+    { s: "D", r: 13, d: 2026.90, when: "Winter 2026", t: "Senior season", x: "My fourth and last varsity season starts this winter. Ten years in, the black line looks exactly the same, and I still love following it.", href: "swimming.html", img: "img/swim-race.jpg", alt: "Mid-race, following the black line." },
+
+    /* spades: the math */
+    { s: "S", r: 1,  d: 2020.70, when: "Fall 2020", t: "Sixth grade, Dr. Shi", x: "I started competition math in sixth grade with Dr. Shi, who&rsquo;s coached me ever since. For a long time, getting better just meant more reps.", href: "math.html" },
+    { s: "S", r: 2,  d: 2023.78, when: "2023", t: "The Cursed Series", x: "I started collecting problems and constructions that look wrong and turn out to be right. Nothing makes someone fall for math faster than a construction that offends their intuition and then works.", href: "projects.html#cursed" },
+    { s: "S", r: 3,  d: 2024.12, when: "February 2024", t: "First AIME", x: "I made the AIME, the exact thing I&rsquo;d once been told was out of reach, and scored a 5. Remember that number.", href: "math.html" },
+    { s: "S", r: 4,  d: 2024.56, when: "Summer 2024", t: "Math at Pitt", x: "The summer I started taking math at the University of Pittsburgh: linear algebra first, then calculus 3, then differential equations, and now PDE.", href: "index.html" },
+    { s: "S", r: 5,  d: 2024.62, when: "2024&ndash;25", t: "Three hundred sixty pages", x: "It started as a joke. My advisor heard me complain about our multivariable calculus textbook and asked why I didn&rsquo;t write one myself. Three hundred sixty pages later, the school teaches from it.", href: "textbooks.html#calc3" },
+    { s: "S", r: 6,  d: 2025.12, when: "February 2025", t: "AIME: 8", x: "An 8 on the AIME. Up three.", href: "olympiads.html#ladder" },
+    { s: "S", r: 7,  d: 2025.75, when: "2025", t: "Research begins", x: "Research with PReMa at Texas A&amp;M, alongside Dr. Wencai Liu and Dr. Xueyin Wang, on Anderson localization: why randomness can trap a wave that would otherwise spread forever.", href: "works.html#anderson" },
+    { s: "S", r: 8,  d: 2026.12, when: "February 2026", t: "AIME: 12", x: "A 12 on the AIME, the highest score anyone at my school has recorded. Five, then eight, then twelve.", href: "math.html", img: "img/aime.jpg", alt: "An AIME problem worked out in marker during the post-test discussion." },
+    { s: "S", r: 9,  d: 2026.22, when: "2026", t: "USAMO", x: "I qualified for the USAMO, the first student from Shady Side ever to do it.", href: "olympiads.html#ladder" },
+    { s: "S", r: 10, d: 2026.35, when: "2026", t: "Firsts", x: "First at the Pitt Integration Bee, first at the MathLeague national championship, and Gold on the USAMTS with 74 out of 75.", href: "olympiads.html#honors" },
+    { s: "S", r: 11, d: 2026.38, when: "2026", t: "A phase transition", x: "A result of my own. Raise each term of Nesbitt&rsquo;s inequality to a power &alpha;, and at exactly &alpha; = log&#8322;(3/2) the minimum jumps from the center to the edges. You can drag it yourself in the Lab.", href: "lab.html#nesbitt" },
+    { s: "S", r: 12, d: 2026.48, when: "Summer 2026", t: "Ross", x: "Six weeks at the Ross Mathematics Program, rebuilding number theory from the axioms up. Twenty redos on my first problem set. By the fourteenth, I could justify the obvious.", href: "ross.html", img: "img/math.jpg", alt: "No integer lies strictly between 0 and 1, by least counterexample." },
+    { s: "S", r: 13, d: 2026.83, when: "October 2026", t: "Published", x: "In August I stood beside our poster at MathFest in Boston. In October the paper came out in <em>Advances in Nonlinear Analysis</em>: six authors, one very long title, and a simple question about how fast randomness traps a wave.", href: "https://doi.org/10.1515/anona-2025-0198", img: "img/mathfest.jpg", alt: "Beside our research poster at MAA MathFest 2026, Boston." }
+  ];
+  var JOKERS = [
+    { kind: "joker", red: false, when: "Age thirteen", t: "Thirteen, and a triple lift", x: "My first trick was an ace production built on a triple lift. The double was visible from space. I filmed myself, watched it back, and switched to tricks where the math does the work.", href: "present.html" },
+    { kind: "joker", red: true, when: "Right after", t: "The Gilbreath principle", x: "Then I found the Gilbreath principle: shuffle an alternating deck however you like, and every pair still splits red and black. That&rsquo;s when magic and math stopped being separate hobbies.", href: "present.html" }
+  ];
+  var BLANK = { kind: "blank", when: "2027", t: "Not printed yet", x: "I haven&rsquo;t written this card, and that&rsquo;s my favorite thing about it." };
+
+  DECK.forEach(function (c) { c.kind = "card"; if (!c.yr) c.yr = String(Math.floor(c.d)); });
+  var STACK = DECK.slice().sort(function (a, b) { return a.d - b.d; });
+  STACK.forEach(function (c, i) { c.home = i; });
+  var order = STACK.slice();
+
+  var PIPS = {
+    2: [[50, 20], [50, 80]], 3: [[50, 20], [50, 50], [50, 80]], 4: [[30, 20], [70, 20], [30, 80], [70, 80]],
+    5: [[30, 20], [70, 20], [50, 50], [30, 80], [70, 80]], 6: [[30, 20], [70, 20], [30, 50], [70, 50], [30, 80], [70, 80]],
+    7: [[30, 20], [70, 20], [50, 35], [30, 50], [70, 50], [30, 80], [70, 80]],
+    8: [[30, 20], [70, 20], [50, 35], [30, 50], [70, 50], [50, 65], [30, 80], [70, 80]],
+    9: [[30, 19], [70, 19], [30, 39.5], [70, 39.5], [50, 50], [30, 60.5], [70, 60.5], [30, 81], [70, 81]],
+    10: [[30, 19], [70, 19], [50, 29.5], [30, 39.5], [70, 39.5], [30, 60.5], [70, 60.5], [50, 70.5], [30, 81], [70, 81]]
+  };
+  var HAT = '<svg class="bc-hat" viewBox="0 0 120 120" aria-hidden="true">' +
+    '<path d="M38 30 h44 l4 52 h-52 z" fill="currentColor"/><ellipse cx="60" cy="30" rx="22" ry="5" fill="currentColor"/>' +
+    '<rect x="35.6" y="68" width="48.8" height="8" fill="#fffdf7" opacity=".85"/><ellipse cx="60" cy="84" rx="44" ry="9" fill="currentColor"/>' +
+    '<path d="M78 40 L106 14" stroke="currentColor" stroke-width="5" stroke-linecap="round"/><path d="M100 19.6 L106 14" stroke="#fffdf7" stroke-width="4" stroke-linecap="round"/>' +
+    '<path d="M100 2 l2 5 5 2 -5 2 -2 5 -2 -5 -5 -2 5 -2z" fill="currentColor"/><path d="M14 22 l1.4 3.6 3.6 1.4 -3.6 1.4 -1.4 3.6 -1.4 -3.6 -3.6 -1.4 3.6 -1.4z" fill="currentColor"/>' +
+    '<path d="M22 100 l1.2 3 3 1.2 -3 1.2 -1.2 3 -1.2 -3 -3 -1.2 3 -1.2z" fill="currentColor"/></svg>';
+
+  function red(c) { return c.kind === "joker" ? c.red : (c.s === "H" || c.s === "D"); }
+  function sym(c) { return SUIT[c.s] + VS; }
+  function cardName(c) {
+    if (c.kind === "joker") return (c.red ? "Red" : "Black") + " joker";
+    if (c.kind === "blank") return "The blank card";
+    return RANK_NAME[c.r - 1] + " of " + SUIT_NAME[c.s];
+  }
+  function plain(s) { var d = document.createElement("div"); d.innerHTML = s; return d.textContent; }
+
+  function bigCard(c) {
+    if (c.kind === "blank") return '<div class="bc blank" role="img" aria-label="A blank card"><span class="bc-blank-yr">2027</span><span class="bc-blank-note">not printed yet</span></div>';
+    if (c.kind === "joker") return '<div class="bc' + (c.red ? " red" : "") + '" role="img" aria-label="' + cardName(c) + '"><span class="bc-jk">JOKER</span><span class="bc-jk b">JOKER</span>' + HAT + "</div>";
+    var R = RANKS[c.r - 1], S = sym(c), mid;
+    if (c.img) mid = '<span class="bc-art"><img src="' + c.img + '" alt="' + esc(plain(c.alt || "")) + '" loading="lazy" decoding="async"></span>';
+    else if (c.r === 1) mid = '<span class="bc-ace" aria-hidden="true">' + S + "</span>";
+    else if (c.r > 10) mid = '<span class="bc-court" aria-hidden="true"><b>' + R + "</b><i>" + S + "</i></span>";
+    else mid = PIPS[c.r].map(function (p) {
+      return '<span class="bc-pip' + (p[1] > 50 ? " inv" : "") + '" aria-hidden="true" style="left:' + p[0] + "%;top:" + p[1] + '%">' + S + "</span>";
+    }).join("");
+    return '<div class="bc' + (red(c) ? " red" : "") + '" role="img" aria-label="' + cardName(c) + '"><span class="bc-ix" aria-hidden="true">' + R + "<small>" + S +
+      '</small></span><span class="bc-ix b" aria-hidden="true">' + R + "<small>" + S + "</small></span>" + mid + "</div>";
+  }
+  function backCard() { return '<div class="bc back" role="img" aria-label="The deck, face down"></div>'; }
+
+  /* ---------- sound: card snaps and a riffle, synthesized, only after a click ---------- */
+  var ac = null, noise = null, soundOn = true;
+  function audio() {
+    if (!ac) {
+      var AC = window.AudioContext || window.webkitAudioContext;
+      if (!AC) return null;
+      try {
+        ac = new AC();
+        var len = Math.floor(ac.sampleRate * 0.03); noise = ac.createBuffer(1, len, ac.sampleRate);
+        var ch = noise.getChannelData(0);
+        for (var i = 0; i < len; i++) ch[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 3);
+      } catch (e) { ac = null; return null; }
+    }
+    if (ac.state === "suspended" && ac.resume) ac.resume();
+    return ac;
+  }
+  function snap(delay, vol, freq) {
+    if (!soundOn) return;
+    var a = audio();
+    if (!a) return;
+    var src = a.createBufferSource(), f = a.createBiquadFilter(), g = a.createGain();
+    src.buffer = noise; f.type = "bandpass"; f.frequency.value = freq || 2400; f.Q.value = 0.9; g.gain.value = vol || 0.22;
+    src.connect(f); f.connect(g); g.connect(a.destination); src.start(a.currentTime + (delay || 0));
+  }
+  function riffle() { for (var i = 0; i < 52; i++) snap(i * 0.011 + Math.random() * 0.004, 0.16, 1700 + Math.random() * 1700); }
+  $("b-sound").addEventListener("click", function () {
+    soundOn = !soundOn; this.textContent = soundOn ? "Sound on" : "Sound off"; this.setAttribute("aria-pressed", soundOn ? "true" : "false");
+  });
+
+  /* ---------- the table ---------- */
+  var table = $("table"), scroller = $("table-scroll"), ruler = $("ruler"), stage = $("spread");
+  var CW = 66, JW = 106, current = null, faceUp = false, busy = false, shuffles = 0, only = "all";
+
+  function smallFace(c) {
+    if (c.kind === "joker") return '<span class="c-face joker' + (c.red ? " red" : "") + '"><span class="ix">JOKER</span><span class="pip">&#9733;</span></span>';
+    if (c.kind === "blank") return '<span class="c-face blank"><span class="yr">2027</span></span>';
+    return '<span class="c-face' + (red(c) ? " red" : "") + '"><span class="ix">' + RANKS[c.r - 1] + "<small>" + sym(c) + '</small></span><span class="yr">' +
+      c.yr + '</span><span class="pip">' + sym(c) + "</span></span>";
+  }
+  function build(c) {
+    var b = document.createElement("button");
+    b.type = "button"; b.className = "c";
+    b.innerHTML = '<span class="c-in"><span class="c-back"></span>' + smallFace(c) + "</span>";
+    var lbl = c.kind === "card" ? cardName(c) + ", " + plain(c.when) + ": " + plain(c.t) : cardName(c);
+    b.setAttribute("aria-label", lbl);
+    b.addEventListener("click", function () { pick(c); });
+    table.appendChild(b); c.el = b;
+  }
+  STACK.forEach(build); JOKERS.forEach(build); build(BLANK);
+
+  function geometry() {
+    var vw = scroller.clientWidth || 900;
+    var step = Math.max(15, Math.min(21, (vw - JW - CW - 30 - CW - 10) / 51));
+    return { step: step, x0: JW, end: JW + 51 * step, width: Math.ceil(JW + 51 * step + CW + 30 + CW + 10) };
+  }
+  function setPos(c, x, y, r, z) {
+    c.el.style.setProperty("--x", x.toFixed(1) + "px"); c.el.style.setProperty("--y", y.toFixed(1) + "px");
+    c.el.style.setProperty("--r", r.toFixed(2) + "deg"); if (z != null) c.el.style.zIndex = z;
+  }
+  function delays(fn) { STACK.forEach(function (c, i) { c.el.style.transitionDelay = fn ? fn(c, i) : ""; }); }
+  function isHome() { return order.every(function (c, k) { return c.home === k; }); }
+  function place(stagger) {
+    var G = geometry();
+    table.style.width = G.width + "px";
+    order.forEach(function (c, k) {
+      var u = k / 51, y = 14 * Math.pow(2 * u - 1, 2), r = (2 * u - 1) * 5;
+      if (stagger && !reduce) c.el.style.transitionDelay = (k * 0.012).toFixed(3) + "s";
+      setPos(c, G.x0 + k * G.step, y, r, 10 + k);
+    });
+    setPos(JOKERS[0], 6, 26, -11, 2); setPos(JOKERS[1], 30, 18, -4, 3);
+    setPos(BLANK, G.end + CW + 30, 16, 6, 5);
+    drawRuler(G);
+  }
+  function drawRuler(G) {
+    ruler.innerHTML = ""; ruler.classList.toggle("off", !isHome());
+    var seen = {}, rows = [-1e9, -1e9];
+    STACK.forEach(function (c, k) {
+      var y = Math.floor(c.d);
+      if (seen[y]) return; seen[y] = 1;
+      var x = G.x0 + k * G.step + 3, w = 28, row = x > rows[0] + 6 ? 0 : (x > rows[1] + 6 ? 1 : -1);
+      if (row < 0) return;
+      rows[row] = x + w;
+      var s = document.createElement("span"); s.textContent = y; s.style.left = x + "px"; if (row) s.className = "row2";
+      ruler.appendChild(s);
+    });
+  }
+  function pile() {
+    var G = geometry(); table.style.width = G.width + "px";
+    order.forEach(function (c, k) { setPos(c, G.x0 + k * 0.25, 14 - k * 0.12, 0, 10 + k); });
+    setPos(JOKERS[0], 6, 26, -11, 2); setPos(JOKERS[1], 30, 18, -4, 3);
+    setPos(BLANK, G.x0 + 60, 16, 0, 5);
+    BLANK.el.style.opacity = "0";
+  }
+
+  /* the one orchestrated moment: curtains part, the deck ribbons out */
+  var opened = false;
+  function openStage() {
+    if (opened) return; opened = true;
+    stage.classList.add("open");
+    setTimeout(function () {
+      BLANK.el.style.transition = "opacity .6s ease .7s, transform .6s cubic-bezier(.3,.7,.2,1)"; BLANK.el.style.opacity = "";
+      place(true);
+      setTimeout(function () { delays(null); BLANK.el.style.transition = ""; }, 1600);
+    }, reduce ? 0 : 900);
+  }
+  if (reduce) { stage.classList.add("open"); place(false); opened = true; }
+  else {
+    pile();
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(function (ents, ob) {
+        ents.forEach(function (en) { if (en.isIntersecting) { openStage(); ob.disconnect(); } });
+      }, { threshold: 0.3 }).observe(stage);
+    } else openStage();
+  }
+
+  /* ---------- turning cards over ---------- */
+  var bTurn = $("b-turn");
+  function turnAll(up, cb) {
+    faceUp = up;
+    var seq = JOKERS.concat(order, [BLANK]);
+    seq.forEach(function (c, k) {
+      var inn = c.el.querySelector(".c-in");
+      inn.style.transitionDelay = reduce ? "0s" : (k * 0.02).toFixed(3) + "s";
+      c.el.classList.toggle("up", up);
+      if (k % 2 === 0) snap(reduce ? 0 : k * 0.02, 0.1, 2800);
+    });
+    bTurn.textContent = up ? "Turn it back over" : "Turn the spread over";
+    setTimeout(function () { seq.forEach(function (c) { c.el.querySelector(".c-in").style.transitionDelay = ""; }); if (cb) cb(); }, reduce ? 0 : seq.length * 20 + 520);
+  }
+  bTurn.addEventListener("click", function () { if (!busy) turnAll(!faceUp); });
+
+  /* ---------- the faro ---------- */
+  var bFaro = $("b-faro"), faroN = $("faro-n");
+  function outFaro(list) { var out = []; for (var i = 0; i < 26; i++) out.push(list[i], list[26 + i]); return out; }
+  function faro() {
+    if (busy) return;
+    if (!faceUp) { busy = true; turnAll(true, function () { busy = false; faro(); }); return; }
+    busy = true; bFaro.disabled = true;
+    var G = geometry(), cx = G.x0 + 25.5 * G.step;
+    delays(null);
+    order.forEach(function (c, k) { setPos(c, cx + (k < 26 ? -34 : 34) + (k % 26) * 0.2, 10 - (k % 26) * 0.15, k < 26 ? -3 : 3); });
+    setTimeout(function () {
+      order = outFaro(order); shuffles++; riffle();
+      place(true);
+      var home = isHome();
+      faroN.textContent = home ? "Eight shuffles. Every card is home." :
+        "Shuffle " + shuffles + " of 8. " + (8 - shuffles) + (8 - shuffles === 1 ? " more and every year comes home." : " more and every year comes home.");
+      if (home) shuffles = 0;
+      setTimeout(function () { delays(null); busy = false; bFaro.disabled = false; }, reduce ? 0 : 1250);
+    }, reduce ? 0 : 480);
+  }
+  bFaro.addEventListener("click", faro);
+
+  /* ---------- suits ---------- */
+  [].forEach.call($("suit-filter").querySelectorAll("button"), function (b) {
+    b.addEventListener("click", function () {
+      only = b.getAttribute("data-s");
+      [].forEach.call($("suit-filter").querySelectorAll("button"), function (x) { x.setAttribute("aria-pressed", x === b ? "true" : "false"); });
+      STACK.forEach(function (c) { c.el.classList.toggle("dim", only !== "all" && c.s !== only); });
+      JOKERS.concat([BLANK]).forEach(function (c) { c.el.classList.toggle("dim", only !== "all"); });
+    });
+  });
+
+  /* ---------- the spotlight ---------- */
+  var spotCard = $("spot-card"), spotText = $("spot-text"), bPrev = $("sp-prev"), bNext = $("sp-next");
+  function seqList() { return STACK.filter(function (c) { return only === "all" || c.s === only; }); }
+  function meta(c) {
+    if (c.kind === "card") return "Card " + (c.home + 1) + " of 52 &middot; " + RANKS[c.r - 1] + sym(c) + " &middot; " + c.when;
+    if (c.kind === "joker") return cardName(c) + " &middot; " + c.when;
+    return "The blank card &middot; " + c.when;
+  }
+  function show(c) {
+    var w = document.createElement("div"); w.className = "bc-deal"; w.innerHTML = bigCard(c);
+    spotCard.innerHTML = ""; spotCard.appendChild(w);
+    var ext = /^https?:/.test(c.href || "");
+    spotText.innerHTML = '<p class="sp-meta">' + meta(c) + '</p><h3 class="sp-t">' + c.t + '</h3><p class="sp-x">' + c.x + "</p>" +
+      (c.href ? '<a class="sp-link" href="' + c.href + '"' + (ext ? ' target="_blank" rel="noopener"' : "") + ">read more &rarr;</a>" : "");
+    var list = seqList(), i = list.indexOf(c);
+    bPrev.disabled = c.kind !== "card" ? false : i <= 0;
+    bNext.disabled = c.kind === "blank";
+    bNext.innerHTML = c.kind === "card" && i === list.length - 1 ? "The blank card &rarr;" : "Next card &rarr;";
+  }
+  function idle() {
+    spotCard.innerHTML = backCard();
+    spotText.innerHTML = '<p class="sp-meta">The top of the deck</p><h3 class="sp-t">Pick a card. Any card.</h3>' +
+      '<p class="sp-x">Or start at the beginning, with a five-year-old and a piano.</p>';
+    bPrev.disabled = true;
+  }
+  function pick(c, keepScroll) {
+    current = c;
+    JOKERS.concat(STACK, [BLANK]).forEach(function (x) { x.el.classList.toggle("sel", x === c); });
+    if (!c.el.classList.contains("up")) { c.el.classList.add("up"); snap(0, 0.14, 2600); }
+    show(c);
+    if (!keepScroll) {
+      var left = parseFloat(c.el.style.getPropertyValue("--x")) || 0, sl = scroller.scrollLeft, w = scroller.clientWidth;
+      if (left < sl + 20 || left > sl + w - 110) scroller.scrollTo({ left: Math.max(0, left - w / 2), behavior: reduce ? "auto" : "smooth" });
+    }
+  }
+  function step(dir) {
+    var list = seqList();
+    if (!current) { pick(list[0]); return; }
+    if (current.kind === "joker") { pick(dir > 0 ? list[0] : JOKERS[0]); return; }
+    if (current.kind === "blank") { if (dir < 0) pick(list[list.length - 1]); return; }
+    var i = list.indexOf(current);
+    if (i < 0) { pick(list[0]); return; }
+    if (dir > 0 && i === list.length - 1) { pick(BLANK); return; }
+    var n = list[Math.max(0, Math.min(list.length - 1, i + dir))];
+    if (n) pick(n);
+  }
+  bNext.addEventListener("click", function () { step(1); });
+  bPrev.addEventListener("click", function () { step(-1); });
+  stage.addEventListener("keydown", function (e) {
+    if (e.key === "ArrowRight") { e.preventDefault(); step(1); }
+    else if (e.key === "ArrowLeft") { e.preventDefault(); step(-1); }
+  });
+
+  /* the jokers and the blank card, set out on paper below */
+  JOKERS.forEach(function (j) {
+    var f = document.createElement("figure");
+    f.innerHTML = bigCard(j) + "<figcaption>" + j.t + "</figcaption>";
+    f.style.cursor = "pointer";
+    f.addEventListener("click", function () { pick(j); stage.scrollIntoView({ behavior: reduce ? "auto" : "smooth" }); });
+    $("joker-pair").appendChild(f);
+  });
+  $("blank-solo").innerHTML = bigCard(BLANK);
+
+  /* the faro facts in the prose, checked against the real permutation */
+  (function () {
+    var once = outFaro(STACK);
+    window.__deckCheck = {
+      afterOne: [once[0].t, once[1].t],
+      fixed: STACK.filter(function (c, k) { return outFaro(STACK)[k] === c; }).map(function (c) { return c.t; }),
+      swap: [STACK[17].t, STACK[34].t],
+      eightHome: (function () { var o = STACK.slice(); for (var i = 0; i < 8; i++) o = outFaro(o); return o.every(function (c, k) { return c === STACK[k]; }); })()
+    };
+  })();
+
+  idle();
+  var rt = 0;
+  window.addEventListener("resize", function () { clearTimeout(rt); rt = setTimeout(function () { if (opened) place(false); }, 150); });
+})();
+</script>
+</body>
+</html>
