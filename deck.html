@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>document.documentElement.className += ' js';</script>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Five cards — Alexander B. Chen</title>
+<meta name="robots" content="noindex" />
+<meta name="description" content="A hidden page: Fitch Cheney's five-card trick, performed live, then explained." />
+<meta name="theme-color" content="#21513a" />
+<link rel="icon" href="favicon.ico" sizes="32x32" />
+<link rel="icon" href="favicon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="apple-touch-icon.png" />
+<link rel="manifest" href="manifest.webmanifest" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;1,400&family=STIX+Two+Text:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="style.css" />
+<style>
+  [hidden]{ display:none !important; }
+  /* ===== the card table ===== */
+  .felt{ background:radial-gradient(130% 110% at 50% 0%, #2d6a4f 0%, #215239 52%, #173b2a 100%); color:#ece6d3; border-top-color:#143224; }
+  .felt .sec-num{ color:#d9b45a; }
+  .felt .sec-h{ color:#f7f2e3; }
+  .felt .sec-mark-rule{ background:#d9b45a; }
+  .felt .sec-content > p{ color:#e6dfca; }
+  .felt a{ color:#f7f2e3; text-decoration-color:rgba(247,242,227,.45); }
+  .felt :focus-visible{ outline-color:#f2d27a; }
+  .felt .fine{ font-family:var(--mono); font-size:.7rem; line-height:1.55; color:#bcd2c2; }
+
+  /* playing cards (same back as the Gilbreath deck on the stage page) */
+  .pc{ width:4.1rem; height:5.74rem; border-radius:.42rem; background:#fffdf7; color:#1a1b18; position:relative; flex:none;
+    font-family:var(--serif); box-shadow:0 1px 0 rgba(0,0,0,.35), 0 8px 18px -10px rgba(0,0,0,.75); }
+  .pc.r{ color:#b23b2e; }
+  .pc .ix{ position:absolute; left:.32rem; top:.26rem; font-size:.98rem; line-height:.95; text-align:center; font-weight:600; }
+  .pc .ix small{ display:block; font-size:.88rem; font-weight:400; }
+  .pc .ix.b{ left:auto; top:auto; right:.32rem; bottom:.26rem; transform:rotate(180deg); }
+  .pc .pip{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:1.95rem; }
+  .pc.back{ background:repeating-linear-gradient(45deg,#2e3a8c,#2e3a8c 4px,#3d4ba3 4px,#3d4ba3 8px); border:.22rem solid #fffdf7; }
+  .pc.deal{ animation:dealin .42s cubic-bezier(.3,.7,.2,1) both; }
+  @keyframes dealin{ from{ opacity:0; transform:translateY(-16px) rotate(-5deg); } to{ opacity:1; transform:none; } }
+  .flip{ width:4.1rem; height:5.74rem; perspective:700px; flex:none; }
+  .flip-in{ position:relative; width:100%; height:100%; transform-style:preserve-3d; transition:transform .7s cubic-bezier(.3,.7,.2,1); }
+  .flip.up .flip-in{ transform:rotateY(180deg); }
+  .flip .pc{ position:absolute; inset:0; -webkit-backface-visibility:hidden; backface-visibility:hidden; }
+  .flip .front{ transform:rotateY(180deg); }
+
+  /* the 52-card picker */
+  .pick{ display:grid; grid-template-columns:repeat(13, minmax(0,1fr)); gap:.28rem; margin:1rem 0 .4rem; max-width:40rem; }
+  .mini{ font-family:var(--mono); font-size:.7rem; line-height:1.05; padding:.34rem 0 .3rem; border:0; border-radius:.25rem;
+    background:#fffdf7; color:#1a1b18; cursor:pointer; box-shadow:0 1px 0 rgba(0,0,0,.4);
+    transition:transform .12s ease, box-shadow .12s ease, opacity .12s ease; }
+  .mini.r{ color:#b23b2e; }
+  .mini span{ display:block; font-size:.82rem; }
+  .mini:hover:not(:disabled):not([aria-pressed="true"]){ transform:translateY(-.15rem); }
+  .mini[aria-pressed="true"]{ transform:translateY(-.32rem); box-shadow:0 0 0 2px #d9b45a, 0 7px 12px -6px rgba(0,0,0,.75); }
+  .mini:disabled{ opacity:.38; cursor:default; }
+
+  .tbtn{ font-family:var(--mono); font-size:.74rem; letter-spacing:.02em; padding:.5rem .85rem; border-radius:3px; cursor:pointer;
+    border:1px solid #d9b45a; background:#d9b45a; color:#1d2b22; transition:background .15s ease; }
+  .tbtn:hover:not(:disabled){ background:#e8c66d; }
+  .tbtn.ghost{ background:transparent; color:#f2e9cf; border-color:rgba(242,233,207,.5); }
+  .tbtn.ghost:hover:not(:disabled){ background:rgba(242,233,207,.1); }
+  .tbtn:disabled{ opacity:.4; cursor:default; }
+  .actions{ display:flex; flex-wrap:wrap; align-items:center; gap:.5rem .6rem; margin-top:.9rem; }
+  .count{ font-family:var(--mono); font-size:.7rem; color:#bcd2c2; margin-left:.2rem; }
+  .howlink{ font-family:var(--mono); font-size:.72rem; color:#f2d27a !important; margin-left:.3rem; }
+  .stage{ margin:1.1rem 0 .3rem; padding:1rem 1rem 1.05rem; border:1px dashed rgba(242,233,207,.3); border-radius:.6rem; }
+  .stage-grid{ display:flex; flex-wrap:wrap; gap:1.1rem 1.8rem; align-items:flex-end; }
+  .row{ display:flex; flex-wrap:wrap; gap:.55rem; min-height:5.74rem; }
+  .slot-lbl{ font-family:var(--mono); font-size:.64rem; letter-spacing:.04em; color:#bcd2c2; margin:0 0 .45rem; }
+  .say{ font-size:1.12rem; line-height:1.5; color:#f7f2e3; margin:1rem 0 0; min-height:1.6em; }
+  .say b{ color:#f2d27a; font-weight:600; }
+
+  /* the explanation, back on paper */
+  .yours{ border-left:3px solid #2d6a4f; background:#e9efe9; border-radius:2px; padding:.9rem 1.15rem; margin:0 0 1.4rem; }
+  .yours p{ margin:0 0 .6rem; } .yours p:last-child{ margin-bottom:0; }
+  .codes{ display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:0 1.4rem; margin:.2rem 0 1.3rem; max-width:36rem;
+    font-family:var(--mono); font-size:.76rem; }
+  .codes div{ display:flex; justify-content:space-between; gap:.6rem; border-top:1px solid var(--rule); padding:.34rem 0; }
+  .codes b{ color:var(--accent); font-weight:500; }
+
+  @media (max-width:640px){
+    .pc, .flip{ width:3.35rem; height:4.69rem; }
+    .pc .pip{ font-size:1.55rem; } .pc .ix{ font-size:.84rem; } .pc .ix small{ font-size:.74rem; }
+    .row{ min-height:4.69rem; gap:.4rem; }
+    .pick{ gap:.2rem; } .mini{ font-size:.6rem; } .mini span{ font-size:.7rem; }
+    .codes{ grid-template-columns:1fr 1fr; }
+  }
+  @media (prefers-reduced-motion:reduce){ .pc.deal{ animation:none; } .flip-in, .mini{ transition:none; } }
+</style>
+</head>
+<body>
+
+<nav class="nav" aria-label="Sections">
+  <div class="wrap">
+    <a class="nav-name" href="index.html">Alexander B. Chen<span class="sec-sign"> -- '27</span></a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="works.html">Research</a>
+      <a href="expository.html">Expositories</a>
+      <a href="olympiads.html">Olympiads</a>
+      <a href="interests.html">Interests</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ===================== HERO ===================== -->
+<header id="top" class="band hero hero--page">
+  <div class="wrap">
+    <div class="hero-inner">
+      <p class="eyebrow"><a href="present.html" style="color:var(--accent);text-decoration:none;">&larr; Stage performance</a></p>
+      <h1 class="title">Five cards</h1>
+      <p class="standfirst">You found the hidden deck. It isn&rsquo;t in any menu, so either the stage page made you suspicious or you went digging in the console. Either way, welcome. :]</p>
+    </div>
+  </div>
+</header>
+
+<!-- ===================== 1. THE TRICK ===================== -->
+<section id="trick" class="band felt">
+  <div class="wrap"><div class="band-inner"><div class="sec-grid">
+    <div class="sec-aside">
+      <div class="sec-num">1.</div>
+      <h2 class="sec-h">The trick</h2>
+      <span class="sec-mark-rule" aria-hidden="true"></span>
+    </div>
+    <div class="sec-content">
+      <p>Pick any five cards. My assistant looks at them, slips one into a pocket, and hands me the other four. From those four alone, I&rsquo;ll name the card I never saw.</p>
+      <p class="fine">The assistant and the magician are two separate functions in this page&rsquo;s source, and the magician only ever receives four cards, in order. View the source if you don&rsquo;t believe me.</p>
+      <div class="pick" id="pick" role="group" aria-label="Pick five cards"></div>
+      <div class="actions" id="pick-actions">
+        <button class="tbtn" id="b-hand" type="button" disabled>Hand them to my assistant</button>
+        <button class="tbtn ghost" id="b-deal" type="button">Deal me five</button>
+        <button class="tbtn ghost" id="b-clear" type="button">Clear</button>
+        <span class="count" id="pick-count">0 of 5 picked</span>
+      </div>
+      <div class="stage" id="stage" hidden>
+        <div class="stage-grid">
+          <div><p class="slot-lbl" id="row-lbl">your five</p><div class="row" id="row"></div></div>
+          <div id="pocket-wrap" hidden><p class="slot-lbl">the assistant&rsquo;s pocket</p><div id="pocket"></div></div>
+        </div>
+        <p class="say" id="say" aria-live="polite"></p>
+        <div class="actions">
+          <button class="tbtn" id="b-name" type="button" hidden>Name the hidden card</button>
+          <button class="tbtn ghost" id="b-again" type="button" hidden>Again</button>
+          <a class="howlink" id="howlink" href="#how" hidden>how did that work?</a>
+        </div>
+      </div>
+    </div>
+  </div></div></div>
+</section>
+
+<!-- ===================== 2. HOW ===================== -->
+<section id="how" class="band band--tint">
+  <div class="wrap"><div class="band-inner"><div class="sec-grid">
+    <div class="sec-aside">
+      <div class="sec-num">2.</div>
+      <h2 class="sec-h">How it works</h2>
+      <span class="sec-mark-rule" aria-hidden="true"></span>
+    </div>
+    <div class="sec-content">
+      <div class="yours" id="yours"><p>Do the trick once, and this box will walk through your hand specifically.</p></div>
+      <p><b>Five cards, four suits.</b> At least two of your cards share a suit; that&rsquo;s the pigeonhole principle doing the heavy lifting. One card of that pair goes into the pocket. The other goes down first, so its suit is the hidden card&rsquo;s suit.</p>
+      <p><b>A clock with thirteen hours.</b> Put the ranks around a clock, ace through king. Walk clockwise from one card of the pair to the other and it takes some number of steps \( d \); walk from the other and it takes \( 13-d \). Those can&rsquo;t both be 7 or more, so one direction is at most 6. The assistant pockets the card at the far end of the short walk, and the first card down is where the walk starts.</p>
+      <p><b>Three cards, six orders.</b> That leaves three cards to say a number from 1 to 6, and three cards can be laid down in exactly \( 3! = 6 \) orders. Rank them low, middle, high (if two share a rank, break the tie by suit: &clubs;&#xFE0E; &lt; &diams;&#xFE0E; &lt; &hearts;&#xFE0E; &lt; &spades;&#xFE0E;), and the order spells the count:</p>
+      <div class="codes" role="list" aria-label="The code">
+        <div role="listitem"><span>low, mid, high</span><b>1</b></div>
+        <div role="listitem"><span>low, high, mid</span><b>2</b></div>
+        <div role="listitem"><span>mid, low, high</span><b>3</b></div>
+        <div role="listitem"><span>mid, high, low</span><b>4</b></div>
+        <div role="listitem"><span>high, low, mid</span><b>5</b></div>
+        <div role="listitem"><span>high, mid, low</span><b>6</b></div>
+      </div>
+      <p><b>That&rsquo;s the whole thing.</b> Five cards for four suits, thirteen ranks that never sit more than six steps apart, six orders for six counts. Every number in the trick is exactly as big as it needs to be, and not one bigger.</p>
+    </div>
+  </div></div></div>
+</section>
+
+<!-- ===================== 3. YOUR TURN ===================== -->
+<section id="turn" class="band felt">
+  <div class="wrap"><div class="band-inner"><div class="sec-grid">
+    <div class="sec-aside">
+      <div class="sec-num">3.</div>
+      <h2 class="sec-h">Your turn</h2>
+      <span class="sec-mark-rule" aria-hidden="true"></span>
+    </div>
+    <div class="sec-content">
+      <p>Now you&rsquo;re the magician. My assistant has pocketed a card, and the four on the table are everything you get: the first card for the suit and the starting rank, the other three for the count.</p>
+      <div class="stage">
+        <div class="stage-grid">
+          <div><p class="slot-lbl">on the table</p><div class="row" id="t-row"></div></div>
+          <div><p class="slot-lbl">in the pocket</p><div id="t-pocket"></div></div>
+        </div>
+        <p class="say" id="t-say" aria-live="polite"></p>
+        <div class="pick" id="t-pick" role="group" aria-label="Guess the hidden card"></div>
+        <div class="actions">
+          <button class="tbtn" id="t-new" type="button">Deal a new hand</button>
+          <span class="count" id="t-streak"></span>
+        </div>
+      </div>
+    </div>
+  </div></div></div>
+</section>
+
+<!-- ===================== 4. CREDIT ===================== -->
+<section id="credit" class="band">
+  <div class="wrap"><div class="band-inner"><div class="sec-grid">
+    <div class="sec-aside">
+      <div class="sec-num">4.</div>
+      <h2 class="sec-h">Credit where it&rsquo;s due</h2>
+      <span class="sec-mark-rule" aria-hidden="true"></span>
+    </div>
+    <div class="sec-content">
+      <p>This trick isn&rsquo;t mine. It&rsquo;s one we learned at <a href="ross.html">Ross</a> in the summer of 2026, and it&rsquo;s about as Ross as card magic gets: <em>think deeply about simple things</em>, and five ordinary cards turn into a code.</p>
+      <p>Its roots go back a lot further than my summer. It&rsquo;s credited to William Fitch Cheney Jr., who was both a stage magician and the first person to earn a math PhD from MIT, in 1927. It first showed up in print in Wallace Lee&rsquo;s <em>Math Miracles</em> in 1950, and Michael Kleber&rsquo;s essay &ldquo;The Best Card Trick&rdquo; is still the best place to read about it.</p>
+      <p>Kleber also shows that with a cleverer code, five cards are enough to pull this off with a deck of 124. Finding that code yourself is harder than it sounds, and a lot more fun.</p>
+      <p>Like the Gilbreath shuffle on the <a href="present.html">stage page</a>, the proof here is short enough to ruin the trick, which is still the best property a trick can have.</p>
+    </div>
+  </div></div></div>
+</section>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="site-footer-inner">
+      <div class="lft">&copy; 2026 Alex Chen</div>
+      <div class="mid"><a href="https://alexanderbchen.github.io/index.html" target="_blank" rel="noopener">Alexander B. Chen</a> · <a href="mailto:alexbchen999@gmail.com">alexbchen999@gmail.com</a></div>
+      <div class="rgt"><a href="https://github.com/alexanderbchen" target="_blank" rel="noopener">github.com/alexanderbchen</a></div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="app.js"></script>
+<script>
+(function () {
+  "use strict";
+  /* core:start — the assistant and the magician. The magician is handed four cards and nothing else. */
+  var SUITS = ["\u2663", "\u2666", "\u2665", "\u2660"], SUIT_WORDS = ["clubs", "diamonds", "hearts", "spades"];
+  var RANKS = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
+  var CODES = [[0, 1, 2], [0, 2, 1], [1, 0, 2], [1, 2, 0], [2, 0, 1], [2, 1, 0]];
+  function card(id) { return { id: id, s: Math.floor(id / 13), r: (id % 13) + 1 }; }
+  function cmp(x, y) { return x.r !== y.r ? x.r - y.r : x.s - y.s; }
+  function assistant(hand) {
+    var bySuit = [[], [], [], []], pair = null, s, i;
+    for (i = 0; i < hand.length; i++) bySuit[hand[i].s].push(hand[i]);
+    for (s = 0; s < 4 && !pair; s++) if (bySuit[s].length >= 2) pair = bySuit[s].slice().sort(cmp);
+    var x = pair[0], y = pair[1], d = y.r - x.r, lead, hidden, count;
+    if (d <= 6) { lead = x; hidden = y; count = d; } else { lead = y; hidden = x; count = 13 - d; }
+    var rest = hand.filter(function (c) { return c.id !== lead.id && c.id !== hidden.id; }).sort(cmp);
+    var code = CODES[count - 1];
+    return { lead: lead, hidden: hidden, count: count, rest: rest, code: code,
+             shown: [lead, rest[code[0]], rest[code[1]], rest[code[2]]] };
+  }
+  function magician(four) {
+    var lead = four[0], three = four.slice(1), sorted = three.slice().sort(cmp), count = 0, i;
+    var pat = three.map(function (c) { for (var j = 0; j < 3; j++) if (sorted[j].id === c.id) return j; return -1; });
+    for (i = 0; i < 6; i++) if (CODES[i][0] === pat[0] && CODES[i][1] === pat[1] && CODES[i][2] === pat[2]) count = i + 1;
+    return card(lead.s * 13 + ((lead.r - 1 + count) % 13));
+  }
+  /* core:end */
+
+  var VS = "\uFE0E";
+  var reduce = !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+  function $(id) { return document.getElementById(id); }
+  function later(fn, ms) { return setTimeout(fn, reduce ? 0 : ms); }
+  function red(c) { return c.s === 1 || c.s === 2; }
+  function sym(c) { return SUITS[c.s] + VS; }
+  function spoken(c) { var w = { 1: "ace", 11: "jack", 12: "queen", 13: "king" }; return (w[c.r] || String(c.r)) + " of " + SUIT_WORDS[c.s]; }
+  function short(c) { return RANKS[c.r - 1] + sym(c); }
+  var POS = ["low", "mid", "high"];
+  function orderWords(code) { return code.map(function (i) { return POS[i]; }).join(", "); }
+  function list3(cs) { return "the " + spoken(cs[0]) + ", the " + spoken(cs[1]) + ", and the " + spoken(cs[2]); }
+
+  function face(c, i) {
+    var el = document.createElement("div");
+    el.className = "pc" + (red(c) ? " r" : "") + (i != null ? " deal" : "");
+    if (i != null && !reduce) el.style.animationDelay = (i * 70) + "ms";
+    el.innerHTML = '<span class="ix">' + RANKS[c.r - 1] + "<small>" + sym(c) + '</small></span><span class="pip">' + sym(c) +
+      '</span><span class="ix b">' + RANKS[c.r - 1] + "<small>" + sym(c) + "</small></span>";
+    el.setAttribute("role", "img"); el.setAttribute("aria-label", spoken(c));
+    return el;
+  }
+  function flipper(c) {
+    var w = document.createElement("div"), inr = document.createElement("div"), back = document.createElement("div"), front = face(c);
+    w.className = "flip"; inr.className = "flip-in"; back.className = "pc back";
+    back.setAttribute("role", "img"); back.setAttribute("aria-label", "a face-down card");
+    front.classList.add("front"); front.setAttribute("aria-hidden", "true");
+    inr.appendChild(back); inr.appendChild(front); w.appendChild(inr);
+    w.reveal = function () { w.classList.add("up"); front.removeAttribute("aria-hidden"); back.setAttribute("aria-hidden", "true"); };
+    return w;
+  }
+  function picker(el, onPick) {
+    var btns = [];
+    el.innerHTML = "";
+    for (var id = 0; id < 52; id++) (function (c) {
+      var b = document.createElement("button");
+      b.type = "button"; b.className = "mini" + (red(c) ? " r" : "");
+      b.innerHTML = RANKS[c.r - 1] + "<span>" + sym(c) + "</span>";
+      b.setAttribute("aria-label", spoken(c)); b.setAttribute("aria-pressed", "false");
+      b.addEventListener("click", function () { onPick(c, b); });
+      el.appendChild(b); btns[c.id] = b;
+    })(card(id));
+    return btns;
+  }
+  function randomHand() {
+    var a = [], i, j, t;
+    for (i = 0; i < 52; i++) a.push(i);
+    for (i = 51; i > 0; i--) { j = Math.floor(Math.random() * (i + 1)); t = a[i]; a[i] = a[j]; a[j] = t; }
+    return a.slice(0, 5).map(card);
+  }
+  function explain(enc) {
+    var L = enc.lead, H = enc.hidden, n = enc.count, wrap = L.r + n > 13,
+        tie = enc.rest[0].r === enc.rest[1].r || enc.rest[1].r === enc.rest[2].r;
+    return "<p><b>Your hand.</b> The " + spoken(L) + " and the " + spoken(H) + " shared a suit. Walking clockwise from " +
+      RANKS[L.r - 1] + " to " + RANKS[H.r - 1] + " takes " + n + " step" + (n === 1 ? "" : "s") + (wrap ? ", wrapping past the king" : "") +
+      "; the other way around takes " + (13 - n) + ". So the " + spoken(H) + " went into the pocket, and the " + spoken(L) + " went down first.</p>" +
+      "<p>The other three, from low to high, were " + list3(enc.rest) + (tie ? " (the tie in rank broken by suit)" : "") +
+      ". My assistant laid them down " + orderWords(enc.code) + ", which is the code for " + n + ". Count " + n + " clockwise from the " +
+      RANKS[L.r - 1] + " in " + SUIT_WORDS[L.s] + ", and you land on the " + spoken(H) + ".</p>";
+  }
+
+  /* ---------- the performance ---------- */
+  (function () {
+    var pickEl = $("pick");
+    if (!pickEl) return;
+    var sel = [], enc = null, busy = false;
+    var bHand = $("b-hand"), bDeal = $("b-deal"), bClear = $("b-clear"), cnt = $("pick-count"), controls = $("pick-actions"),
+        stage = $("stage"), row = $("row"), rowLbl = $("row-lbl"), pwrap = $("pocket-wrap"), pocket = $("pocket"),
+        say = $("say"), bName = $("b-name"), bAgain = $("b-again"), how = $("howlink"), yours = $("yours");
+    var btns = picker(pickEl, function (c) {
+      if (busy) return;
+      var at = -1;
+      for (var i = 0; i < sel.length; i++) if (sel[i].id === c.id) at = i;
+      if (at >= 0) sel.splice(at, 1); else if (sel.length < 5) sel.push(c); else return;
+      sync();
+    });
+    function sync() {
+      btns.forEach(function (b, id) {
+        var on = sel.some(function (c) { return c.id === id; });
+        b.setAttribute("aria-pressed", on ? "true" : "false");
+        b.disabled = !on && sel.length >= 5;
+      });
+      cnt.textContent = sel.length + " of 5 picked";
+      bHand.disabled = sel.length !== 5;
+    }
+    bDeal.addEventListener("click", function () { if (!busy) { sel = randomHand(); sync(); } });
+    bClear.addEventListener("click", function () { if (!busy) { sel = []; sync(); } });
+    bHand.addEventListener("click", function () {
+      if (sel.length !== 5) return;
+      busy = true; enc = assistant(sel.slice());
+      pickEl.hidden = true; controls.hidden = true; stage.hidden = false;
+      row.innerHTML = ""; sel.forEach(function (c, i) { row.appendChild(face(c, i)); });
+      rowLbl.textContent = "your five"; pwrap.hidden = true; pocket.innerHTML = "";
+      bName.hidden = true; bAgain.hidden = true; how.hidden = true;
+      say.innerHTML = "Your five. My assistant is looking them over&hellip;";
+      later(function () {
+        row.innerHTML = ""; enc.shown.forEach(function (c, i) { row.appendChild(face(c, i)); });
+        rowLbl.textContent = "what I get to see";
+        pocket.appendChild(flipper(enc.hidden)); pwrap.hidden = false;
+        say.innerHTML = "My assistant pocketed one card and handed me these four, in exactly this order.";
+        bName.hidden = false;
+        try { bName.focus({ preventScroll: true }); } catch (err) { bName.focus(); }
+      }, 1300);
+    });
+    bName.addEventListener("click", function () {
+      var four = enc.shown.map(function (c) { return card(c.id); });  /* fresh copies: the magician learns nothing else */
+      var guess = magician(four);
+      bName.hidden = true;
+      say.innerHTML = guess.id === enc.hidden.id
+        ? "Your hidden card is the <b>" + spoken(guess) + "</b>."
+        : "I said the " + spoken(guess) + ", which is wrong, which means I have a bug. Please tell me!";
+      later(function () { var f = pocket.querySelector(".flip"); if (f && f.reveal) f.reveal(); }, 250);
+      yours.innerHTML = explain(enc);
+      bAgain.hidden = false; how.hidden = false;
+    });
+    bAgain.addEventListener("click", function () {
+      busy = false; sel = []; sync(); stage.hidden = true; pickEl.hidden = false; controls.hidden = false;
+      try { bDeal.focus({ preventScroll: true }); } catch (err) { bDeal.focus(); }
+    });
+    sync();
+  })();
+
+  /* ---------- your turn ---------- */
+  (function () {
+    var rowEl = $("t-row");
+    if (!rowEl) return;
+    var pocketEl = $("t-pocket"), sayEl = $("t-say"), streakEl = $("t-streak"), enc = null, done = false, streak = 0, best = 0, flip = null;
+    var btns = picker($("t-pick"), function (c, b) {
+      if (done || !enc) return;
+      done = true; b.setAttribute("aria-pressed", "true"); flip.reveal();
+      btns.forEach(function (x) { x.disabled = true; });
+      var L = enc.lead, H = enc.hidden;
+      if (c.id === H.id) {
+        streak++; best = Math.max(best, streak);
+        sayEl.innerHTML = "Yes: the <b>" + spoken(H) + "</b>. You&rsquo;re a magician now.";
+      } else {
+        streak = 0;
+        sayEl.innerHTML = "Not quite: it was the <b>" + spoken(H) + "</b>. The " + short(L) + " sets the suit and the start, and the other three read " +
+          orderWords(enc.code) + ", which means " + enc.count + ". " + RANKS[L.r - 1] + " plus " + enc.count +
+          (L.r + enc.count > 13 ? ", around the clock," : "") + " is " + RANKS[H.r - 1] + ".";
+      }
+      streakEl.textContent = "streak " + streak + " \u00b7 best " + best;
+    });
+    function deal() {
+      enc = assistant(randomHand()); done = false;
+      rowEl.innerHTML = ""; enc.shown.forEach(function (c, i) { rowEl.appendChild(face(c, i)); });
+      pocketEl.innerHTML = ""; flip = flipper(enc.hidden); pocketEl.appendChild(flip);
+      btns.forEach(function (x, id) {
+        x.setAttribute("aria-pressed", "false");
+        x.disabled = enc.shown.some(function (c) { return c.id === id; });
+      });
+      sayEl.innerHTML = "Which card is in the pocket? Tap it below.";
+    }
+    $("t-new").addEventListener("click", deal);
+    deal();
+  })();
+})();
+</script>
+</body>
+</html>

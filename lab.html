@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>document.documentElement.className += ' js';</script>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Lab — Alexander B. Chen</title>
+<meta name="description" content="Alexander B. Chen's research, running live in your browser: Anderson localization, a Monte Carlo rerun of his published paper, and the phase transition in a generalized Nesbitt inequality." />
+<meta name="theme-color" content="#f6f7f4" />
+<link rel="icon" href="favicon.ico" sizes="32x32" />
+<link rel="icon" href="favicon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="apple-touch-icon.png" />
+<link rel="manifest" href="manifest.webmanifest" />
+<meta property="og:title" content="Lab — Alexander B. Chen" />
+<meta property="og:description" content="Watch a wave get stuck, rerun a published Monte Carlo experiment, and drag a phase transition, all live in your browser." />
+<meta property="og:type" content="website" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;1,400&family=STIX+Two+Text:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="style.css" />
+<style>
+  /* ===== lab instruments (built on the site's own tokens) ===== */
+  .lab-panel{ border:1px solid var(--rule); border-left:3px solid var(--accent); border-radius:4px;
+    background:#fbfbf9; padding:1rem 1.05rem 1.05rem; margin:1.1rem 0 1.3rem; }
+  .lab-plot{ display:block; width:100%; border:1px solid var(--rule); border-radius:2px; background-color:#fdfdfb;
+    background-image:linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size:26px 26px; }
+  .lab-plot + .lab-plot{ margin-top:.55rem; }
+  .lab-read{ display:flex; flex-wrap:wrap; gap:.25rem 1.3rem; margin:.7rem 0 0;
+    font-family:var(--mono); font-size:.72rem; color:var(--muted); }
+  .lab-read b{ color:var(--ink); font-weight:500; }
+  .lab-read .hot{ color:var(--redrule); }
+  .lab-read sup{ font-size:.62em; }
+  .lab-note{ font-family:var(--mono); font-size:.7rem; color:var(--muted); margin:.3rem 0 0; min-height:1.1em; }
+  .lab-controls{ display:flex; flex-wrap:wrap; align-items:flex-end; gap:.6rem .8rem; margin:.9rem 0 0; }
+  .lab-slider{ flex:1 1 15rem; min-width:13rem; }
+  .lab-slider label{ display:block; font-family:var(--mono); font-size:.72rem; color:var(--muted); margin-bottom:.15rem; }
+  .lab-slider label b{ color:var(--ink); font-weight:500; }
+  .lab-slider input[type=range]{ width:100%; margin:0; accent-color:var(--accent); }
+  .lab-ruler{ position:relative; height:1.05rem; margin-top:.1rem; }
+  .lab-ruler i{ position:absolute; top:.18rem; height:4px; border-radius:2px; background:var(--redrule); opacity:.75;
+    left:calc((100% - 16px) * .1443 + 8px); width:calc((100% - 16px) * .1057); }
+  .lab-ruler span{ position:absolute; top:.36rem; font-family:var(--mono); font-size:.6rem; line-height:1; color:var(--redrule);
+    left:calc((100% - 16px) * .25 + 14px); white-space:nowrap; }
+  .lab-seg{ display:inline-flex; border:1px solid var(--rule); border-radius:3px; overflow:hidden; flex:none; }
+  .lab-seg button{ font-family:var(--mono); font-size:.7rem; padding:.42rem .62rem; border:0; background:var(--paper);
+    color:var(--ink-soft); cursor:pointer; }
+  .lab-seg button + button{ border-left:1px solid var(--rule); }
+  .lab-seg button:hover{ color:var(--accent); }
+  .lab-seg button[aria-pressed="true"]{ background:var(--accent); color:#fff; }
+  .lab-btn{ font-family:var(--mono); font-size:.7rem; padding:.42rem .7rem; border:1px solid var(--accent);
+    border-radius:3px; background:transparent; color:var(--accent); cursor:pointer; flex:none;
+    transition:background .15s ease, color .15s ease; }
+  .lab-btn:hover{ background:var(--accent); color:#fff; }
+  .lab-btn.solid{ background:var(--accent); color:#fff; min-width:5.6rem; }
+  .lab-btn.solid:hover{ background:var(--accent-dk); border-color:var(--accent-dk); }
+  .lab-two{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:.9rem; align-items:center; }
+  .nb-tri{ display:block; width:100%; }
+  .lab-jumps{ display:flex; flex-wrap:wrap; gap:.4rem; }
+  @media (max-width:640px){
+    .lab-two{ grid-template-columns:1fr; }
+    .lab-panel{ padding:.85rem .75rem .9rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav" aria-label="Sections">
+  <div class="wrap">
+    <a class="nav-name" href="index.html">Alexander B. Chen<span class="sec-sign"> -- '27</span></a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="works.html" class="active">Research</a>
+      <a href="expository.html">Expositories</a>
+      <a href="olympiads.html">Olympiads</a>
+      <a href="interests.html">Interests</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ===================== HERO ===================== -->
+<header id="top" class="band hero hero--page">
+  <div class="wrap">
+    <div class="hero-inner">
+      <p class="eyebrow"><a href="works.html" style="color:var(--accent);text-decoration:none;">&larr; Research</a></p>
+      <h1 class="title">Lab</h1>
+      <p class="standfirst">Two of my results, running live in your browser. Nothing on this page is a recording.</p>
+    </div>
+  </div>
+</header>
+
+<!-- ===================== CONTENTS ===================== -->
+<div class="wrap toc-wrap">
+  <nav class="toc" aria-label="Contents">
+    <p class="toc-h">Contents</p>
+    <ul class="toc-list">
+      <li><span class="n">1.</span><a href="#wave">Watch a wave get stuck</a></li>
+      <li><span class="n">2.</span><a href="#measure">Measure how stuck</a></li>
+      <li><span class="n">3.</span><a href="#nesbitt">Drag &alpha; past 0.585</a></li>
+    </ul>
+  </nav>
+  <p>A proof tells you something is true. A simulation lets you watch it happen, which is a different kind of convincing. Everything below is computed the moment you ask, from randomness nobody picked in advance, so if something looks too good, reroll it and see whether it happens again.</p>
+</div>
+
+<span style="display: block; margin-top: 2em;"></span>
+
+<!-- ===================== 1. WAVE ===================== -->
+<section id="wave" class="band band--tint">
+  <div class="wrap"><div class="band-inner"><div class="sec-grid">
+    <div class="sec-aside">
+      <div class="sec-num">1.</div>
+      <h2 class="sec-h">Watch a wave get stuck</h2>
+      <span class="sec-mark-rule" aria-hidden="true"></span>
+    </div>
+    <div class="sec-content">
+      <p class="subhead">Anderson localization &middot; the picture</p>
+      <p>Put a quantum particle on the middle site of a line of 201 atoms and let go. If every site is identical, it races outward in both directions and never stops spreading. Now give each site a random energy. The particle still tries to leave, but its echoes off all that randomness interfere with one another, and it ends up stuck close to where it started.</p>
+
+      <div class="lab-panel" id="wv">
+        <canvas class="lab-plot" id="wv-canvas" role="img" aria-label="Live plot of a quantum wave on 201 sites: its amplitude now, and the farthest it has reached"></canvas>
+        <canvas class="lab-plot" id="wv-spark" role="img" aria-label="Live plot of how far the wave has spread over time, next to the straight line a free wave would follow"></canvas>
+        <div class="lab-read">
+          <span>time <b id="wv-t">0.0</b></span>
+          <span>spread <b id="wv-rms">0.0</b> sites</span>
+          <span class="hot" id="wv-state"></span>
+        </div>
+        <div class="lab-controls">
+          <div class="lab-slider">
+            <label for="wv-sigma">disorder strength &sigma; = <b id="wv-sigma-val">1.00</b></label>
+            <input type="range" id="wv-sigma" min="0" max="2" step="0.01" value="1" />
+            <div class="lab-ruler" aria-hidden="true"><i></i><span>our paper</span></div>
+          </div>
+          <div class="lab-seg" id="wv-law" role="group" aria-label="Random energies">
+            <button type="button" data-law="bern" aria-pressed="true">Bernoulli &plusmn;&sigma;</button>
+            <button type="button" data-law="unif" aria-pressed="false">Uniform</button>
+          </div>
+          <button class="lab-btn solid" id="wv-play" type="button">Play</button>
+          <button class="lab-btn" id="wv-reroll" type="button">Reroll disorder</button>
+          <button class="lab-btn" id="wv-restart" type="button">Restart</button>
+        </div>
+      </div>
+
+      <p>The red line is a high-water mark: the farthest the wave has ever reached at each site. With no disorder it climbs the whole box. Turn &sigma; up and it stops at a ridge, and the spread underneath levels off instead of following the dashed line a free wave would. The red notch under the slider marks the range of disorder our paper actually studies.</p>
+      <p>One honest caveat: at very small &sigma; the trap gets wider than the box, so weak disorder can look like none at all here. On an infinite line, any &sigma; above zero traps the wave eventually. That part is a theorem; this is just a picture of it.</p>
+    </div>
+  </div></div></div>
+</section>
+
+<!-- ===================== 2. MEASURE ===================== -->
+<section id="measure" class="band">
+  <div class="wrap"><div class="band-inner"><div class="sec-grid">
+    <div class="sec-aside">
+      <div class="sec-num">2.</div>
+      <h2 class="sec-h">Measure how stuck</h2>
+      <span class="sec-mark-rule" aria-hidden="true"></span>
+    </div>
+    <div class="sec-content">
+      <p class="subhead">The paper &middot; Advances in Nonlinear Analysis 15 (2026)</p>
+      <p>Watching isn&rsquo;t measuring. Our paper turns &ldquo;stuck&rdquo; into a number. The correlator \( Q(k) \) caps how much of the wave can ever show up \( k \) sites away, and on average it decays like \( e^{-\gamma k} \). Nobody hands you \( \gamma \), though. You estimate it by averaging over many random lines, and our Lemma 3.1 says, before you start, how far off that average can be.</p>
+
+      <div class="lab-panel" id="mc">
+        <canvas class="lab-plot" id="mc-canvas" role="img" aria-label="Live plot of the averaged correlator on a log scale, with its 95 percent confidence band and the fitted exponential"></canvas>
+        <div class="lab-read">
+          <span>samples K = <b id="mc-k">0</b></span>
+          <span>band half-width &epsilon; = <b id="mc-eps">&mdash;</b></span>
+          <span>your estimate of &gamma; = <b class="hot" id="mc-g">&mdash;</b></span>
+          <span>ours, from K = 200,000: <b id="mc-paper">0.0252</b></span>
+        </div>
+        <p class="lab-note" id="mc-eta"></p>
+        <div class="lab-controls">
+          <div class="lab-seg" id="mc-law" role="group" aria-label="Disorder law">
+            <button type="button" data-v="bern" aria-pressed="true">Bernoulli</button>
+            <button type="button" data-v="unif" aria-pressed="false">Uniform</button>
+          </div>
+          <div class="lab-seg" id="mc-var" role="group" aria-label="Variance">
+            <button type="button" data-v="a" aria-pressed="false">&sigma;&sup2; = 1/12</button>
+            <button type="button" data-v="b" aria-pressed="true">&sigma;&sup2; = 1/4</button>
+          </div>
+          <button class="lab-btn solid" id="mc-run" type="button">Run</button>
+          <button class="lab-btn" id="mc-reset" type="button">Reset</button>
+        </div>
+      </div>
+
+      <p>Press run and you&rsquo;re redoing our experiment, one random line of 201 sites at a time. The shaded band is Lemma 3.1 at 95% confidence: with that probability, the true curve sits inside it at every distance at once. The dashed red line is the steepest exponential that never dips below your curve, and its slope is your estimate of \( \gamma \). The little mark on the right edge is where ours landed.</p>
+      <p>The band shrinks like \( 1/\sqrt{K} \), so halving it costs four times the samples. That&rsquo;s why every entry in our tables took \( K = 200{,}000 \) of them. The readout keeps track of how long your browser would need to catch up.</p>
+      <p><a class="chip sm" href="https://doi.org/10.1515/anona-2025-0198" target="_blank" rel="noopener">paper</a> <a class="chip sm" href="works.html#anderson">details &rarr;</a></p>
+    </div>
+  </div></div></div>
+</section>
+
+<!-- ===================== 3. NESBITT ===================== -->
+<section id="nesbitt" class="band band--tint">
+  <div class="wrap"><div class="band-inner"><div class="sec-grid">
+    <div class="sec-aside">
+      <div class="sec-num">3.</div>
+      <h2 class="sec-h">Drag &alpha; past 0.585</h2>
+      <span class="sec-mark-rule" aria-hidden="true"></span>
+    </div>
+    <div class="sec-content">
+      <p class="subhead">Nesbitt, generalized &middot; solo manuscript</p>
+      <p>Nesbitt&rsquo;s inequality says \( \frac{a}{b+c}+\frac{b}{c+a}+\frac{c}{a+b}\ge\frac{3}{2} \) for positive \( a, b, c \), with equality at \( a=b=c \). Raise each term to a power \( \alpha \) and the question gets interesting: where does the minimum go? Every point in the triangle is a choice of \( (a,b,c) \) with \( a+b+c=1 \), shaded by the value of \( \sum \big(\tfrac{a}{b+c}\big)^{\alpha} \). Darker means lower, and the red rings mark the bottom.</p>
+
+      <div class="lab-panel" id="nb">
+        <div class="lab-two">
+          <canvas class="nb-tri" id="nb-tri" role="img" aria-label="Triangle of every (a, b, c) with a + b + c = 1, shaded by the generalized Nesbitt sum, with rings at the minimum"></canvas>
+          <canvas class="lab-plot" id="nb-curve" role="img" aria-label="The sharp constant as a function of alpha, which bends at alpha star, log base 2 of 3/2"></canvas>
+        </div>
+        <div class="lab-read">
+          <span>center 3&middot;2<sup>&minus;&alpha;</sup> = <b id="nb-center">1.5000</b></span>
+          <span>edge midpoints = <b>2</b></span>
+          <span><b class="hot" id="nb-verdict" aria-live="polite">minimum at the center</b></span>
+        </div>
+        <div class="lab-controls">
+          <div class="lab-slider">
+            <label for="nb-alpha">&alpha; = <b id="nb-alpha-val">1.000</b></label>
+            <input type="range" id="nb-alpha" min="0.25" max="1.25" step="0.001" value="1" />
+          </div>
+          <div class="lab-jumps" id="nb-jumps">
+            <button class="lab-btn" type="button" data-a="1">&alpha; = 1, Nesbitt</button>
+            <button class="lab-btn" type="button" data-a="0.585">&alpha;* = log&#8322;(3/2)</button>
+            <button class="lab-btn" type="button" data-a="0.4">&alpha; = 0.4</button>
+          </div>
+        </div>
+      </div>
+
+      <p>At \( \alpha = 1 \) the bottom of the bowl sits dead center. Slide \( \alpha \) down and the center climbs, \( 3\cdot 2^{-\alpha} \), while the midpoints of the edges stay pinned at exactly 2. The two meet when \( 3\cdot 2^{-\alpha}=2 \), at \( \alpha^\star=\log_2\tfrac{3}{2}\approx 0.585 \). Below that, no point inside the triangle is the minimum anymore. The infimum moves out to the edges, where two variables are equal and the third has shrunk to nothing: a value you can get as close to as you like and never actually reach.</p>
+      <p>That jump is the phase transition, and it&rsquo;s the reason the sharp constant needs two formulas instead of one.</p>
+      <p><a class="chip sm" href="https://drive.google.com/file/d/1Ca4lFZHIkeL6VFVME-FI2VKadyo1xivA/view?usp=sharing" target="_blank" rel="noopener">pdf</a> <a class="chip sm" href="works.html#nesbitt">details &rarr;</a></p>
+    </div>
+  </div></div></div>
+</section>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="site-footer-inner">
+      <div class="lft">&copy; 2026 Alex Chen</div>
+      <div class="mid"><a href="https://alexanderbchen.github.io/index.html" target="_blank" rel="noopener">Alexander B. Chen</a> · <a href="mailto:alexbchen999@gmail.com">alexbchen999@gmail.com</a></div>
+      <div class="rgt"><a href="https://github.com/alexanderbchen" target="_blank" rel="noopener">github.com/alexanderbchen</a></div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="app.js"></script>
+<script>
+(function () {
+  "use strict";
+  var rootStyle = getComputedStyle(document.documentElement);
+  function tok(n, f) { var v = rootStyle.getPropertyValue(n).trim(); return v || f; }
+  var C = { ink: tok("--ink", "#1a1b18"), soft: tok("--ink-soft", "#3f4139"), muted: tok("--muted", "#767869"),
+            accent: tok("--accent", "#2e3a8c"), red: tok("--redrule", "#b23b2e") };
+  var MONO = "11px 'IBM Plex Mono', ui-monospace, Menlo, monospace";
+  var reduce = !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+  function $(id) { return document.getElementById(id); }
+  function setPressed(group, btn) {
+    [].forEach.call(group.querySelectorAll("button"), function (b) { b.setAttribute("aria-pressed", b === btn ? "true" : "false"); });
+  }
+
+  /* small seeded generator, so runs are reproducible when we want them to be */
+  function mulberry32(a) {
+    return function () {
+      a |= 0; a = (a + 0x6D2B79F5) | 0;
+      var t = Math.imul(a ^ (a >>> 15), 1 | a);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+  var rand = mulberry32((Date.now() ^ 0x5bd1e995) >>> 0);
+
+  /* Symmetric tridiagonal eigensolver: implicit QL with shifts (the classic tqli).
+     d = diagonal in, eigenvalues out. e[i] couples sites i and i+1, e[n-1] = 0 (destroyed).
+     z is column-major: z[j*R + r] = component, at tracked row r, of eigenvector j.
+     Rows are independent under the rotations, so we only track the R rows we need. */
+  function tqli(d, e, n, z, R) {
+    var m, l, iter, i, k, s, r, p, g, f, dd, c, b, ci, cj;
+    for (l = 0; l < n; l++) {
+      iter = 0;
+      do {
+        for (m = l; m < n - 1; m++) {
+          dd = Math.abs(d[m]) + Math.abs(d[m + 1]);
+          if (Math.abs(e[m]) + dd === dd) break;
+        }
+        if (m !== l) {
+          if (iter++ === 64) break;
+          g = (d[l + 1] - d[l]) / (2 * e[l]);
+          r = Math.sqrt(g * g + 1);
+          g = d[m] - d[l] + e[l] / (g + (g >= 0 ? r : -r));
+          s = 1; c = 1; p = 0;
+          for (i = m - 1; i >= l; i--) {
+            f = s * e[i]; b = c * e[i];
+            r = Math.sqrt(f * f + g * g); e[i + 1] = r;
+            if (r === 0) { d[i + 1] -= p; e[m] = 0; break; }
+            s = f / r; c = g / r;
+            g = d[i + 1] - p;
+            r = (d[i] - g) * s + 2 * c * b;
+            p = s * r; d[i + 1] = g + p;
+            g = c * r - b;
+            ci = i * R; cj = ci + R;
+            for (k = 0; k < R; k++) {
+              f = z[cj + k];
+              z[cj + k] = s * z[ci + k] + c * f;
+              z[ci + k] = c * z[ci + k] - s * f;
+            }
+          }
+          if (r === 0 && i >= l) continue;
+          d[l] -= p; e[l] = g; e[m] = 0;
+        }
+      } while (m !== l);
+    }
+  }
+
+  function fit(cv, cssH) {
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var w = Math.max(240, Math.round(cv.getBoundingClientRect().width || 600));
+    cv.style.height = cssH + "px";
+    var pw = Math.round(w * dpr), ph = Math.round(cssH * dpr);
+    if (cv.width !== pw) cv.width = pw;
+    if (cv.height !== ph) cv.height = ph;
+    var x = cv.getContext("2d");
+    x.setTransform(dpr, 0, 0, dpr, 0, 0);
+    return { x: x, w: w, h: cssH };
+  }
+  var redraws = [], rt = 0;
+  function onResize(fn) { redraws.push(fn); }
+  window.addEventListener("resize", function () {
+    clearTimeout(rt); rt = setTimeout(function () { redraws.forEach(function (f) { f(); }); }, 120);
+  });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { redraws.forEach(function (f) { f(); }); });
+
+  /* ================= 1. a wave packet in a random line ================= */
+  (function () {
+    var cv = $("wv-canvas"), sp = $("wv-spark"), panel = $("wv");
+    if (!cv) return;
+    var N = 100, M = 2 * N + 1, TMAX = 140, DT = 0.18, SQ3 = Math.sqrt(3);
+    var u = new Float64Array(M), V = new Float64Array(M), E = new Float64Array(M), A = new Float64Array(M * M),
+        re = new Float64Array(M), im = new Float64Array(M), amp = new Float64Array(M), hw = new Float64Array(M),
+        d = new Float64Array(M), e = new Float64Array(M), z = new Float64Array(M * M);
+    var st = { law: "bern", sigma: 1, t: 0, r: 0, playing: false, userPaused: false, seen: false, hist: [], raf: 0, pend: 0, fresh: false };
+    var elT = $("wv-t"), elR = $("wv-rms"), elS = $("wv-state"), elSig = $("wv-sigma"), elSigV = $("wv-sigma-val"), bPlay = $("wv-play");
+
+    function drawDisorder() {
+      for (var n = 0; n < M; n++) u[n] = st.law === "bern" ? (rand() < 0.5 ? -1 : 1) : (2 * rand() - 1) * SQ3;
+    }
+    function solve() {
+      var n, j, off, c0;
+      for (n = 0; n < M; n++) { V[n] = st.sigma * u[n]; d[n] = V[n]; e[n] = 1; }
+      e[M - 1] = 0;
+      z.fill(0);
+      for (n = 0; n < M; n++) z[n * M + n] = 1;
+      tqli(d, e, M, z, M);
+      for (j = 0; j < M; j++) {
+        E[j] = d[j]; off = j * M; c0 = z[off + N];
+        for (n = 0; n < M; n++) A[off + n] = c0 * z[off + n];
+      }
+    }
+    function evolve(t) {
+      var j, n, cs, sn, off, a, p, x, m2 = 0;
+      re.fill(0); im.fill(0);
+      for (j = 0; j < M; j++) {
+        cs = Math.cos(E[j] * t); sn = Math.sin(E[j] * t); off = j * M;
+        for (n = 0; n < M; n++) { a = A[off + n]; re[n] += cs * a; im[n] -= sn * a; }
+      }
+      for (n = 0; n < M; n++) {
+        p = re[n] * re[n] + im[n] * im[n]; a = Math.sqrt(p);
+        amp[n] = a; if (a > hw[n]) hw[n] = a;
+        x = n - N; m2 += x * x * p;
+      }
+      return Math.sqrt(m2);
+    }
+    function restart() { st.t = 0; hw.fill(0); st.r = evolve(0); st.hist = [[0, st.r]]; }
+
+    function drawWave() {
+      var g = fit(cv, cv.getBoundingClientRect().width < 520 ? 210 : 240), x = g.x, W = g.w, H = g.h;
+      var L = 36, Rm = 12, T = 26, B = 46, pw = W - L - Rm, base = H - B, ph = base - T, AMAX = 0.62, n;
+      function X(i) { return L + (i / (M - 1)) * pw; }
+      function Y(a) { return base - Math.min(a / AMAX, 1) * ph; }
+      x.clearRect(0, 0, W, H);
+      x.font = MONO; x.lineWidth = 1;
+      [0.2, 0.4, 0.6].forEach(function (v) {
+        var y = Math.round(Y(v)) + 0.5;
+        x.strokeStyle = "rgba(46,58,140,.13)"; x.beginPath(); x.moveTo(L, y); x.lineTo(L + pw, y); x.stroke();
+        x.fillStyle = C.muted; x.textAlign = "right"; x.textBaseline = "middle"; x.fillText(v.toFixed(1), L - 6, y);
+      });
+      x.strokeStyle = C.ink; x.globalAlpha = 0.5; x.beginPath(); x.moveTo(L, base + 0.5); x.lineTo(L + pw, base + 0.5); x.stroke(); x.globalAlpha = 1;
+      /* the random site energies, as ticks under the axis */
+      var mid = base + 17, vmax = 2 * SQ3;
+      if (st.sigma > 0) {
+        x.strokeStyle = C.muted; x.globalAlpha = 0.75; x.beginPath();
+        for (n = 0; n < M; n++) { var tx = Math.round(X(n)) + 0.5; x.moveTo(tx, mid); x.lineTo(tx, mid - (V[n] / vmax) * 12); }
+        x.stroke(); x.globalAlpha = 1;
+      }
+      x.fillStyle = C.muted; x.textAlign = "right"; x.textBaseline = "middle"; x.fillText("V(n)", L - 6, mid);
+      x.textBaseline = "alphabetic";
+      x.textAlign = "left"; x.fillText("\u2212100", L, H - 3);
+      x.textAlign = "center"; x.fillText("0", X(N), H - 3);
+      x.textAlign = "right"; x.fillText("+100", L + pw, H - 3);
+      /* high-water mark */
+      x.strokeStyle = C.red; x.globalAlpha = 0.6; x.lineWidth = 1; x.beginPath();
+      for (n = 0; n < M; n++) { if (n) x.lineTo(X(n), Y(hw[n])); else x.moveTo(X(n), Y(hw[n])); }
+      x.stroke(); x.globalAlpha = 1;
+      /* the wave right now */
+      x.beginPath(); x.moveTo(X(0), base);
+      for (n = 0; n < M; n++) x.lineTo(X(n), Y(amp[n]));
+      x.lineTo(X(M - 1), base); x.closePath();
+      x.fillStyle = "rgba(46,58,140,.17)"; x.fill();
+      x.beginPath();
+      for (n = 0; n < M; n++) { if (n) x.lineTo(X(n), Y(amp[n])); else x.moveTo(X(n), Y(amp[n])); }
+      x.strokeStyle = C.accent; x.lineWidth = 1.6; x.stroke();
+      /* legend */
+      x.textAlign = "left"; x.textBaseline = "middle";
+      x.fillStyle = C.accent; x.fillRect(L + 6, 11, 14, 3);
+      x.fillStyle = C.soft; x.fillText("|\u03c8(n)| now", L + 26, 12);
+      x.fillStyle = C.red; x.globalAlpha = 0.7; x.fillRect(L + 118, 12, 14, 1.5); x.globalAlpha = 1;
+      x.fillStyle = C.soft; x.fillText("farthest it has reached", L + 138, 12);
+    }
+    function drawSpark() {
+      var g = fit(sp, 96), x = g.x, W = g.w, H = g.h, L = 36, Rm = 12, T = 10, B = 22, pw = W - L - Rm, ph = H - T - B, YMAX = 80;
+      function X(t) { return L + (t / TMAX) * pw; }
+      function Y(r) { return T + ph - Math.min(r / YMAX, 1) * ph; }
+      x.clearRect(0, 0, W, H); x.font = MONO; x.lineWidth = 1;
+      x.fillStyle = C.muted; x.textAlign = "right"; x.textBaseline = "middle";
+      x.fillText("80", L - 6, Y(80)); x.fillText("0", L - 6, Y(0));
+      x.strokeStyle = C.ink; x.globalAlpha = 0.4; x.beginPath(); x.moveTo(L, Math.round(Y(0)) + 0.5); x.lineTo(L + pw, Math.round(Y(0)) + 0.5); x.stroke(); x.globalAlpha = 1;
+      var tEnd = YMAX / Math.SQRT2;
+      x.setLineDash([4, 4]); x.strokeStyle = C.muted; x.beginPath(); x.moveTo(X(0), Y(0)); x.lineTo(X(tEnd), Y(YMAX)); x.stroke(); x.setLineDash([]);
+      x.textAlign = "left"; x.fillStyle = C.muted; x.fillText("free wave: \u221a2\u00b7t", X(tEnd) + 6, Y(YMAX) + 4);
+      x.strokeStyle = C.accent; x.lineWidth = 1.6; x.beginPath();
+      st.hist.forEach(function (h, i) { if (i) x.lineTo(X(h[0]), Y(h[1])); else x.moveTo(X(h[0]), Y(h[1])); });
+      x.stroke();
+      x.fillStyle = C.muted; x.textBaseline = "alphabetic"; x.textAlign = "left"; x.fillText("spread over time", L, H - 4);
+      x.textAlign = "right"; x.fillText("t = " + TMAX, L + pw, H - 4);
+    }
+    function render() { drawWave(); drawSpark(); elT.textContent = st.t.toFixed(1); elR.textContent = st.r.toFixed(1); }
+    function label() { bPlay.textContent = st.playing ? "Pause" : (st.t >= TMAX ? "Replay" : "Play"); }
+    function stateText() {
+      elS.textContent = st.sigma === 0 ? "no disorder: nothing stops it"
+        : st.sigma < 0.3 ? "weak disorder: the trap is wider than this box"
+        : "disorder on: watch the spread level off";
+    }
+    function frame() {
+      st.raf = 0;
+      if (!st.playing) return;
+      st.t = Math.min(TMAX, st.t + DT);
+      st.r = evolve(st.t); st.hist.push([st.t, st.r]);
+      render();
+      if (st.t >= TMAX) { st.playing = false; label(); return; }
+      st.raf = requestAnimationFrame(frame);
+    }
+    function play() { if (st.t >= TMAX) restart(); st.playing = true; label(); if (!st.raf) st.raf = requestAnimationFrame(frame); }
+    function pause() { st.playing = false; label(); }
+    function rebuild(user) {
+      st.pend = 0;
+      if (st.fresh) { drawDisorder(); st.fresh = false; }
+      solve(); restart(); stateText(); render();
+      if (!st.userPaused && (st.seen || user)) play(); else label();
+    }
+    function schedule(newDisorder) {
+      if (newDisorder) st.fresh = true;
+      if (!st.pend) st.pend = requestAnimationFrame(function () { rebuild(true); });
+    }
+    elSig.addEventListener("input", function () {
+      st.sigma = parseFloat(elSig.value); elSigV.textContent = st.sigma.toFixed(2); st.userPaused = false; schedule(false);
+    });
+    [].forEach.call($("wv-law").querySelectorAll("button"), function (b) {
+      b.addEventListener("click", function () {
+        if (st.law === b.getAttribute("data-law")) return;
+        st.law = b.getAttribute("data-law"); setPressed($("wv-law"), b); st.userPaused = false; schedule(true);
+      });
+    });
+    bPlay.addEventListener("click", function () {
+      if (st.playing) { pause(); st.userPaused = true; } else { st.userPaused = false; play(); }
+    });
+    $("wv-reroll").addEventListener("click", function () { st.userPaused = false; schedule(true); });
+    $("wv-restart").addEventListener("click", function () { restart(); render(); st.userPaused = false; play(); });
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(function (ents) {
+        ents.forEach(function (en) {
+          if (en.isIntersecting) {
+            if (!reduce) { st.seen = true; if (!st.userPaused && st.t < TMAX) play(); }
+          } else if (st.playing) { pause(); }
+        });
+      }, { threshold: 0.2 }).observe(panel);
+    }
+    drawDisorder(); solve(); restart(); stateText();
+    if (reduce) { for (var k = 1; k <= 300; k++) { st.t = k * 0.2; st.r = evolve(st.t); st.hist.push([st.t, st.r]); } }
+    render(); label();
+    onResize(render);
+  })();
+
+  /* ================= 2. the paper's Monte Carlo experiment ================= */
+  (function () {
+    var cv = $("mc-canvas");
+    if (!cv) return;
+    var N = 100, M = 2 * N + 1, R = N + 1, LOGT = Math.log(2 * N / 0.05), KCAP = 200000, SQ3 = Math.sqrt(3);
+    /* Table 2 of the paper, N = 100: a is sigma^2 = 1/12, b is sigma^2 = 1/4 */
+    var PAPER = { bern: { a: 0.0111, b: 0.0252 }, unif: { a: 0.0110, b: 0.0245 } };
+    var acc = new Float64Array(R), q = new Float64Array(R), d = new Float64Array(M), e = new Float64Array(M), z = new Float64Array(M * R);
+    var st = { law: "bern", v: "b", K: 0, running: false, raf: 0, t0: 0, k0: 0 };
+    var bRun = $("mc-run"), out = { K: $("mc-k"), eps: $("mc-eps"), g: $("mc-g"), p: $("mc-paper"), eta: $("mc-eta") };
+    var YMIN = 0.02, LMIN = Math.log(YMIN);
+
+    function sample(rng) {
+      var s = Math.sqrt(st.v === "a" ? 1 / 12 : 0.25), h = SQ3 * s, n, k, j, off, p0;
+      for (n = 0; n < M; n++) { d[n] = st.law === "bern" ? (rng() < 0.5 ? -s : s) : (2 * rng() - 1) * h; e[n] = 1; }
+      e[M - 1] = 0;
+      z.fill(0);
+      for (k = 0; k < R; k++) z[(N + k) * R + k] = 1;
+      tqli(d, e, M, z, R);
+      for (j = 0; j < M; j++) {
+        off = j * R; p0 = Math.abs(z[off]);
+        for (k = 0; k < R; k++) acc[k] += p0 * Math.abs(z[off + k]);
+      }
+      st.K++;
+    }
+    function estimate() {
+      var k, g, best = Infinity, kb = N;
+      for (k = 0; k < R; k++) q[k] = acc[k] / st.K;
+      for (k = 1; k < R; k++) { g = -Math.log(q[k]) / k; if (g < best) { best = g; kb = k; } }
+      return { g: best, k: kb, eps: Math.sqrt(LOGT / (2 * st.K)) };
+    }
+    function draw() {
+      var G = fit(cv, cv.getBoundingClientRect().width < 520 ? 230 : 270), x = G.x, W = G.w, H = G.h;
+      var L = 40, Rm = 46, T = 14, B = 30, pw = W - L - Rm, ph = H - T - B, k;
+      function X(i) { return L + (i / N) * pw; }
+      function Y(v) { return T + (Math.log(Math.max(v, YMIN)) / LMIN) * ph; }
+      x.clearRect(0, 0, W, H); x.font = MONO; x.lineWidth = 1;
+      [1, 0.5, 0.2, 0.1, 0.05, 0.02].forEach(function (v) {
+        var y = Math.round(Y(v)) + 0.5;
+        x.strokeStyle = "rgba(46,58,140,.13)"; x.beginPath(); x.moveTo(L, y); x.lineTo(L + pw, y); x.stroke();
+        x.fillStyle = C.muted; x.textAlign = "right"; x.textBaseline = "middle"; x.fillText(String(v).replace(/^0/, ""), L - 6, y);
+      });
+      x.textAlign = "center"; x.textBaseline = "alphabetic"; x.fillStyle = C.muted;
+      [0, 25, 50, 75, 100].forEach(function (i) { x.fillText(String(i), X(i), H - 15); });
+      x.fillText("distance k", L + pw / 2, H - 2);
+      var py = Y(Math.exp(-PAPER[st.law][st.v] * N));
+      x.strokeStyle = C.soft; x.lineWidth = 1.5; x.beginPath(); x.moveTo(X(N) - 5, py); x.lineTo(X(N) + 7, py); x.stroke();
+      x.fillStyle = C.soft; x.textAlign = "left"; x.textBaseline = "middle"; x.fillText("ours", X(N) + 10, py);
+      if (!st.K) {
+        x.fillStyle = C.muted; x.textAlign = "center"; x.fillText("Press run to start sampling.", L + pw / 2, T + ph * 0.55);
+        return;
+      }
+      var est = estimate();
+      x.beginPath();
+      for (k = 0; k <= N; k++) { var up = Math.min(1, q[k] + est.eps); if (k) x.lineTo(X(k), Y(up)); else x.moveTo(X(k), Y(up)); }
+      for (k = N; k >= 0; k--) x.lineTo(X(k), Y(Math.max(YMIN, q[k] - est.eps)));
+      x.closePath(); x.fillStyle = "rgba(46,58,140,.13)"; x.fill();
+      x.beginPath();
+      for (k = 0; k <= N; k++) { if (k) x.lineTo(X(k), Y(q[k])); else x.moveTo(X(k), Y(q[k])); }
+      x.strokeStyle = C.accent; x.lineWidth = 2; x.stroke();
+      x.setLineDash([5, 4]); x.strokeStyle = C.red; x.lineWidth = 1.4;
+      x.beginPath(); x.moveTo(X(0), Y(1)); x.lineTo(X(N), Y(Math.exp(-est.g * N))); x.stroke(); x.setLineDash([]);
+      x.fillStyle = C.red; x.beginPath(); x.arc(X(est.k), Y(q[est.k]), 3.2, 0, 2 * Math.PI); x.fill();
+    }
+    function read() {
+      out.p.textContent = PAPER[st.law][st.v].toFixed(4);
+      if (!st.K) { out.K.textContent = "0"; out.eps.textContent = "\u2014"; out.g.textContent = "\u2014"; out.eta.textContent = ""; return; }
+      var est = estimate();
+      out.K.textContent = st.K.toLocaleString("en-US");
+      out.eps.textContent = est.eps >= 1 ? "over 1, so no information yet" : est.eps.toFixed(4);
+      out.g.textContent = est.g.toFixed(4) + (est.k < N ? " (at k = " + est.k + ")" : "");
+      var el = (performance.now() - st.t0) / 1000, rate = el > 0.75 ? (st.K - st.k0) / el : 0;
+      if (st.K >= KCAP) out.eta.textContent = "You\u2019ve matched our sample size. Respect.";
+      else if (st.running && rate > 0) {
+        var mins = (KCAP - st.K) / rate / 60;
+        out.eta.textContent = "At this pace, your browser would reach our K = 200,000 in about " +
+          (mins < 90 ? Math.max(1, Math.round(mins)) + " minutes." : (mins / 60).toFixed(1) + " hours.");
+      } else out.eta.textContent = "";
+    }
+    function label() { bRun.textContent = st.running ? "Pause" : (st.K ? "Keep going" : "Run"); }
+    function loop() {
+      st.raf = 0;
+      if (!st.running) return;
+      var t0 = performance.now();
+      do { sample(rand); } while (performance.now() - t0 < 12 && st.K < KCAP);
+      draw(); read();
+      if (st.K >= KCAP) { st.running = false; label(); return; }
+      st.raf = requestAnimationFrame(loop);
+    }
+    function reset() { acc.fill(0); st.K = 0; st.k0 = 0; st.t0 = performance.now(); draw(); read(); }
+    bRun.addEventListener("click", function () {
+      st.running = !st.running;
+      if (st.running) { st.t0 = performance.now(); st.k0 = st.K; if (!st.raf) st.raf = requestAnimationFrame(loop); }
+      label(); read();
+    });
+    $("mc-reset").addEventListener("click", function () { reset(); label(); });
+    function hook(group, key) {
+      [].forEach.call($(group).querySelectorAll("button"), function (b) {
+        b.addEventListener("click", function () {
+          var v = b.getAttribute("data-v");
+          if (st[key] === v) return;
+          st[key] = v; setPressed($(group), b); reset(); label();
+        });
+      });
+    }
+    hook("mc-law", "law"); hook("mc-var", "v");
+    reset(); label(); onResize(draw);
+    /* for the curious (and for testing): rerun a fixed-seed batch from the console */
+    window.__labCheck = function (law, v, K, seed) {
+      var keep = { law: st.law, v: st.v, K: st.K, acc: acc.slice() };
+      st.law = law; st.v = v; acc.fill(0); st.K = 0;
+      var rng = mulberry32(seed || 7), t = performance.now();
+      for (var i = 0; i < K; i++) sample(rng);
+      var ms = (performance.now() - t) / K, est = estimate();
+      st.law = keep.law; st.v = keep.v; st.K = keep.K; acc.set(keep.acc); draw(); read();
+      return { gamma: est.g, kstar: est.k, msPerSample: ms };
+    };
+  })();
+
+  /* ================= 3. the Nesbitt phase transition ================= */
+  (function () {
+    var cv = $("nb-tri"), cv2 = $("nb-curve");
+    if (!cv) return;
+    var AST = Math.log(1.5) / Math.LN2, TOL = 0.0015, NB = 11;
+    var elA = $("nb-alpha"), elAV = $("nb-alpha-val"), elC = $("nb-center"), elV = $("nb-verdict");
+    var LOW = [35, 45, 109], HIGH = [246, 247, 244], PAL = [], PALC = [], g = null, ctx = null, img = null, bands = null, pend = 0, last = "";
+    for (var i0 = 0; i0 < NB; i0++) {
+      var t = Math.pow(i0 / (NB - 1), 0.85), c = [0, 1, 2].map(function (j) { return LOW[j] + (HIGH[j] - LOW[j]) * t; });
+      PAL.push(c); PALC.push([c[0] * 0.8 + 5.2, c[1] * 0.8 + 5.4, c[2] * 0.8 + 4.8]);
+    }
+    function mval(a) { return Math.min(2, 3 * Math.pow(2, -a)); }
+    function shade(v) { var s = 1 - Math.exp(-Math.max(v, 0) / 0.28); return Math.min(NB - 1, Math.floor(s * NB)); }
+    function setup() {
+      var dpr = Math.min(window.devicePixelRatio || 1, 1.25);
+      var Wc = Math.max(220, Math.round(cv.getBoundingClientRect().width || 360)), Hc = Math.round(Wc * 0.93);
+      cv.style.height = Hc + "px";
+      var pw = Math.round(Wc * dpr), ph = Math.round(Hc * dpr);
+      cv.width = pw; cv.height = ph; ctx = cv.getContext("2d");
+      var pad = 24 * dpr, side = pw - 2 * pad, th = side * Math.sqrt(3) / 2, top = 20 * dpr;
+      var A = { x: pw / 2, y: top }, B = { x: pad, y: top + th }, Cv = { x: pw - pad, y: top + th };
+      var det = (B.y - Cv.y) * (A.x - Cv.x) + (Cv.x - B.x) * (A.y - Cv.y);
+      var n = pw * ph, L1 = new Float32Array(n), L2 = new Float32Array(n), L3 = new Float32Array(n), ins = new Uint8Array(n);
+      for (var py = 0; py < ph; py++) for (var px = 0; px < pw; px++) {
+        var X = px + 0.5, Y = py + 0.5,
+            a = ((B.y - Cv.y) * (X - Cv.x) + (Cv.x - B.x) * (Y - Cv.y)) / det,
+            b = ((Cv.y - A.y) * (X - Cv.x) + (A.x - Cv.x) * (Y - Cv.y)) / det,
+            c3 = 1 - a - b, i = py * pw + px;
+        if (a > 0 && b > 0 && c3 > 0) { ins[i] = 1; L1[i] = Math.log(a / (b + c3)); L2[i] = Math.log(b / (c3 + a)); L3[i] = Math.log(c3 / (a + b)); }
+      }
+      g = { pw: pw, ph: ph, dpr: dpr, A: A, B: B, C: Cv, L1: L1, L2: L2, L3: L3, ins: ins };
+      img = ctx.createImageData(pw, ph); bands = new Int8Array(n);
+    }
+    function mid(P, Q) { return { x: (P.x + Q.x) / 2, y: (P.y + Q.y) / 2 }; }
+    function drawTri(a) {
+      if (!g) setup();
+      var n = g.pw * g.ph, data = img.data, mm = mval(a), i, o, bi, col, f, pw = g.pw, dpr = g.dpr;
+      for (i = 0; i < n; i++) {
+        if (!g.ins[i]) { bands[i] = -1; continue; }
+        f = Math.exp(a * g.L1[i]) + Math.exp(a * g.L2[i]) + Math.exp(a * g.L3[i]);
+        bands[i] = shade(f - mm);
+      }
+      for (i = 0; i < n; i++) {
+        o = i * 4; bi = bands[i];
+        if (bi < 0) { data[o + 3] = 0; continue; }
+        var edge = ((i % pw) < pw - 1 && bands[i + 1] >= 0 && bands[i + 1] !== bi) || (i + pw < n && bands[i + pw] >= 0 && bands[i + pw] !== bi);
+        col = edge ? PALC[bi] : PAL[bi];
+        data[o] = col[0]; data[o + 1] = col[1]; data[o + 2] = col[2]; data[o + 3] = 255;
+      }
+      ctx.putImageData(img, 0, 0);
+      /* the edges get colored by their own values, since that's where the infimum can live */
+      function ev(t) { return Math.pow(t / (1 - t), a) + Math.pow((1 - t) / t, a); }
+      ctx.lineCap = "butt";
+      [[g.B, g.C], [g.A, g.B], [g.A, g.C]].forEach(function (pq) {
+        var P = pq[0], Q = pq[1], S = 80;
+        for (var s = 0; s < S; s++) {
+          var t0 = s / S, t1 = (s + 1) / S, cc = PAL[shade(ev((t0 + t1) / 2) - mm)];
+          ctx.strokeStyle = "rgb(" + (cc[0] | 0) + "," + (cc[1] | 0) + "," + (cc[2] | 0) + ")";
+          ctx.lineWidth = 5 * dpr; ctx.beginPath();
+          ctx.moveTo(P.x + (Q.x - P.x) * t0, P.y + (Q.y - P.y) * t0); ctx.lineTo(P.x + (Q.x - P.x) * t1, P.y + (Q.y - P.y) * t1); ctx.stroke();
+        }
+      });
+      ctx.strokeStyle = "rgba(26,27,24,.5)"; ctx.lineWidth = dpr;
+      ctx.beginPath(); ctx.moveTo(g.A.x, g.A.y); ctx.lineTo(g.B.x, g.B.y); ctx.lineTo(g.C.x, g.C.y); ctx.closePath(); ctx.stroke();
+      var gap = 3 * Math.pow(2, -a) - 2, cen = { x: (g.A.x + g.B.x + g.C.x) / 3, y: (g.A.y + g.B.y + g.C.y) / 3 };
+      function ring(p) {
+        ctx.lineWidth = 4 * dpr; ctx.strokeStyle = "rgba(255,255,255,.85)"; ctx.beginPath(); ctx.arc(p.x, p.y, 7 * dpr, 0, 2 * Math.PI); ctx.stroke();
+        ctx.lineWidth = 2 * dpr; ctx.strokeStyle = C.red; ctx.beginPath(); ctx.arc(p.x, p.y, 7 * dpr, 0, 2 * Math.PI); ctx.stroke();
+      }
+      if (gap <= TOL) ring(cen);
+      if (gap >= -TOL) [mid(g.B, g.C), mid(g.A, g.B), mid(g.A, g.C)].forEach(ring);
+      ctx.font = (11 * dpr) + "px 'IBM Plex Mono', ui-monospace, Menlo, monospace"; ctx.fillStyle = C.muted;
+      ctx.textAlign = "left"; ctx.textBaseline = "middle"; ctx.fillText("a = 1", g.A.x + 10 * dpr, g.A.y + 3 * dpr);
+      ctx.textBaseline = "top"; ctx.fillText("b = 1", g.B.x - 2 * dpr, g.B.y + 9 * dpr);
+      ctx.textAlign = "right"; ctx.fillText("c = 1", g.C.x + 2 * dpr, g.C.y + 9 * dpr);
+    }
+    function drawCurve(a) {
+      var G = fit(cv2, 230), x = G.x, W = G.w, H = G.h, L = 38, Rm = 12, T = 18, B = 30, pw = W - L - Rm, ph = H - T - B;
+      function X(al) { return L + (al - 0.25) * pw; }
+      function Y(v) { return T + ((2.6 - v) / 1.4) * ph; }
+      function cf(al) { return 3 * Math.pow(2, -al); }
+      function path(fn, a0, a1) {
+        x.beginPath();
+        for (var i = 0; i <= 60; i++) { var al = a0 + (a1 - a0) * i / 60; if (i) x.lineTo(X(al), Y(fn(al))); else x.moveTo(X(al), Y(fn(al))); }
+        x.stroke();
+      }
+      x.clearRect(0, 0, W, H); x.font = MONO; x.lineWidth = 1;
+      [1.5, 2, 2.5].forEach(function (v) {
+        var y = Math.round(Y(v)) + 0.5;
+        x.strokeStyle = "rgba(46,58,140,.13)"; x.beginPath(); x.moveTo(L, y); x.lineTo(L + pw, y); x.stroke();
+        x.fillStyle = C.muted; x.textAlign = "right"; x.textBaseline = "middle"; x.fillText(v.toFixed(1), L - 6, y);
+      });
+      x.textAlign = "center"; x.textBaseline = "alphabetic"; x.fillStyle = C.muted;
+      [0.25, 0.5, 0.75, 1, 1.25].forEach(function (al) { x.fillText(String(al), X(al), H - 15); });
+      x.fillText("\u03b1", L + pw / 2, H - 2);
+      x.textAlign = "left"; x.fillText("sharp constant", L + 2, 11);
+      x.setLineDash([2, 3]); x.strokeStyle = C.muted; x.beginPath(); x.moveTo(X(AST), T); x.lineTo(X(AST), T + ph); x.stroke(); x.setLineDash([]);
+      x.fillStyle = C.muted; x.textAlign = "left"; x.fillText("\u03b1* \u2248 0.585", X(AST) + 5, T + 24);
+      x.lineWidth = 1.2; x.setLineDash([4, 4]);
+      x.strokeStyle = C.accent; path(cf, 0.25, AST);
+      x.strokeStyle = C.soft; path(function () { return 2; }, AST, 1.25);
+      x.setLineDash([]); x.lineWidth = 2.2;
+      x.strokeStyle = C.soft; path(function () { return 2; }, 0.25, AST);
+      x.strokeStyle = C.accent; path(cf, AST, 1.25);
+      x.fillStyle = C.accent; x.textAlign = "right"; x.fillText("center: 3\u00b72^(\u2212\u03b1)", X(1.25), Y(cf(1.25)) - 9);
+      x.fillStyle = C.soft; x.textAlign = "left"; x.fillText("edges: 2", X(0.27), Y(2) - 9);
+      x.strokeStyle = "rgba(178,59,46,.35)"; x.lineWidth = 1; x.beginPath(); x.moveTo(X(a), T); x.lineTo(X(a), T + ph); x.stroke();
+      x.fillStyle = C.red; x.beginPath(); x.arc(X(a), Y(mval(a)), 4, 0, 2 * Math.PI); x.fill();
+    }
+    function readouts(a) {
+      var c0 = 3 * Math.pow(2, -a), gap = c0 - 2;
+      elAV.textContent = a.toFixed(3); elC.textContent = c0.toFixed(4);
+      var v = gap < -TOL ? "minimum at the center" : gap > TOL ? "infimum 2, out on the edges (never attained)" : "a tie: center and edges both give 2";
+      if (v !== last) { elV.textContent = v; last = v; }
+    }
+    function render() { var a = parseFloat(elA.value); drawTri(a); drawCurve(a); readouts(a); }
+    function schedule() { if (!pend) pend = requestAnimationFrame(function () { pend = 0; render(); }); }
+    elA.addEventListener("input", schedule);
+    [].forEach.call($("nb-jumps").querySelectorAll("button"), function (b) {
+      b.addEventListener("click", function () { elA.value = b.getAttribute("data-a"); render(); });
+    });
+    onResize(function () { g = null; render(); });
+    render();
+  })();
+})();
+</script>
+</body>
+</html>

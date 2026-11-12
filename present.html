@@ -46,6 +46,10 @@
   .gil-note b{ color:var(--ink); font-weight:500; }
   .gil-note .win{ color:#3f7d4e; }
   .gil-tally{ font-family:var(--mono); font-size:.68rem; color:var(--muted); margin:.5rem 0 0; }
+  .gil-secret{ margin-top:.7rem; padding-top:.6rem; border-top:1px dashed var(--rule); color:var(--ink); animation:gilin .5s ease both; }
+  .gil-secret a{ color:var(--redrule); }
+  @keyframes gilin{ from{ opacity:0; transform:translateY(4px); } to{ opacity:1; transform:none; } }
+  @media (prefers-reduced-motion:reduce){ .gil-secret{ animation:none; } }
   /* flourish */
   .flr-stage{ position:relative; height:8.5rem; margin:.2rem 0 .8rem; overflow:hidden; }
   .flr-card{ position:absolute; left:50%; top:50%; width:1.6rem; height:2.35rem; margin:-1.17rem 0 0 -.8rem;
@@ -87,7 +91,7 @@
       <p>I&rsquo;ve slowly realized that a lot of the things I enjoy are the same skill wearing different costumes: standing in front of people and getting something across. A proof, a pitch, a card trick &mdash; the underlying problem is identical, which is to make the room actually care.</p>
       <p>One version is competitive. In DECA I present business cases to a panel of judges on the clock, and I&rsquo;ve done alright at it &mdash; a state champion and a two-time international qualifier. It taught me how to think on my feet: build an argument fast, read the room, and sound sure of myself even when I&rsquo;m half-improvising the next sentence.</p>
       <p>The version I care about most is teaching. Somewhere between tutoring AP Calculus, TA-ing math at our Chinese school, and running Math Club, I had to actually learn how to <em>talk</em> &mdash; how to take something that&rsquo;s obvious to me and make it land for someone it isn&rsquo;t obvious to yet. That turns out to be harder than the math itself. Lately I&rsquo;ve been chasing the same thing on my YouTube channel, <a href="https://www.youtube.com/@orz67" target="_blank" rel="noopener">@orz67</a>, where I explain ideas with animation and can&rsquo;t fall back on a whiteboard and some hand-waving.</p>
-      <figure><img src="img/present1.JPG" width="600" height="350" loading="lazy" alt="At a microphone on stage in front of a green curtain, presenting." /><figcaption>Just me and a microphone.</figcaption></figure>
+      <figure><img src="img/present1.jpg" width="600" height="350" loading="lazy" alt="At a microphone on stage in front of a green curtain, presenting." /><figcaption>Just me and a microphone.</figcaption></figure>
       <p>Then there&rsquo;s the pure-fun version: hosting. I&rsquo;ve MC&rsquo;d our Chinese school&rsquo;s gala, worked a microphone for a whole evening&rsquo;s program, and on any given day I&rsquo;ll corner just about anyone to show them something I can&rsquo;t stop thinking about.</p>
       <div class="gallery">
         <figure><img src="img/present3.JPG" width="1446" height="1084" loading="lazy" alt="Co-hosting on stage with another emcee, both holding microphones." /><figcaption>Co-hosting the gala.</figcaption></figure>
@@ -216,6 +220,11 @@
       ? "<span class=\"win\">All six pairs split one red, one black.</span> Told you. Reset and try to break it."
       : "A pair came out matching &mdash; which means the cut or riffle wasn&rsquo;t a real one. Reset and run it again.";
     tallyEl.textContent = runs+" run"+(runs===1?"":"s")+" \u00b7 "+wins+" with every pair split";
+    if(runs>=1 && !document.getElementById("gil-secret")){
+      var hint=document.createElement("p"); hint.id="gil-secret"; hint.className="gil-note gil-secret";
+      hint.innerHTML="Getting suspicious? Good. There&rsquo;s a harder trick hidden on this site, and you just earned the link: <a href=\"deck.html\">five cards &rarr;</a>";
+      tallyEl.parentNode.appendChild(hint);
+    }
     stage=3; setBtns(false,false,false);
   });
 

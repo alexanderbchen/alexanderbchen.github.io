@@ -73,18 +73,20 @@
     </div>
     <div class="sec-content">
       <p class="subhead">Publication · Advances in Nonlinear Analysis</p>
-      <p><em>Measuring Localization in the One-Dimensional Anderson Model</em> (with E. Mei, N. Shaw, Y.M. Tang, S.V. Loaiza, X. Wang). Accepted to <b>Advances in Nonlinear Analysis</b> (2026).</p>
+      <p><em>Finite-volume eigenfunction correlators for the one-dimensional Anderson model: a numerical study</em> (with E. Mei, N. Shaw, Y.M. Tang, S. Vargas Loaiza, X. Wang). Published in <b>Advances in Nonlinear Analysis</b>, vol. 15 (2026). <a href="https://doi.org/10.1515/anona-2025-0198" target="_blank" rel="noopener" style="white-space:nowrap">doi:10.1515/anona-2025-0198</a></p>
       <hr>
       <p>A quantum particle on the lattice \( \mathbb{Z} \) is governed by the discrete Schr&ouml;dinger operator \( H_\omega = \Delta + V_\omega \), with the potential \( V_\omega(n) \) drawn i.i.d. at each site. Turning on that disorder does something dramatic: eigenstates that would otherwise spread across the whole line become exponentially localized. This project answers the quantitative question, not just <em>that</em> states localize but <em>how fast</em>, and with what guaranteed error.</p>
-      <p>I work with the eigenfunction correlator \( Q(k) \), which controls transport, and estimate the localization rate from a finite-volume model. The main analytic statement is that the empirical mean of \( -\tfrac{1}{k}\log Q(k) \) concentrates around the true rate \( \gamma \) with a Hoeffding-type bound: for \( M \) disorder samples,</p>
-      \[ \mathbb{P}\!\left( \big|\hat\gamma_k - \gamma\big| \ge \varepsilon \right) \le 2\,e^{-c M \varepsilon^2}, \]
-      <p>so the sample size for a target accuracy is fixed in advance rather than hoped for afterward, and it is the sample count, not the lattice size, that sets the error.</p>
+      <p>I work with the eigenfunction correlator \( Q(k) \), which controls transport, and estimate the localization rate from a finite-volume model. The main analytic statement is a Hoeffding-type bound comparing the true mean \( q_N(k) = \mathbb{E}\,Q(k) \) with its Monte Carlo estimate \( \tilde q_{N,K}(k) \), at every distance \( k \) at once: for \( K \) disorder samples,</p>
+      \[ \mathbb{P}\!\left( \max_{1 \le k \le N} \big|\, q_N(k) - \tilde q_{N,K}(k) \,\big| \ge \varepsilon \right) \le 2N\,e^{-2K\varepsilon^2}, \]
+      <p>so the sample size for a target accuracy is fixed in advance rather than hoped for afterward. Solve for \( \varepsilon \) and the lattice size only survives inside a logarithm, which is why it&rsquo;s the sample count, not the lattice size, that sets the error.</p>
       <figure class="fig">
         <img src="img/bernoulli.png" width="1900" height="677" loading="lazy" alt="Two plots of the negative log correlator per site versus k for Bernoulli disorder at N=1500, settling near a rate of 0.0169." />
         <figcaption>\( -\tfrac{1}{k}\log \mathbb{E}\,Q(k) \) for Bernoulli disorder, N&nbsp;=&nbsp;1500.</figcaption>
       </figure>
       <p>Numerically I estimate the rate across Bernoulli, discrete-uniform, and continuous-uniform disorder. The eigenproblem is tridiagonal, so I never build the dense matrix, and I parallelize over the independent disorder configurations to reach \( N = 1500 \) with enough samples for the error bars above. The singular Bernoulli case sits at the edge of the theory, and the Monte Carlo bound is exactly what keeps it honest.</p>
-      <p><a class="chip sm" href="https://drive.google.com/file/d/1TAHVKZBkKymMEy0KaXUgLcF5JeAeCWJZ/view?usp=sharing" target="_blank" rel="noopener">MathFest poster</a> <a class="chip sm" href="https://drive.google.com/file/d/1OpZ8SqfvBa6mnfmyrqRXpkrxVLEWobus/view?usp=sharing" target="_blank" rel="noopener">talk slides</a> <span class="chip sm dim">Advances in Nonlinear Analysis &middot; accepted</span></p>
+      <p>The published version sets that edge case beside the smooth continuous-uniform law at the same variance. The two decay rates track each other closely, and both climb almost linearly as the variance grows. Over the range we tested, how much randomness the medium carries matters far more than the shape it comes in.</p>
+      <p>Along the way, I got to present the project at MAA MathFest in Boston, at the Texas High School Mathematics Research Conference at Texas A&amp;M, and at a seminar during Ross, all in 2026.</p>
+      <p><a class="chip sm" href="https://doi.org/10.1515/anona-2025-0198" target="_blank" rel="noopener">paper</a> <a class="chip sm" href="lab.html#wave">try it live</a> <a class="chip sm" href="https://drive.google.com/file/d/1TAHVKZBkKymMEy0KaXUgLcF5JeAeCWJZ/view?usp=sharing" target="_blank" rel="noopener">MathFest poster</a> <a class="chip sm" href="https://drive.google.com/file/d/1OpZ8SqfvBa6mnfmyrqRXpkrxVLEWobus/view?usp=sharing" target="_blank" rel="noopener">talk slides</a> <span class="chip sm dim">Advances in Nonlinear Analysis &middot; published</span></p>
       <p class="pubs-more"><a href="independent-projects.html">Independent Projects &rarr;</a></p>
     </div>
   </div></div></div>

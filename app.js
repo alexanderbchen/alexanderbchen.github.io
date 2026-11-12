@@ -39,4 +39,10 @@
   } else {
     bands.forEach(function (b) { b.classList.add("in"); });
   }
+
+  // A note for anyone who opens the console.
+  try {
+    console.log("%cHi! You found the console.", "font:600 15px 'STIX Two Text', Georgia, serif; color:#2e3a8c;");
+    console.log("Since you like looking under the hood: there's a deck of cards hidden on this site. Try /deck.html, or earn it on the Stage performance page. :]");
+  } catch (e) {}
 })();

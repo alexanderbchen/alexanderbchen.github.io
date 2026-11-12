@@ -384,3 +384,14 @@
     .tiles img{ height:9rem; }
     .cal-day{ font-size:.74rem; }
   }
+
+/* ============================================================
+   Update 3 (Claude): mobile overflow guard. Grid columns may now
+   shrink below their widest child, so long equations scroll inside
+   their own box and photos scale to the column, instead of the whole
+   page scrolling sideways on phones.
+   ============================================================ */
+.sec-content, .sec-aside, .hero-main, .hero-side{ min-width:0; }
+:where(.sec-content) img, :where(.sec-content) video, :where(.sec-content) iframe{ max-width:100%; height:auto; }
+:where(.sec-content) figure{ max-width:100%; }
+@media (max-width:900px){ .sec-grid, .hero-grid{ grid-template-columns:minmax(0,1fr); } }
